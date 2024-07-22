@@ -2,8 +2,19 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express()
 
-app.set('view engine','ejs')
 
+const path = require('path');
+
+
+app.use("/assets", express.static(path.join(__dirname,"public/user")));  // Set user assets
+
+
+
+
+
+
+const userRoute = require('./routes/userRoute');
+app.use('/',userRoute)
 
 
 
