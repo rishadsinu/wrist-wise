@@ -1,7 +1,5 @@
 
-
-
-
+const User = require("../models/userModel")
 
 
 const loadHome = async (req, res) => {
@@ -11,10 +9,10 @@ const loadHome = async (req, res) => {
         console.log(error.message);
     }
 }
-//wishlist.html
+
 const loadWishlist = async (req, res) => {
     try {
-        res.render('wishlist');
+        res.render('login');
     } catch (error) {
         console.log(error.message);
     }
@@ -22,7 +20,7 @@ const loadWishlist = async (req, res) => {
 
 const loadCart = async (req, res) => {
     try {
-        res.render('cart');
+        res.render('login');
     } catch (error) {
         console.log(error.message);
     }

@@ -10,9 +10,9 @@ userRoute.set('views','./views/user')
 const path = require('path');
 const userController = require('../controllers/userController');
 
-userRoute.get('/', userController.loadHome)
-userRoute.get('/wishlist',userController.loadWishlist)
-userRoute.get('/cart.html',userController.loadCart)
+userRoute.get('/', userController.loadHome);
+userRoute.get('/wishlist.html',userController.loadWishlist);
+userRoute.get('/cart.html',userController.loadCart);
 
 
 module.exports = userRoute
