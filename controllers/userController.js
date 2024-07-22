@@ -6,7 +6,23 @@
 
 const loadHome = async (req, res) => {
     try {
-        res.render('home')
+        res.render('home');
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+//wishlist.html
+const loadWishlist = async (req, res) => {
+    try {
+        res.render('wishlist');
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const loadCart = async (req, res) => {
+    try {
+        res.render('cart');
     } catch (error) {
         console.log(error.message);
     }
@@ -15,5 +31,7 @@ const loadHome = async (req, res) => {
 
 
 module.exports = {
-    loadHome
+    loadHome,
+    loadWishlist,
+    loadCart
 }
