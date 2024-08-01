@@ -1,9 +1,6 @@
 
 const mongoose = require("mongoose");
 
-
-
-
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -15,11 +12,11 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: function() { return !this.googleId; }
+        required: function () { return !this.googleId; }
     },
     password: {
         type: String,
-        required: function() { return !this.googleId; }
+        required: function () { return !this.googleId; }
     },
     is_verified: {
         type: Number,
@@ -27,15 +24,19 @@ const userSchema = new mongoose.Schema({
     },
     otp: String,
     otpExpiry: Date,
-    isVerified: { 
-        type: Boolean, 
-        default: false 
+    isVerified: {
+        type: Boolean,
+        default: false
     },
     googleId: {
         type: String,
         unique: true,
         sparse: true
-    }
-});
+    },
+    isBlocked: {
+        type: Boolean,
+        default: false
+    },
+}, { timestamps: true });
 
-module.exports = mongoose.model("User",userSchema);
+module.exports = mongoose.model("User", userSchema);

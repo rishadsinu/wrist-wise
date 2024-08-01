@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const express = require("express");
-const app = express()
-require('dotenv').config()
+require('dotenv').config();
+const app = express();
 const port = process.env.PORT || 3000
 const nocache = require("nocache");
 const passport = require('passport');
 const session = require("express-session");
+const path = require('path');
 const mongoUri = process.env.MONGODB_URI;
 
-// Set up session
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(nocache());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -35,15 +39,14 @@ mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
+app.use("/assets", express.static(path.join(__dirname, "public/user")));  
+app.use("/adminAssets" ,express.static(path.join(__dirname,"public/admin/adminAssets")));
 
 const userRoute = require('./routes/userRoute')
 app.use('/', userRoute)
-const path = require('path');
 
-
-app.use("/assets", express.static(path.join(__dirname, "public/user")));  // Set user assets
-
+const adminRoute = require('./routes/adminRoute');
+app.use('/admin', adminRoute)
 
 app.listen(port, () => {
     console.log(`Listening to the server on http://localhost:${port}`);

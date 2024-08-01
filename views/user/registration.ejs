@@ -1,7 +1,7 @@
 <%- include ('../layouts/header.ejs') %>
     <div class="page-wrapper">
         <header class="header">
-           
+
 
             <div class="header-middle sticky-header">
                 <div class="container">
@@ -569,63 +569,101 @@
                             <ul class="nav nav-pills nav-fill" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab"
-                                        aria-controls="signin-2" aria-selected="false" >Sign Up</a>
+                                        aria-controls="signin-2" aria-selected="false">Sign Up</a>
                                 </li>
-                                
+
                             </ul>
-                            <div class="tab-content">
-                                
+                            <!-- <div class="tab-content">
                                 <div class="tab-pane fade show active" id="login" role="tabpanel"
                                     aria-labelledby="login">
-                                    <form action="/registration" method="post">
-
+                                    <form action="/registration" method="post" id="registrationForm">
                                         <div class="form-group">
                                             <label for="fullname">Full Name *</label>
-                                            <input type="text" class="form-control" id="fullname" name="fullname">
-                                        </div>                                        
-
+                                            <input type="text" class="form-control" id="fullname" name="fullname" required>
+                                        </div>
                                         <div class="form-group">
                                             <label for="email">Email Address *</label>
-                                            <input type="email" class="form-control" id="email" name="email" autocomplete="off">
+                                            <input type="email" class="form-control" id="email" name="email" autocomplete="off" required>
                                         </div>
-                                        <!-- End .form-group -->
-
                                         <div class="form-group">
                                             <label for="phone">Phone Number *</label>
-                                            <input type="tel" class="form-control" id="phone" name="phone" >
-                                        </div>                                        
-
+                                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                                        </div>
                                         <div class="form-group">
-                                            <label for="singup-password-2">Password *</label>
-                                            <input type="password" class="form-control" id="singup-password-2"
-                                                name="password" required>
-                                        </div><!-- End .form-group -->
-
+                                            <label for="signup-password">Password *</label>
+                                            <input type="password" class="form-control" id="signup-password" name="password" required>
+                                        </div>
                                         <div class="form-group">
                                             <label for="repeat-password">Repeat Password *</label>
-                                            <input type="confirm-password" class="form-control" id="repeat-password" name="repeat-password" required>
+                                            <input type="password" class="form-control" id="repeat-password" name="repeat-password" required>
                                         </div>
-                                        <!-- End .form-group -->
-
+                                        <div id="password-error" class="error-message" style="color: red; display: none;">Passwords do not match!</div>
                                         <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">
                                                 <span>SIGN UP</span>
                                                 <i class="icon-long-arrow-right"></i>
                                             </button>
-
                                             <a href="/login" class="forgot-link">Already have an account?</a>
-                                        </div><!-- End .form-footer -->
-                                       
-                                        
+                                        </div>
                                     </form>
-                                    
-                                </div><!-- .End .tab-pane -->
-                            </div><!-- End .tab-content -->
-                        </div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .container -->
-            </div><!-- End .login-page section-bg -->
-        </main><!-- End .main -->
+                                </div>
+                            </div> -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="login" role="tabpanel"
+                                    aria-labelledby="login">
+                                    <form action="/registration" method="post" id="registrationForm">
+                                        <div class="form-group">
+                                            <label for="fullname">Full Name *</label>
+                                            <input type="text" class="form-control" id="fullname" name="fullname"
+                                                required>
+                                            <div id="fullname-error" class="error-message"
+                                                style="color: red; display: none;">Full name must be at least 3
+                                                characters long.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email Address *</label>
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                autocomplete="off" required>
+                                            <div id="email-error" class="error-message"
+                                                style="color: red; display: none;">Please enter a valid email address.
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone Number *</label>
+                                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                                            <div id="phone-error" class="error-message"
+                                                style="color: red; display: none;">Phone number must be 10 digits.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="signup-password">Password *</label>
+                                            <input type="password" class="form-control" id="signup-password"
+                                                name="password" required>
+                                            <div id="password-error" class="error-message"
+                                                style="color: red; display: none;">Password must be at least 6
+                                                characters long and contain letters or numbers.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="repeat-password">Repeat Password *</label>
+                                            <input type="password" class="form-control" id="repeat-password"
+                                                name="repeat-password" required>
+                                            <div id="repeat-password-error" class="error-message"
+                                                style="color: red; display: none;">Passwords do not match!</div>
+                                        </div>
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SIGN UP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            <a href="/login" class="forgot-link">Already have an account?</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
         <footer class="footer">
             <div class="footer-middle">
@@ -888,7 +926,7 @@
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
 
-    
+
 
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>
@@ -899,6 +937,69 @@
     <script src="assets/js/owl.carousel.min.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
+    
 
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            let isValid = true;
+        
+            // Full Name validation
+            const fullname = document.getElementById('fullname');
+            const fullnameError = document.getElementById('fullname-error');
+            if (fullname.value.length < 3) {
+                fullnameError.style.display = 'block';
+                isValid = false;
+            } else {
+                fullnameError.style.display = 'none';
+            }
+        
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+        
+            // Phone validation
+            const phone = document.getElementById('phone');
+            const phoneError = document.getElementById('phone-error');
+            const phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone.value)) {
+                phoneError.style.display = 'block';
+                isValid = false;
+            } else {
+                phoneError.style.display = 'none';
+            }
+        
+            // Password validation
+            const password = document.getElementById('signup-password');
+            const passwordError = document.getElementById('password-error');
+            const passwordRegex = /^[a-zA-Z0-9]{6,}$/;
+            if (!passwordRegex.test(password.value)) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+        
+            // Repeat Password validation
+            const repeatPassword = document.getElementById('repeat-password');
+            const repeatPasswordError = document.getElementById('repeat-password-error');
+            if (password.value !== repeatPassword.value) {
+                repeatPasswordError.style.display = 'block';
+                isValid = false;
+            } else {
+                repeatPasswordError.style.display = 'none';
+            }
+        
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+        </script>
 
     <%- include ('../layouts/footer.ejs') %>

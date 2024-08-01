@@ -3,7 +3,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer');
 const otpGenerator = require('otp-generator')
-
+const Category = require('../models/categoryModel')
 
 const securePassword = async (password) => {
     try {
@@ -26,7 +26,6 @@ const loadHome = async (req, res) => {
 }
 
 // registration user
-
 const loadRegister = async (req, res) => {
     try {
        
@@ -37,9 +36,14 @@ const loadRegister = async (req, res) => {
     }
 }
 
-
 const insertUser = async (req, res) => {
     try {
+        
+        const existingUser = await User.findOne({ email: req.body.email });
+        if (existingUser) {
+            return res.render('registration', { message: "Email already exists." });
+        }
+
         const hashedPassword = await securePassword(req.body.password);
         const otp = Math.floor(1000 + Math.random() * 9000).toString();
         const otpExpiry = new Date(Date.now() + 2 * 60 * 1000);
@@ -52,7 +56,8 @@ const insertUser = async (req, res) => {
             is_admin: 0,
             otp: otp,
             otpExpiry: otpExpiry,
-            isVerified: false
+            isVerified: false,
+            isBlocked: false
         });
 
         const userdata = await user.save();
@@ -165,7 +170,7 @@ const loadLogin = async (req, res) => {
     } catch (error) {
         console.log(error.message);
     }
-}
+};
 
 const loadWishlist = (req, res) => {
     if (req.session.user) {
@@ -191,17 +196,18 @@ const verifylogin = async (req, res) => {
             return res.render('login', { message: 'Email and password are required' });
         }
 
-        // Find user by email
         const userData = await User.findOne({ email: email });
 
         if (userData) {
-            // Compare password with hashed password in the database
+            
+            if (userData.isBlocked) {
+                return res.render('login', { message: 'Your account has been blocked. Please contact support.' });
+            }
             const passwordMatch = await bcrypt.compare(password, userData.password);
 
             if (passwordMatch) {
-                if (!userData.is_verified) {
+                if (userData.isVerified) {
                     req.session.user = userData;
-                    // Check if there's a returnTo URL in the session
                     const returnTo = req.session.returnTo || '/home';
                     delete req.session.returnTo;
                     return res.redirect(returnTo);
@@ -221,14 +227,21 @@ const verifylogin = async (req, res) => {
 };
 
 const googleLogin = (req, res) => {
-    // Successful authentication, redirect home.
     req.session.user = req.user;
     res.redirect('/home');
 };
 
 
 
-
+const loadCategory = async (req, res) => {
+    try {
+      const categories = await Category.find({ status: 'active' });
+      res.render('category', { categories });
+    } catch (error) {
+      console.error('Error loading user category list:', error);
+      res.status(500).send('An error occurred while loading the category list');
+    }
+  };
 
 module.exports = {
     loadHome,
@@ -241,5 +254,6 @@ module.exports = {
     verifylogin,
     insertUser,
     googleLogin,
+    loadCategory,
 
 }

@@ -8,6 +8,15 @@ const isLoggedIn = (req, res, next) => {
     }
 };
 
+const preventLoginPageAccess = (req, res, next) => {
+    if (req.session.user) {
+        res.redirect('/home');
+    } else {
+        next();
+    }
+};
+
 module.exports = {
-    isLoggedIn
+    isLoggedIn,
+    preventLoginPageAccess
 };
