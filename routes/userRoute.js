@@ -32,6 +32,13 @@ userRoute.post('/login', preventLoginPageAccess, userController.verifylogin);
 
 userRoute.post('/verify-otp', userController.verifyOTP);
 
+userRoute.get('/productlist', userController.loadProductlist);
+// userRoute.get('/product', userController.loadProduct);
+
+userRoute.get('/productlist', userController.getProducts);
+ userRoute.get('/product/:id', userController.getProductDetails);
+
+
 // Google OAuth routes
 userRoute.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
@@ -41,5 +48,11 @@ userRoute.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   userController.googleLogin
 );
+
+userRoute.get('/userprofile', isLoggedIn, userController.loadUserProfile);
+// userRoute.post('/profile', isAuthenticated, userController.updateUserDetails);
+// userRoute.get('/change-password', userController.getChangePasswordPage);
+// userRoute.post('/change-password', userController.changePassword);
+
 
 module.exports = userRoute

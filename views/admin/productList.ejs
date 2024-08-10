@@ -1,6 +1,7 @@
 <%- include ('../adminLayouts/header.ejs') %>
 
 
+
   <!-- ?PROD Only: Google Tag Manager (noscript) (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DDHKGP" height="0" width="0"
       style="display: none; visibility: hidden"></iframe></noscript>
@@ -63,7 +64,7 @@
 
 
         <ul class="menu-inner py-1">
-          
+
           <!-- e-commerce-app menu start -->
           <li class="menu-item active open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -87,7 +88,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="app-ecommerce-product-add.html" class="menu-link">
+                    <a href="add-product" class="menu-link">
                       <div data-i18n="Add Product">Add Product</div>
                     </a>
                   </li>
@@ -205,7 +206,7 @@
             </ul>
           </li>
           <!-- e-commerce-app menu end -->
-          
+
           <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class='menu-icon tf-icons ri-bill-line'></i>
@@ -280,7 +281,7 @@
               </li>
             </ul>
           </li>
-          
+
         </ul>
 
 
@@ -295,23 +296,25 @@
 
 
         <!-- Navbar -->
-        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-  
+        <nav
+          class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+          id="layout-navbar">
 
-      
+
+
           <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0   d-xl-none ">
             <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
               <i class="ri-menu-fill ri-24px"></i>
             </a>
           </div>
-          
-    
+
+
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-            
-    
+
+
             <ul class="navbar-nav flex-row align-items-center ms-auto">
-              
-    
+
+
               <!-- User -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -331,7 +334,7 @@
                         <div class="flex-grow-1">
                           <h6 class="mb-0 small">John Doe</h6>
                           <small class="text-muted">Admin</small>
-    
+
                         </div>
                       </div>
                     </a>
@@ -356,7 +359,8 @@
                       <span class="d-flex align-items-center align-middle">
                         <i class="flex-shrink-0 ri-file-text-line ri-22px me-2"></i>
                         <span class="flex-grow-1 align-middle">Billing</span>
-                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger h-px-20 d-flex align-items-center justify-content-center">4</span>
+                        <span
+                          class="flex-shrink-0 badge badge-center rounded-pill bg-danger h-px-20 d-flex align-items-center justify-content-center">4</span>
                       </span>
                     </a>
                   </li>
@@ -398,195 +402,148 @@
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-
-            <!-- Product List Widget -->
-
-            <!-- Product List Table -->
             <div class="card">
-              <div class="card-header">
-                <h5 class="card-title mb-4">Filter</h5>
-                <div class="d-flex justify-content-between align-items-center row gap-5 gx-6 gap-md-0">
-                  <div class="col-md-4 product_status"><select id="ProductStatus" class="form-select text-capitalize">
-                      <option value="">Status</option>
-                      <option value="Scheduled">Scheduled</option>
-                      <option value="Publish">Publish</option>
-                      <option value="Inactive">Inactive</option>
-                    </select></div>
-                  <div class="col-md-4 product_category"><select id="ProductCategory"
-                      class="form-select text-capitalize">
-                      <option value="">Category</option>
-                      <option value="Household">Household</option>
-                      <option value="Office">Office</option>
-                      <option value="Electronics">Electronics</option>
-                      <option value="Shoes">Shoes</option>
-                      <option value="Accessories">Accessories</option>
-                      <option value="Game">Game</option>
-                    </select></div>
-                  <div class="col-md-4 product_stock"><select id="ProductStock" class="form-select text-capitalize">
-                      <option value=""> Stock </option>
-                      <option value="Out_of_Stock">Out of Stock</option>
-                      <option value="In_Stock">In Stock</option>
-                    </select></div>
-                </div>
-              </div>
+
               <div class="card-datatable table-responsive">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                   <div class="card-header d-flex border-top rounded-0 flex-wrap pb-md-0 pt-0">
-                    <div class="me-5 ms-n2 mt-5 mb-5">
-                      <div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search"
-                            class="form-control form-control-sm" placeholder="Search"
-                            aria-controls="DataTables_Table_0"></label></div>
+                    <!-- <div class="me-5 ms-n2 mt-5 mb-5">
+                      <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                        <label>
+                          <input type="search" class="form-control form-control-sm" placeholder="Search"
+                            aria-controls="DataTables_Table_0">
+                        </label>
+                      </div>
+                    </div> -->
+                    <div class="me-5 ms-n2">
+                      <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                        <label>
+                          <input type="search" id="categorySearch" class="form-control form-control-sm" placeholder="Search Category" aria-controls="DataTables_Table_0">
+                        </label>
+                      </div>
                     </div>
                     <div class="d-flex justify-content-start justify-content-md-end align-items-baseline mt-5 mb-5">
                       <div
                         class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center gap-4 pt-0">
-                        <div class="dataTables_length" id="DataTables_Table_0_length"><label><select
-                              name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
-                              class="form-select form-select-sm">
-                              <option value="7">7</option>
-                              <option value="10">10</option>
-                              <option value="20">20</option>
-                              <option value="50">50</option>
-                              <option value="70">70</option>
-                              <option value="100">100</option>
-                            </select></label></div>
                         <div class="dt-buttons btn-group flex-wrap d-flex">
-                          <div class="btn-group"><button
-                              class="btn btn-secondary buttons-collection dropdown-toggle btn-outline-secondary me-4 waves-effect waves-light"
-                              tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog"
-                              aria-expanded="false"><span><i class="ri-upload-2-line ri-16px me-2"></i><span
-                                  class="d-none d-sm-inline-block">Export </span></span></button></div> <button
-                            class="btn btn-secondary add-new btn-primary waves-effect waves-light" tabindex="0"
-                            aria-controls="DataTables_Table_0" type="button"><span><i
-                                class="ri-add-line ri-16px me-0 me-sm-2 align-baseline"></i><span
-                                class="d-none d-sm-inline-block">Add Product</span></span></button>
+                          <a href="/admin/add-product"
+                            class="btn btn-secondary add-new btn-primary waves-effect waves-light">
+                            <span>
+                              <i class="ri-add-line ri-16px me-0 me-sm-2 align-baseline"></i>
+                              <span class="d-none d-sm-inline-block">Add Product</span>
+                            </span>
+                          </a>
                         </div>
                       </div>
                     </div>
                   </div>
                   <table class="datatables-products table dataTable no-footer dtr-column collapsed"
-                    id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 1216px;">
+                    id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                     <thead>
                       <tr>
-                        <th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 2px;" aria-label="">
-                        </th>
-                        <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1"
-                          style="width: 18px;" data-col="1" aria-label=""><input type="checkbox"
-                            class="form-check-input"></th>
-                        <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                          colspan="1" style="width: 405px;" aria-label="product: activate to sort column descending"
-                          aria-sort="ascending">product</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                          style="width: 123px;" aria-label="category: activate to sort column ascending">category</th>
-                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 50px;" aria-label="stock">
-                          stock</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                          style="width: 41px;" aria-label="sku: activate to sort column ascending">sku</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                          style="width: 68px;" aria-label="price: activate to sort column ascending">price</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                          style="width: 31px;" aria-label="qty: activate to sort column ascending">qty</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                          style="width: 82px;" aria-label="status: activate to sort column ascending">status</th>
-                        <th class="sorting_disabled dtr-hidden" rowspan="1" colspan="1"
-                          style="width: 0px; display: none;" aria-label="Actions">Actions</th>
+                        <th class="">Product</th>
+                        <th class="sorting">Category</th>
+                        <th class="sorting_disabled">Stock</th>
+                        <th class="sorting">Price</th>
+                        <th class="sorting">Dis Price</th>
+                        <th class="sorting">Status</th>
+                        <th class="sorting_disabled">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="odd">
-                        <td class="control" tabindex="0" style=""></td>
-                        <td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input">
-                        </td>
-                        <td class="sorting_1">
-                          <div class="d-flex justify-content-start align-items-center product-name">
-                            <div class="avatar-wrapper me-3">
-                              <div class="avatar rounded-3 bg-label-secondary"><img
-                                  src="../../assets/img/ecommerce-images/product-9.png" alt="Product-9"
-                                  class="rounded-2"></div>
+                      <% products.forEach(product=> { %>
+                        <tr>
+                          <td>
+                            <div class="d-flex justify-content-start align-items-center product-name">
+                              <div class="avatar-wrapper me-3">
+                                <div class="avatar rounded-3 bg-label-secondary">
+                                  <% if (product.productImages.length> 0) { %>
+                                    <img src="/images/<%= product.productImages[0] %>" alt="Product"
+                                      class="rounded-2 product-image"
+                                      style="width: 40px; height: 40px; object-fit: cover;">
+                                    <% } else { %>
+                                      <img src="/path/to/default/image.jpg" alt="No Image"
+                                        class="rounded-2 product-image"
+                                        style="width: 40px; height: 40px; object-fit: cover;">
+                                      <% } %>
+                                </div>
+                              </div>
+                              <div class="d-flex flex-column">
+                                <span class="text-nowrap text-heading fw-medium">
+                                  <%= product.productTitle %>
+                                </span>
+                                <small class="text-truncate d-none d-sm-block">
+                                  <%= product.productDescription %>
+                                </small>
+                              </div>
                             </div>
-                            <div class="d-flex flex-column"><span class="text-nowrap text-heading fw-medium">Air
-                                Jordan</span><small class="text-truncate d-none d-sm-block">Air Jordan is a line of
-                                basketball shoes produced by Nike</small></div>
-                          </div>
-                        </td>
-                        <td>
-                          <h6 class="text-truncate d-flex align-items-center mb-0 fw-normal"><span
-                              class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-3"><i
-                                class="ri-footprint-line"></i></span>Shoes</h6>
-                        </td>
-                        <td><span class="text-truncate"><label class="switch switch-primary switch-sm"><input
-                                type="checkbox" class="switch-input" id="switch"><span
-                                class="switch-toggle-slider"><span class="switch-off"></span></span></label><span
-                              class="d-none">Out_of_Stock</span></span></td>
-                        <td><span>31063</span></td>
-                        <td><span>$125</span></td>
-                        <td><span>942</span></td>
-                        <td><span class="badge rounded-pill bg-label-danger" text-capitalized="">Inactive</span></td>
-                        <td class="dtr-hidden" style="display: none;">
-                          <div class="d-inline-block text-nowrap"><button
-                              class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill me-50"><i
-                                class="ri-edit-box-line ri-20px"></i></button><button
-                              class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow"
-                              data-bs-toggle="dropdown"><i class="ri-more-2-line ri-20px"></i></button>
-                            <div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;"
-                                class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a>
+                          </td>
+                          <td>
+                            <h6 class="text-truncate d-flex align-items-center mb-0 fw-normal">
+                              <%= product.category %>
+                            </h6>
+                          </td>
+                          <td>
+                            <%= product.stock %>
+                          </td>
+                          <td>
+                            <%= product.productPrice %>
+                          </td>
+                          <td>
+                            <%= product.productDiscountedPrice %>
+                          </td>
+                          <td>
+                            <span class="badge rounded-pill bg-label-<%= product.isListed ? 'success' : 'danger' %>"
+                              text-capitalized="">
+                              <%= product.isListed ? 'Active' : 'Inactive' %>
+                            </span>
+                          </td>
+                          <td>
+                            <div class="d-inline-block text-nowrap">
+                              <button
+                                class="btn btn-sm btn-icon btn-text-secondary waves-effect waves-light rounded-pill me-50 edit-product-btn"
+                                data-product-id="<%= product._id %>" data-bs-toggle="modal"
+                                data-bs-target="#editProductModal">
+                                <i class="ri-edit-box-line ri-20px"></i>
+                              </button>
+
+                              <div class="dropdown-menu dropdown-menu-end m-0">
+                                <a href="javascript:0;" class="dropdown-item">View</a>
+                                <a href="javascript:0;" class="dropdown-item">
+                                  <%= product.isListed ? 'Deactivate' : 'Activate' %>
+                                </a>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                      </tr>
+                          </td>
+                        </tr>
+                        <% }); %>
                     </tbody>
                   </table>
                   <div class="row mx-1">
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                        Displaying 1 to 7 of 100 entries</div>
+                        Displaying <%= products.length %> of <%= products.length %> entries
+                      </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                         <ul class="pagination">
-                          <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a
-                              aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous"
-                              tabindex="-1" class="page-link"><i class="ri-arrow-left-s-line"></i></a></li>
-                          <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li>
-                          <li class="paginate_button page-item disabled" id="DataTables_Table_0_ellipsis"><a
-                              aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="ellipsis"
-                              tabindex="-1" class="page-link">…</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="14" tabindex="0" class="page-link">15</a></li>
-                          <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
-                              aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0"
-                              class="page-link"><i class="ri-arrow-right-s-line"></i></a></li>
+                          <!-- Pagination logic can go here -->
                         </ul>
                       </div>
                     </div>
                   </div>
-                  <div style="width: 1%;"></div>
-                  <div style="width: 1%;"></div>
                 </div>
               </div>
+
             </div>
-
-
           </div>
-          <!-- / Content -->
 
           <div class="content-backdrop fade"></div>
         </div>
-        <!-- Content wrapper -->
       </div>
-      <!-- / Layout page -->
     </div>
 
-    <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 
 
@@ -595,6 +552,90 @@
 
   </div>
   <!-- / Layout wrapper -->
+
+  <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProductForm" enctype="multipart/form-data">
+            <input type="hidden" id="editProductId" name="productId">
+            <div class="mb-3">
+              <label for="editProductTitle" class="form-label">Product Title</label>
+              <input type="text" class="form-control" id="editProductTitle" name="productTitle" required>
+            </div>
+            <div class="mb-3">
+              <label for="editProductDescription" class="form-label">Product Description</label>
+              <textarea class="form-control" id="editProductDescription" name="productDescription" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editProductPrice" class="form-label">Price</label>
+              <input type="number" class="form-control" id="editProductPrice" name="productPrice" required>
+            </div>
+            <div class="mb-3">
+              <label for="editProductDiscountedPrice" class="form-label">Discounted Price</label>
+              <input type="number" class="form-control" id="editProductDiscountedPrice" name="productDiscountedPrice">
+            </div>
+            <div class="mb-3">
+              <label for="editStock" class="form-label">Stock</label>
+              <input type="number" class="form-control" id="editStock" name="stock" required>
+            </div>
+            <!-- <div class="mb-3">
+              <label for="editCategory" class="form-label">Category</label>
+              <select class="form-select" id="editCategory" name="category" required>
+                <option value="category1">Category 1</option>
+                <option value="category2">Category 2</option>
+              </select>
+            </div> -->
+            <div class="mb-3">
+              <label for="editCategory" class="form-label">Category</label>
+              <select class="form-select" id="editCategory" name="category" required>
+                <% categories.forEach(function(category) { %>
+                  <option value="<%= category.name %>"><%= category.name %></option>
+                <% }); %>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="editProductImages" class="form-label">Product Images</label>
+              <div class="row" id="editImagePreviewContainer">
+                <div class="col-md-4 mb-3">
+                  <input type="file" class="form-control edit-image-input" name="productImages"
+                    accept=".jpeg, .jpg, .png">
+                  <div class="edit-image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <input type="file" class="form-control edit-image-input" name="productImages"
+                    accept=".jpeg, .jpg, .png">
+                  <div class="edit-image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <input type="file" class="form-control edit-image-input" name="productImages"
+                    accept=".jpeg, .jpg, .png">
+                  <div class="edit-image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="editIsListed" class="form-label">Status</label>
+              <select class="form-select" id="editIsListed" name="isListed">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="updateProductBtn">Update Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
@@ -608,6 +649,123 @@
   <script src="/adminAssets/vendor/libs/typeahead-js/typeahead.js"></script>
   <script src="/adminAssets/vendor/js/menu.js"></script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'));
+      const editProductForm = document.getElementById('editProductForm');
+
+      document.querySelectorAll('.edit-product-btn').forEach(button => {
+        button.addEventListener('click', function () {
+          const productId = this.getAttribute('data-product-id');
+          loadProductForEdit(productId);
+        });
+      });
+
+      const editImageInputs = document.querySelectorAll('.edit-image-input');
+      const editImagePreviews = document.querySelectorAll('.edit-image-preview');
+
+      editImageInputs.forEach((input, index) => {
+        input.addEventListener('change', function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              const img = new Image();
+              img.onload = function () {
+                editImagePreviews[index].innerHTML = '';
+                editImagePreviews[index].appendChild(img);
+                new Cropper(img, {
+                  aspectRatio: 1,
+                  viewMode: 1,
+                  crop: function () {
+                    const canvas = this.cropper.getCroppedCanvas({ width: 200, height: 200 });
+                    canvas.toBlob(function (blob) {
+                      const croppedFile = new File([blob], file.name, { type: file.type });
+                      const dataTransfer = new DataTransfer();
+                      dataTransfer.items.add(croppedFile);
+                      input.files = dataTransfer.files;
+                    });
+                  }
+                });
+              };
+              img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      });
+
+      document.getElementById('updateProductBtn').addEventListener('click', function () {
+        const formData = new FormData(editProductForm);
+        const productId = document.getElementById('editProductId').value;
+
+        fetch(`/admin/update-product/${productId}`, {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              editProductModal.hide();
+              location.reload();
+            } else {
+              alert('Failed to update product.');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
+    });
+
+    function loadProductForEdit(productId) {
+      fetch(`/admin/product/${productId}`)
+        .then(response => response.json())
+        .then(product => {
+          document.getElementById('editProductId').value = product._id;
+          document.getElementById('editProductTitle').value = product.productTitle;
+          document.getElementById('editProductDescription').value = product.productDescription;
+          document.getElementById('editProductPrice').value = product.productPrice;
+          document.getElementById('editProductDiscountedPrice').value = product.productDiscountedPrice;
+          document.getElementById('editStock').value = product.stock;
+          document.getElementById('editCategory').value = product.category;
+          document.getElementById('editIsListed').value = product.isListed;
+
+          const editImagePreviews = document.querySelectorAll('.edit-image-preview');
+          product.productImages.forEach((imageName, index) => {
+            if (index < editImagePreviews.length) {
+              const img = document.createElement('img');
+              img.src = `/images/${imageName}`;
+              img.style.width = '200px';
+              img.style.height = '200px';
+              img.style.objectFit = 'cover';
+              editImagePreviews[index].innerHTML = '';
+              editImagePreviews[index].appendChild(img);
+            }
+          });
+        });
+    }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('categorySearch');
+  const table = document.getElementById('DataTables_Table_0');
+  const rows = table.getElementsByTagName('tr');
+
+  searchInput.addEventListener('keyup', function() {
+    const searchTerm = searchInput.value.toLowerCase();
+
+    for (let i = 1; i < rows.length; i++) {
+      const rowData = rows[i].textContent.toLowerCase();
+      if (rowData.includes(searchTerm)) {
+        rows[i].style.display = '';
+      } else {
+        rows[i].style.display = 'none';
+      }
+    }
+  });
+});
+  </script>
   <!-- endbuild -->
 
   <!-- Vendors JS -->

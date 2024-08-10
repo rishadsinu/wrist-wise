@@ -42,15 +42,15 @@
                                     <li><a href="/contact-us">Contact Us</a></li>
                                     <% if (user) { %>
                                         <li>
-                                          <a href="/profile"><i class="icon-user"></i>
-                                            <%= user.name || user.displayName %>
-                                          </a>
+                                            <a href="/profile"><i class="icon-user"></i>
+                                                <%= user.name || user.displayName %>
+                                            </a>
                                         </li>
                                         <% } else { %>
-                                          <li>
-                                            <a href="/login"><i class="icon-user"></i>Login</a>
-                                          </li>
-                                          <% } %>
+                                            <li>
+                                                <a href="/login"><i class="icon-user"></i>Login</a>
+                                            </li>
+                                                     <% } %>
                                 </ul>
                             </li>
                         </ul>
@@ -70,16 +70,16 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20">
+                            <img src="/assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20">
                         </a>
                     </div>
                     <div class="header-center">
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="index.html" class="sf-with-ul">Home</a>
+                                    <a href="productlist" class="sf-with-ul">Home</a>
 
-                                    
+
                                 </li>
                                 <li>
                                     <a href="category" class="sf-with-ul">Category</a>
@@ -89,7 +89,7 @@
                                             <div class="col-md-8">
                                                 <div class="menu-col">
                                                     <div class="row">
-                                                        
+
 
                                                         <div class="col-md-6">
                                                             <div class="menu-title">Product Categories</div>
@@ -97,16 +97,17 @@
                                                             <ul>
                                                                 <li><a href="category">Product
                                                                         Category</a></li>
-                                                                
+
                                                             </ul>
-                                                            
-                                                    </div><!-- End .row -->
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-8 --> </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-md -->
+
+                                                        </div><!-- End .row -->
+                                                    </div><!-- End .menu-col -->
+                                                </div><!-- End .col-md-8 -->
+                                            </div><!-- End .row -->
+                                        </div><!-- End .megamenu megamenu-md -->
                                 </li>
                                 <li>
-                                    <a href="product.html" class="sf-with-ul">Product</a>
+                                    <a href="productlist" class="sf-with-ul">Product</a>
 
                                     <div class="megamenu megamenu-sm">
                                         <div class="row no-gutters">
@@ -119,12 +120,12 @@
                                                         <li><a href="product-centered.html">Centered</a></li>
                                                         <li><a href="product-extended.html"><span>Extended Info<span
                                                                         class="tip tip-new">New</span></span></a></li>
-                                                       
+
                                                     </ul>
                                                 </div><!-- End .menu-col -->
                                             </div><!-- End .col-md-6 -->
 
-                                            
+
                                         </div><!-- End .row -->
                                     </div><!-- End .megamenu megamenu-sm -->
                                 </li>
@@ -133,28 +134,19 @@
 
                                     <ul>
                                         <li>
-                                            <a href="about.html" class="sf-with-ul">About</a>
+                                            <a href="about.html">About</a>
 
-                                            <ul>
-                                                <li><a href="about.html">About 01</a></li>
-                                                <li><a href="about-2.html">About 02</a></li>
-                                            </ul>
                                         </li>
                                         <li>
-                                            <a href="contact.html" class="sf-with-ul">Contact</a>
+                                            <a href="contact.html">Contact</a>
 
-                                            <ul>
-                                                <li><a href="contact.html">Contact 01</a></li>
-                                                <li><a href="contact-2.html">Contact 02</a></li>
-                                            </ul>
                                         </li>
                                         <li><a href="login.html">Login</a></li>
-                                        <li><a href="faq.html">FAQs</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
+                                        <li><a href="userprofile">My Account</a></li>
                                         <li><a href="coming-soon.html">Coming Soon</a></li>
                                     </ul>
                                 </li>
-                                
+
                                 <li>
                                     <a href="elements-list.html" class="sf-with-ul">Elements</a>
 
@@ -222,7 +214,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                                <img src="/assets/images/products/cart/product-1.jpg" alt="product">
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i
@@ -243,7 +235,7 @@
 
                                         <figure class="product-image-container">
                                             <a href="product" class="product-image">
-                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
+                                                <img src="/assets/images/products/cart/product-2.jpg" alt="product">
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i
@@ -283,7 +275,7 @@
                         }
                     }'>
                     <div class="intro-slide"
-                        style="background-image: url(assets/images/demos/demo-8/slider/slide-1.jpg);">
+                        style="background-image: url(/assets/images/demos/demo-8/slider/slide-1.jpg);">
                         <div class="container intro-content text-left">
                             <h3 class="intro-subtitle">Limited time only *</h3><!-- End .h3 intro-subtitle -->
                             <h1 class="intro-title">Summer<br><strong>sale</strong></h1><!-- End .intro-title -->
@@ -294,12 +286,12 @@
                                 <i class="icon-long-arrow-right"></i>
                             </a>
                         </div><!-- End .intro-content -->
-                        <img class="position-right"
-                            src="/public/user/images/fir-2.png">
-                    </div><!-- End .intro-slide -->
+                        <img class="position-right" src="/assets/images/demos/demo-8/slider/img-2.png">
+                    </div>
+                    
 
                     <div class="intro-slide"
-                        style="background-image: url(assets/images/demos/demo-8/slider/slide-2.jpg);">
+                        style="background-image: url(/assets/images/demos/demo-8/slider/slide-2.jpg);">
                         <div class="container intro-content text-right">
                             <h3 class="intro-subtitle">PREMIUM QUALITY</h3><!-- End .h3 intro-subtitle -->
                             <h1 class="intro-title">coats <span class="highlight">&</span><br>jackets</h1>
@@ -310,8 +302,8 @@
                                 <i class="icon-long-arrow-right"></i>
                             </a>
                         </div><!-- End .intro-content -->
-                        <img class="position-left" src="assets/images/demos/demo-8/slider/img-2.png">
-                    </div><!-- End .intro-slide -->
+                        <img class="position-left" src="/assets/images/demos/demo-8/slider/img-2.png">
+                    </div>
                 </div><!-- End .intro-slider owl-carousel owl-simple -->
 
                 <span class="slider-loader"></span><!-- End .slider-loader -->
@@ -324,7 +316,7 @@
                             <div class="col-sm-6 col-lg-4">
                                 <div class="banner banner-overlay">
                                     <a href="#">
-                                        <img src="assets/images/demos/demo-8/banners/banner-1.jpg" alt="Banner">
+                                        <img src="/assets/images/demos/demo-8/banners/banner-1.jpg" alt="Banner">
                                     </a>
 
                                     <div class="banner-content">
@@ -341,7 +333,7 @@
                             <div class="col-sm-6 col-lg-4">
                                 <div class="banner banner-overlay">
                                     <a href="#">
-                                        <img src="assets/images/demos/demo-8/banners/banner-2.jpg" alt="Banner">
+                                        <img src="/assets/images/demos/demo-8/banners/banner-2.jpg" alt="Banner">
                                     </a>
 
                                     <div class="banner-content">
@@ -358,7 +350,7 @@
                             <div class="col-sm-6 col-lg-4 d-none d-lg-block">
                                 <div class="banner banner-overlay">
                                     <a href="#">
-                                        <img src="assets/images/demos/demo-8/banners/banner-3.jpg" alt="Banner">
+                                        <img src="/assets/images/demos/demo-8/banners/banner-3.jpg" alt="Banner">
                                     </a>
 
                                     <div class="banner-content">
@@ -398,31 +390,31 @@
                             }
                         }'>
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/1.png" alt="Brand Name">
+                            <img src="/assets/images/brands/1.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/2.png" alt="Brand Name">
+                            <img src="/assets/images/brands/2.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/3.png" alt="Brand Name">
+                            <img src="/assets/images/brands/3.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/4.png" alt="Brand Name">
+                            <img src="/assets/images/brands/4.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/5.png" alt="Brand Name">
+                            <img src="/assets/images/brands/5.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/6.png" alt="Brand Name">
+                            <img src="/assets/images/brands/6.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/7.png" alt="Brand Name">
+                            <img src="/assets/images/brands/7.png" alt="Brand Name">
                         </a>
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->
@@ -479,9 +471,9 @@
                             <div class="product product-2">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-1-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-1-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-1-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-1-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -506,15 +498,15 @@
                                     </div><!-- End .product-price -->
                                     <div class="product-nav product-nav-thumbs">
                                         <a href="#" class="active">
-                                            <img src="assets/images/demos/demo-8/products/product-1-thumb.jpg"
+                                            <img src="/assets/images/demos/demo-8/products/product-1-thumb.jpg"
                                                 alt="product desc">
                                         </a>
                                         <a href="#">
-                                            <img src="assets/images/demos/demo-8/products/product-1-2-thumb.jpg"
+                                            <img src="/assets/images/demos/demo-8/products/product-1-2-thumb.jpg"
                                                 alt="product desc">
                                         </a>
                                         <a href="#">
-                                            <img src="assets/images/demos/demo-8/products/product-1-3-thumb.jpg"
+                                            <img src="/assets/images/demos/demo-8/products/product-1-3-thumb.jpg"
                                                 alt="product desc">
                                         </a>
                                     </div>
@@ -525,9 +517,9 @@
                             <div class="product product-2">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-2-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-2-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-2-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-2-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -557,9 +549,9 @@
                                 <figure class="product-media">
                                     <span class="product-label label-sale">sale</span>
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-3-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-3-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-3-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-3-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -589,9 +581,9 @@
                             <div class="product product-2">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-4-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-4-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-4-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-4-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -616,11 +608,11 @@
                                     </div><!-- End .product-price -->
                                     <div class="product-nav product-nav-thumbs">
                                         <a href="#" class="active">
-                                            <img src="assets/images/demos/demo-8/products/product-4-thumb.jpg"
+                                            <img src="/assets/images/demos/demo-8/products/product-4-thumb.jpg"
                                                 alt="product desc">
                                         </a>
                                         <a href="#">
-                                            <img src="assets/images/demos/demo-8/products/product-4-2-thumb.jpg"
+                                            <img src="/assets/images/demos/demo-8/products/product-4-2-thumb.jpg"
                                                 alt="product desc">
                                         </a>
                                     </div>
@@ -661,9 +653,9 @@
                             <div class="product product-2">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-2-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-2-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-2-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-2-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -693,9 +685,9 @@
                                 <figure class="product-media">
                                     <span class="product-label label-sale">sale</span>
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-3-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-3-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-3-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-3-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -755,9 +747,9 @@
                             <div class="product product-2">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-2-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-2-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-2-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-2-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -787,9 +779,9 @@
                                 <figure class="product-media">
                                     <span class="product-label label-sale">sale</span>
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-3-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-3-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-3-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-3-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -819,9 +811,9 @@
                             <div class="product product-2">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="assets/images/demos/demo-8/products/product-4-1.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-4-1.jpg"
                                             alt="Product image" class="product-image">
-                                        <img src="assets/images/demos/demo-8/products/product-4-2.jpg"
+                                        <img src="/assets/images/demos/demo-8/products/product-4-2.jpg"
                                             alt="Product image" class="product-image-hover">
                                     </a>
 
@@ -846,11 +838,11 @@
                                     </div><!-- End .product-price -->
                                     <div class="product-nav product-nav-thumbs">
                                         <a href="#" class="active">
-                                            <img src="assets/images/demos/demo-8/products/product-4-thumb.jpg"
+                                            <img src="/assets/images/demos/demo-8/products/product-4-thumb.jpg"
                                                 alt="product desc">
                                         </a>
                                         <a href="#">
-                                            <img src="assets/images/demos/demo-8/products/product-4-2-thumb.jpg"
+                                            <img src="/assets/images/demos/demo-8/products/product-4-2-thumb.jpg"
                                                 alt="product desc">
                                         </a>
                                     </div>
@@ -866,7 +858,7 @@
 
             <div class="trending">
                 <a href="#">
-                    <img src="assets/images/demos/demo-8/banners/banner-4.jpg" alt="Banner">
+                    <img src="/assets/images/demos/demo-8/banners/banner-4.jpg" alt="Banner">
                 </a>
                 <div class="banner banner-big d-md-block">
                     <div class="banner-content text-center">
@@ -885,7 +877,7 @@
                     <div class="col-md-6">
                         <div class="banner banner-overlay">
                             <a href="#">
-                                <img src="assets/images/demos/demo-8/banners/banner-5.jpg" alt="Banner">
+                                <img src="/assets/images/demos/demo-8/banners/banner-5.jpg" alt="Banner">
                             </a>
 
                             <div class="banner-content">
@@ -901,7 +893,7 @@
                     <div class="col-md-6">
                         <div class="banner banner-overlay">
                             <a href="#">
-                                <img src="assets/images/demos/demo-8/banners/banner-6.jpg" alt="Banner">
+                                <img src="/assets/images/demos/demo-8/banners/banner-6.jpg" alt="Banner">
                             </a>
 
                             <div class="banner-content">
@@ -951,9 +943,9 @@
                                         <figure class="product-media">
                                             <span class="product-label label-sale">Sale</span>
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-5-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-5-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-5-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-5-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -986,9 +978,9 @@
                                     <div class="product product-2 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-6-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-6-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-6-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-6-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1020,9 +1012,9 @@
                                     <div class="product product-2 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-7-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-7-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-7-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-7-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1049,11 +1041,11 @@
 
                                             <div class="product-nav product-nav-thumbs">
                                                 <a href="#" class="active">
-                                                    <img src="assets/images/demos/demo-8/products/product-7-thumb.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-7-thumb.jpg"
                                                         alt="product desc">
                                                 </a>
                                                 <a href="#">
-                                                    <img src="assets/images/demos/demo-8/products/product-7-2-thumb.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-7-2-thumb.jpg"
                                                         alt="product desc">
                                                 </a>
                                             </div><!-- End .product-nav -->
@@ -1065,9 +1057,9 @@
                                     <div class="product product-2 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-8-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-8-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-8-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-8-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1099,9 +1091,9 @@
                                     <div class="product product-2 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-9-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-9-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-9-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-9-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1133,9 +1125,9 @@
                                     <div class="product product-2 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-10-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-10-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-10-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-10-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1162,11 +1154,11 @@
 
                                             <div class="product-nav product-nav-thumbs">
                                                 <a href="#" class="active">
-                                                    <img src="assets/images/demos/demo-8/products/product-10-thumb.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-10-thumb.jpg"
                                                         alt="product desc">
                                                 </a>
                                                 <a href="#">
-                                                    <img src="assets/images/demos/demo-8/products/product-10-2-thumb.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-10-2-thumb.jpg"
                                                         alt="product desc">
                                                 </a>
                                             </div><!-- End .product-nav -->
@@ -1178,9 +1170,9 @@
                                     <div class="product product-2 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-11-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-11-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-11-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-11-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1213,9 +1205,9 @@
                                         <figure class="product-media">
                                             <span class="product-label label-sale">sale</span>
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-12-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-12-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-12-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-12-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1255,9 +1247,9 @@
                                         <figure class="product-media">
                                             <span class="product-label label-sale">Sale</span>
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-5-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-5-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-5-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-5-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1290,9 +1282,9 @@
                                     <div class="product product-2 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-6-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-6-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-6-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-6-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1330,9 +1322,9 @@
                                     <div class="product product-2 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-11-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-11-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-11-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-11-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1365,9 +1357,9 @@
                                         <figure class="product-media">
                                             <span class="product-label label-sale">sale</span>
                                             <a href="product.html">
-                                                <img src="assets/images/demos/demo-8/products/product-12-1.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-12-1.jpg"
                                                     alt="Product image" class="product-image">
-                                                <img src="assets/images/demos/demo-8/products/product-12-2.jpg"
+                                                <img src="/assets/images/demos/demo-8/products/product-12-2.jpg"
                                                     alt="Product image" class="product-image-hover">
                                             </a>
 
@@ -1405,9 +1397,9 @@
                                         <div class="product product-2 text-center">
                                             <figure class="product-media">
                                                 <a href="product.html">
-                                                    <img src="assets/images/demos/demo-8/products/product-7-1.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-7-1.jpg"
                                                         alt="Product image" class="product-image">
-                                                    <img src="assets/images/demos/demo-8/products/product-7-2.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-7-2.jpg"
                                                         alt="Product image" class="product-image-hover">
                                                 </a>
 
@@ -1435,11 +1427,11 @@
 
                                                 <div class="product-nav product-nav-thumbs">
                                                     <a href="#" class="active">
-                                                        <img src="assets/images/demos/demo-8/products/product-7-thumb.jpg"
+                                                        <img src="/assets/images/demos/demo-8/products/product-7-thumb.jpg"
                                                             alt="product desc">
                                                     </a>
                                                     <a href="#">
-                                                        <img src="assets/images/demos/demo-8/products/product-7-2-thumb.jpg"
+                                                        <img src="/assets/images/demos/demo-8/products/product-7-2-thumb.jpg"
                                                             alt="product desc">
                                                     </a>
                                                 </div><!-- End .product-nav -->
@@ -1451,9 +1443,9 @@
                                         <div class="product product-2 text-center">
                                             <figure class="product-media">
                                                 <a href="product.html">
-                                                    <img src="assets/images/demos/demo-8/products/product-8-1.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-8-1.jpg"
                                                         alt="Product image" class="product-image">
-                                                    <img src="assets/images/demos/demo-8/products/product-8-2.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-8-2.jpg"
                                                         alt="Product image" class="product-image-hover">
                                                 </a>
 
@@ -1486,9 +1478,9 @@
                                         <div class="product product-2 text-center">
                                             <figure class="product-media">
                                                 <a href="product.html">
-                                                    <img src="assets/images/demos/demo-8/products/product-9-1.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-9-1.jpg"
                                                         alt="Product image" class="product-image">
-                                                    <img src="assets/images/demos/demo-8/products/product-9-2.jpg"
+                                                    <img src="/assets/images/demos/demo-8/products/product-9-2.jpg"
                                                         alt="Product image" class="product-image-hover">
                                                 </a>
 
@@ -1569,7 +1561,7 @@
                     </div><!-- End .row -->
                 </div><!-- End .container -->
 
-                
+
         </main><!-- End .main -->
 
         <footer class="footer footer-2">
@@ -1578,7 +1570,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="widget widget-about">
-                                <img src="assets/images/demos/demo-8/logo-footer.png" class="footer-logo"
+                                <img src="/assets/images/demos/demo-8/logo-footer.png" class="footer-logo"
                                     alt="Footer Logo" width="82" height="25">
                                 <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
                                     magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan
@@ -1593,7 +1585,7 @@
                                         <div class="col-sm-6 col-md-8">
                                             <span class="widget-about-title">Payment Method</span>
                                             <figure class="footer-payments">
-                                                <img src="assets/images/payments.png" alt="Payment methods" width="272"
+                                                <img src="/assets/images/payments.png" alt="Payment methods" width="272"
                                                     height="20">
                                             </figure><!-- End .footer-payments -->
                                         </div><!-- End .col-sm-6 -->
@@ -1978,18 +1970,18 @@
     </div><!-- End .modal -->
 
     <!-- Plugins JS File -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/jquery.hoverIntent.min.js"></script>
-    <script src="assets/js/jquery.waypoints.min.js"></script>
-    <script src="assets/js/superfish.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/jquery.plugin.min.js"></script>
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/jquery.countdown.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="/assets/js/jquery.waypoints.min.js"></script>
+    <script src="/assets/js/superfish.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/jquery.plugin.min.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/jquery.countdown.min.js"></script>
     <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/demos/demo-8.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/demos/demo-8.js"></script>
 
 
 

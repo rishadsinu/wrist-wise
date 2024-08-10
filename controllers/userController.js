@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer');
 const otpGenerator = require('otp-generator')
 const Category = require('../models/categoryModel')
+const Product = require('../models/productModel');
 
 const securePassword = async (password) => {
     try {
@@ -208,6 +209,7 @@ const verifylogin = async (req, res) => {
             if (passwordMatch) {
                 if (userData.isVerified) {
                     req.session.user = userData;
+                    //req.session.userId = userData._id;
                     const returnTo = req.session.returnTo || '/home';
                     delete req.session.returnTo;
                     return res.redirect(returnTo);
@@ -231,8 +233,6 @@ const googleLogin = (req, res) => {
     res.redirect('/home');
 };
 
-
-
 const loadCategory = async (req, res) => {
     try {
       const categories = await Category.find({ status: 'active' });
@@ -242,6 +242,51 @@ const loadCategory = async (req, res) => {
       res.status(500).send('An error occurred while loading the category list');
     }
   };
+
+const loadProductlist = async (req, res) => {
+    try {
+        const products = await Product.find({ isListed: true }).sort({ createdAt: -1 });
+        res.render('productslist', { products });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('An error occurred while loading products');
+    }
+};
+
+const getProducts = async (req, res) => {
+    try {
+        const products = await Product.find({ isListed: true });
+        res.render('productslist', { products });
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).render('error', { message: 'An error occurred while fetching products' });
+    }
+};
+
+const getProductDetails = async (req, res) => {
+    try {
+        const product = await Product.findOne({ _id: req.params.id, isListed: true });
+        if (!product) {
+            return res.status(404).render('error', { message: 'Product not found or not available' });
+        }
+        res.render('product', { product });
+    } catch (error) {
+        console.error('Error fetching product details:', error);
+        res.status(500).render('error', { message: 'An error occurred while fetching product details' });
+    }
+};
+
+
+  const loadUserProfile = (req, res) => {
+    if (req.session.user) {
+        res.render('profile');
+    } else {
+        res.redirect('/login?message=' + encodeURIComponent('Please log in to view your wishlist'));
+    }
+};
+
+
+  
 
 module.exports = {
     loadHome,
@@ -255,5 +300,10 @@ module.exports = {
     insertUser,
     googleLogin,
     loadCategory,
+    loadProductlist,
+    getProducts,
+    getProductDetails,
+    loadUserProfile,
+    
 
 }

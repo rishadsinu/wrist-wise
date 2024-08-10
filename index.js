@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const express = require("express");
 require('dotenv').config();
 const app = express();
@@ -9,6 +9,7 @@ const passport = require('passport');
 const session = require("express-session");
 const path = require('path');
 const mongoUri = process.env.MONGODB_URI;
+// const multer = require('multer');
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -35,18 +36,21 @@ mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
         console.error('Error connecting to MongoDB:', error);
     });
 
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/assets", express.static(path.join(__dirname, "public/user")));  
+app.use("/assets", express.static(path.join(__dirname, "./public/user")));  
 app.use("/adminAssets" ,express.static(path.join(__dirname,"public/admin/adminAssets")));
 
-const userRoute = require('./routes/userRoute')
-app.use('/', userRoute)
+app.use("/images", express.static(path.join(__dirname, "public/images")));
+app.use("/assets", express.static(path.join(__dirname, "public/userimages")));
+
+const userRoute = require('./routes/userRoute');
+app.use('/', userRoute);
 
 const adminRoute = require('./routes/adminRoute');
-app.use('/admin', adminRoute)
+app.use('/admin', adminRoute);
+
 
 app.listen(port, () => {
     console.log(`Listening to the server on http://localhost:${port}`);
