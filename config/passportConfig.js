@@ -14,15 +14,13 @@ passport.use(new GoogleStrategy({
       if (user) {
         return done(null, user);
       }
-
-      // Create a new user with Google data
       user = new User({
         googleId: profile.id,
         name: profile.displayName,
         email: profile.emails[0].value,
-        username: profile.emails[0].value.split('@')[0], // Use email as username
-        is_verified: 1, // Set to 1 for Google-authenticated users
-        isVerified: true // Set to true for Google-authenticated users
+        username: profile.emails[0].value.split('@')[0], 
+        is_verified: 1,
+        isVerified: true 
       });
 
       await user.save();

@@ -1,6 +1,8 @@
 <%- include ('../layouts/header.ejs') %>
 
 
+
+
     <div class="page-wrapper">
         <header class="header">
 
@@ -42,7 +44,7 @@
                                     <li><a href="/contact-us">Contact Us</a></li>
                                     <% if (user) { %>
                                         <li>
-                                            <a href="/profile"><i class="icon-user"></i>
+                                            <a href="userprofile"><i class="icon-user"></i>
                                                 <%= user.name || user.displayName %>
                                             </a>
                                         </li>
@@ -70,7 +72,7 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="/assets/images/demos/demo-8/logo.png" alt="Molla Logo" width="82" height="20">
+                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
                         </a>
                     </div>
                     <div class="header-center">
@@ -114,13 +116,9 @@
                                             <div class="col-md-6">
                                                 <div class="menu-col">
                                                     <div class="menu-title">Product Details</div>
-                                                    <!-- End .menu-title -->
-                                                    <ul>
-                                                        <li><a href="product.html">Default</a></li>
-                                                        <li><a href="product-centered.html">Centered</a></li>
-                                                        <li><a href="product-extended.html"><span>Extended Info<span
-                                                                        class="tip tip-new">New</span></span></a></li>
 
+                                                    <ul>
+                                                        <li><a href="productlist">All Products</a></li>
                                                     </ul>
                                                 </div><!-- End .menu-col -->
                                             </div><!-- End .col-md-6 -->
@@ -189,73 +187,11 @@
                         </a>
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="/cart" class="dropdown-toggle" role="button">
                                 <i class="icon-shopping-cart"></i>
                                 <span class="cart-count">2</span>
-
                             </a>
-
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="/assets/images/products/cart/product-1.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i
-                                                class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product" class="product-image">
-                                                <img src="/assets/images/products/cart/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i
-                                                class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-                                </div><!-- End .cart-product -->
-
-                                <div class="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
-                                </div><!-- End .dropdown-cart-total -->
-
-                                <div class="dropdown-cart-action">
-                                    <a href="cart" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i
-                                            class="icon-long-arrow-right"></i></a>
-                                </div><!-- End .dropdown-cart-total -->
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .cart-dropdown -->
+                        </div>
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-bottom -->
@@ -286,15 +222,20 @@
                                 <i class="icon-long-arrow-right"></i>
                             </a>
                         </div><!-- End .intro-content -->
-                        <img class="position-right" src="/assets/images/demos/demo-8/slider/img-2.png">
+                        <!-- <img class="position-rightee" src="/images/add 1.png"> -->
+                        <!-- <img class="position-right" src="/images/add 1.png" style="margin-top: 105px; width: 1000px; margin-left: -138px;"> -->
+                        <img class="position-right" src="/images/black_and_white_add2-removebg-preview.png "
+                            style="margin-top: 70px; margin-left: 30px;width: 467px;">
+
                     </div>
-                    
+
+
 
                     <div class="intro-slide"
                         style="background-image: url(/assets/images/demos/demo-8/slider/slide-2.jpg);">
                         <div class="container intro-content text-right">
                             <h3 class="intro-subtitle">PREMIUM QUALITY</h3><!-- End .h3 intro-subtitle -->
-                            <h1 class="intro-title">coats <span class="highlight">&</span><br>jackets</h1>
+                            <h1 class="intro-title">Smart <span class="highlight">&</span><br>Watches</h1>
                             <!-- End .intro-title -->
 
                             <a href="category.html" class="btn">
@@ -302,7 +243,13 @@
                                 <i class="icon-long-arrow-right"></i>
                             </a>
                         </div><!-- End .intro-content -->
-                        <img class="position-left" src="/assets/images/demos/demo-8/slider/img-2.png">
+                        <!-- <img class="position-left" src="/assets/images/demos/demo-8/slider/img-2.png"> -->
+                        <img class="position-left" src="/images/add11-removebg-preview.png "
+                         
+                            style="    margin-top: 144px;
+                            width: 720px;
+                            margin-left: -130px;">
+
                     </div>
                 </div><!-- End .intro-slider owl-carousel owl-simple -->
 
@@ -316,7 +263,7 @@
                             <div class="col-sm-6 col-lg-4">
                                 <div class="banner banner-overlay">
                                     <a href="#">
-                                        <img src="/assets/images/demos/demo-8/banners/banner-1.jpg" alt="Banner">
+                                        <img src="/images/home mens category.jpg" alt="Banner">
                                     </a>
 
                                     <div class="banner-content">
@@ -1570,8 +1517,8 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="widget widget-about">
-                                <img src="/assets/images/demos/demo-8/logo-footer.png" class="footer-logo"
-                                    alt="Footer Logo" width="82" height="25">
+                                <img src="/images/wrist wise logo.png" class="footer-logo" alt="Footer Logo" width="82"
+                                    height="25">
                                 <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
                                     magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan
                                     porttitor, facilisis luctus, metus. </p>
@@ -1927,7 +1874,7 @@
                                             <label for="register-password">Password *</label>
                                             <input type="password" class="form-control" id="register-password"
                                                 name="register-password" required>
-                                        </div><!-- End .form-group -->
+                                        </div>
 
                                         <div class="form-footer">
                                             <button type="submit" class="btn btn-outline-primary-2">

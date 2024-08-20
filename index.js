@@ -9,8 +9,6 @@ const passport = require('passport');
 const session = require("express-session");
 const path = require('path');
 const mongoUri = process.env.MONGODB_URI;
-// const multer = require('multer');
-
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -22,7 +20,6 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -39,7 +36,7 @@ mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/assets", express.static(path.join(__dirname, "./public/user")));  
+app.use("/assets", express.static(path.join(__dirname, "./public/user/assets")));  
 app.use("/adminAssets" ,express.static(path.join(__dirname,"public/admin/adminAssets")));
 
 app.use("/images", express.static(path.join(__dirname, "public/images")));
@@ -50,6 +47,9 @@ app.use('/', userRoute);
 
 const adminRoute = require('./routes/adminRoute');
 app.use('/admin', adminRoute);
+
+const logoutRouter = require('./routes/userRoute');
+app.use('/', logoutRouter);
 
 
 app.listen(port, () => {

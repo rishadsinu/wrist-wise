@@ -502,7 +502,8 @@
                                     aspectRatio: 1,
                                     viewMode: 1,
                                     crop: function () {
-                                        const canvas = this.cropper.getCroppedCanvas({ width: 700, height: 700 });
+                                        const canvas = this.cropper.getCroppedCanvas();
+                                                                                   // { width: 750, height: 750 }
                                         canvas.toBlob(function (blob) {
                                             const croppedFile = new File([blob], file.name, { type: file.type });
                                             const dataTransfer = new DataTransfer();
