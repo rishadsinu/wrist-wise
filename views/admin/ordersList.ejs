@@ -1,6 +1,12 @@
 <%- include ('../adminLayouts/header.ejs') %>
 
 
+  <style>
+    .modal-content {
+      width: 925px;
+    }
+  </style>
+
   <!-- ?PROD Only: Google Tag Manager (noscript) (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DDHKGP" height="0" width="0"
       style="display: none; visibility: hidden"></iframe></noscript>
@@ -72,17 +78,18 @@
             </a>
             <ul class="menu-sub">
               <li class="menu-item">
-                <a href="app-ecommerce-dashboard.html" class="menu-link">
+                <a href="dashboard" class="menu-link">
                   <div data-i18n="Dashboard">Dashboard</div>
                 </a>
               </li>
+             
               <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                   <div data-i18n="Products">Products</div>
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item">
-                    <a href="app-ecommerce-product-list.html" class="menu-link">
+                    <a href="productlist" class="menu-link">
                       <div data-i18n="Product List">Product List</div>
                     </a>
                   </li>
@@ -92,7 +99,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="app-ecommerce-category-list.html" class="menu-link">
+                    <a href="categorylist" class="menu-link">
                       <div data-i18n="Category List">Category List</div>
                     </a>
                   </li>
@@ -104,7 +111,7 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item active">
-                    <a href="app-ecommerce-order-list.html" class="menu-link">
+                    <a href="orderlist" class="menu-link">
                       <div data-i18n="Order List">Order List</div>
                     </a>
                   </li>
@@ -155,8 +162,6 @@
                   </li>
                 </ul>
               </li>
-
-
             </ul>
           </li>
           <!-- e-commerce-app menu end -->
@@ -191,13 +196,7 @@
               </li>
             </ul>
           </li>
-
-
-
         </ul>
-
-
-
       </aside>
       <!-- / Menu -->
 
@@ -310,18 +309,12 @@
 
         <!-- / Navbar -->
 
-
-
         <!-- Content wrapper -->
         <div class="content-wrapper">
 
-          <!-- Content -->
-
           <div class="container-xxl flex-grow-1 container-p-y">
 
-
             <!-- Order List Table -->
-
 
             <div class="card">
 
@@ -335,8 +328,6 @@
                     </div>
                   </div>
 
-
-
                   <table class="datatables-customers table dataTable no-footer dtr-column" id="DataTables_Table_0">
                     <thead>
                       <tr>
@@ -344,7 +335,6 @@
                         <th>Order Id</th>
                         <th>Order Date</th>
                         <th>Status</th>
-                        <th>Cancel Request</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -362,33 +352,9 @@
                           <td><span>
                               <%= new Date(order.createdAt).toLocaleDateString() %>
                             </span></td>
-                          <td>
-                            <select class="form-select status-dropdown" data-order-id="<%= order._id %>">
-                              <option value="Pending" <%=order.items[0].order_status==='Pending' ? 'selected' : '' %>
-                                >Pending</option>
-                              <option value="Processing" <%=order.items[0].order_status==='Processing' ? 'selected' : ''
-                                %>>Processing</option>
-                              <option value="Shipped" <%=order.items[0].order_status==='Shipped' ? 'selected' : '' %>
-                                >Shipped</option>
-                              <option value="Delivered" <%=order.items[0].order_status==='Delivered' ? 'selected' : ''
-                                %>>Delivered</option>
-                              <option value="Cancelled" <%=order.items[0].order_status==='Cancelled' ? 'selected' : ''
-                                %>>Cancelled</option>
-                              <option value="Returned" <%=order.items[0].order_status==='Returned' ? 'selected' : '' %>
-                                >Returned</option>
-                              <option value="Return Requested" <%=order.items[0].order_status==='Return Requested'
-                                ? 'selected' : '' %>>Return Requested</option>
-                            </select>
-                          </td>
-                          <td>
-                            <% if (order.cancelRequest) { %>
-                                <button class="btn btn-success btn-sm accept-cancel-request"
-                                    data-order-id="<%= order._id %>">Accept</button>
-                                
-                            <% } else { %>
-                                No Cancel Request
-                            <% } %>
-                        </td>
+                          <td><span class="badge bg-label-primary">
+                              <%= order.items[0].order_status %>
+                            </span></td>
                           <td>
                             <button class="btn btn-primary btn-sm"
                               onclick="showOrderDetailsModal('<%= order._id %>')">View</button>
@@ -398,63 +364,53 @@
                     </tbody>
                   </table>
 
-
-                  <script>
-                    document.querySelectorAll('.status-dropdown').forEach(dropdown => {
-                      dropdown.addEventListener('change', async (e) => {
-                        const orderId = e.target.getAttribute('data-order-id');
-                        const status = e.target.value;
-
-                        console.log('Sending orderId:', orderId, 'with status:', status);
-                        try {
-                          const response = await fetch(`/admin/updateOrderStatus/${orderId}`, {
-                            method: 'PUT',
-                            headers: {
-                              'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ status })
-                          });
-
-                          const data = await response.json();
-
-
-                        } catch (error) {
-                          console.error('Error:', error);
-                        }
-                      });
-                    });
-
-                  </script>
-
                   <div class="row mx-1">
                     <div class="col-sm-12 col-md-6">
-                      <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing
-                        1 to 10 of 100 entries</div>
+                      <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                        Showing <%= (currentPage - 1) * 10 + 1 %> to <%= Math.min(currentPage * 10, totalOrders) %> of
+                            <%= totalOrders %> entries
+                      </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                         <ul class="pagination">
-                          <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a
-                              aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous"
-                              tabindex="-1" class="page-link"><i class="ri-arrow-left-s-line"></i></a></li>
-                          <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li>
-                          <li class="paginate_button page-item disabled" id="DataTables_Table_0_ellipsis"><a
-                              aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="ellipsis"
-                              tabindex="-1" class="page-link">…</a></li>
-                          <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                              role="link" data-dt-idx="9" tabindex="0" class="page-link">10</a></li>
-                          <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
-                              aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0"
-                              class="page-link"><i class="ri-arrow-right-s-line"></i></a></li>
+                          <% if (currentPage> 1) { %>
+                            <li class="paginate_button page-item previous" id="DataTables_Table_0_previous">
+                              <a href="?page=<%= currentPage - 1 %>" aria-controls="DataTables_Table_0" role="link"
+                                data-dt-idx="previous" tabindex="0" class="page-link"><i
+                                  class="ri-arrow-left-s-line"></i></a>
+                            </li>
+                            <% } else { %>
+                              <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                                <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
+                                  data-dt-idx="previous" tabindex="-1" class="page-link"><i
+                                    class="ri-arrow-left-s-line"></i></a>
+                              </li>
+                              <% } %>
+
+                                <% for (let i=1; i <=totalPages; i++) { %>
+                                  <li class="paginate_button page-item <%= i === currentPage ? 'active' : '' %>">
+                                    <a href="?page=<%= i %>" aria-controls="DataTables_Table_0" role="link"
+                                      data-dt-idx="<%= i - 1 %>" tabindex="0" class="page-link">
+                                      <%= i %>
+                                    </a>
+                                  </li>
+                                  <% } %>
+
+                                    <% if (currentPage < totalPages) { %>
+                                      <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                                        <a href="?page=<%= currentPage + 1 %>" aria-controls="DataTables_Table_0"
+                                          role="link" data-dt-idx="next" tabindex="0" class="page-link"><i
+                                            class="ri-arrow-right-s-line"></i></a>
+                                      </li>
+                                      <% } else { %>
+                                        <li class="paginate_button page-item next disabled"
+                                          id="DataTables_Table_0_next">
+                                          <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
+                                            data-dt-idx="next" tabindex="-1" class="page-link"><i
+                                              class="ri-arrow-right-s-line"></i></a>
+                                        </li>
+                                        <% } %>
                         </ul>
                       </div>
                     </div>
@@ -589,11 +545,8 @@
               </div>
             </div>
 
-
           </div>
           <!-- / Content -->
-
-
 
           <div class="content-backdrop fade"></div>
         </div>
@@ -614,7 +567,7 @@
   </div>
   <!-- / Layout wrapper -->
 
-  <!-- Order Details Modal -->
+  <!-- order details model -->
   <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -626,10 +579,10 @@
         <div class="modal-body">
           <div id="orderDetailsContent"></div>
         </div>
+
       </div>
     </div>
   </div>
-
 
   <script>
     async function showOrderDetailsModal(orderId) {
@@ -640,75 +593,100 @@
         if (data.success) {
           const order = data.order;
           const orderDetailsHtml = `
-                  <div class="order-confirmation-header">
-                      <p>Order Date: ${new Date(order.createdAt).toLocaleDateString()}</p>
-                  </div>
-                  <div class="row mb-4">
-                      <div class="col-md-6 mb-3">
-                          <div class="card order-card">
-                              <div class="card-body">
-                                  <h5 class="card-title">Shipping Address</h5>
-                                  <p class="card-text">
-                                      <strong>${order.address.addressName}</strong><br>
-                                      ${order.address.addressStreet}<br>
-                                      ${order.address.addressHouse}<br>
-                                      ${order.address.addressCity}, ${order.address.addressState} ${order.address.addressPin}<br>
-                                      <strong>Phone:</strong> ${order.address.addressMobile}<br>
-                                      <strong>Email:</strong> ${order.address.addressEmail}
-                                  </p>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-md-6 mb-3">
-                          <div class="card order-card">
-                              <div class="card-body">
-                                  <h5 class="card-title">Order Summary</h5>
-                                  <p class="card-text">
-                                      <strong>Order ID :</strong> ${order.orderId}<br>
-                                      <strong>Payment Method:</strong> ${order.paymentMethod}<br>
-                                      <strong>Total Amount:</strong> ₹${order.totalPrice.toFixed(2)}<br>
-                                      <strong>Order Status :</strong> ${order.status}<br>
-
-                                  </p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="card mb-4 invoice-card">
-                      <div class="card-body">
-                          <h5 class="card-title">Invoice</h5>
-                          <div class="table-responsive">
-                              <table class="table table-invoice">
-                                  <thead>
-                                      <tr>
-                                          <th>Product</th>
-                                          <th class="text-center">Quantity</th>
-                                          <th class="text-right">Price</th>
-                                          <th class="text-right">Subtotal</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      ${order.items.map(item => `
-                                          <tr>
-                                              <td>${item.product.productTitle}</td>
-                                              <td class="text-center">${item.quantity}</td>
-                                              <td class="text-right">₹${item.price.toFixed(2)}</td>
-                                              <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
-                                          </tr>
-                                      `).join('')}
-                                  </tbody>
-                                  <tfoot>
-                                      <tr>
-                                          <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                                          <td class="text-right"><strong>₹${order.totalPrice.toFixed(2)}</strong></td>
-                                      </tr>
-                                  </tfoot>
-                              </table>
-                          </div>
-                      </div>
-                  </div>
-              `;
+        <div class="order-confirmation-header">
+          <p>Order Date: ${new Date(order.createdAt).toLocaleDateString()}</p>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6 mb-3">
+            <div class="card order-card">
+              <div class="card-body">
+                <h5 class="card-title">Shipping Address</h5>
+                <p class="card-text">
+                  <strong>${order.address.addressName}</strong><br>
+                  ${order.address.addressStreet}<br>
+                  ${order.address.addressHouse}<br>
+                  ${order.address.addressCity}, ${order.address.addressState} ${order.address.addressPin}<br>
+                  <strong>Phone:</strong> ${order.address.addressMobile}<br>
+                  <strong>Email:</strong> ${order.address.addressEmail}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="card order-card">
+              <div class="card-body">
+                <h5 class="card-title">Order Summary</h5>
+                <p class="card-text">
+                  <strong>Order ID:</strong> ${order.orderId}<br>
+                  <strong>Payment Method:</strong> ${order.paymentMethod}<br>
+                  <strong>Total Amount:</strong> ₹${order.totalPrice.toFixed(2)}<br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4 invoice-card">
+          <div class="card-body">
+            <h5 class="card-title">Invoice</h5>
+            <div class="table-responsive">
+              <table class="table table-invoice">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-right">Price</th>
+                    <th class="text-right">Subtotal</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${order.items.map((item) => `
+                    <tr>
+                      <td>${item.product.productTitle}</td>
+                      <td class="text-center">${item.quantity}</td>
+                      <td class="text-right">₹${item.price.toFixed(2)}</td>
+                      <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
+                      <td class="text-center">
+                        <span id="status-${item._id}">${item.order_status}</span>
+                      </td>
+                      <td class="text-center">
+                        <select class="form-select status-select" data-item-id="${item._id}" ${item.order_status === 'Cancelled' ? 'disabled' : ''}>
+                          ${getStatusOptions(item.order_status)}
+                        </select>
+                        ${item.order_status === 'Cancellation Requested' && item.order_status !== 'Cancelled' ?
+              `<button class="btn btn-sm btn-danger mt-2 accept-cancel-btn" data-item-id="${item._id}">Accept Cancel</button>` : ''}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5" class="text-right"><strong>Total:</strong></td>
+                    <td class="text-right"><strong>₹${order.totalPrice.toFixed(2)}</strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
           document.getElementById('orderDetailsContent').innerHTML = orderDetailsHtml;
+
+          // Set up event listeners for status changes
+          document.querySelectorAll('.status-select').forEach(select => {
+            select.addEventListener('change', function () {
+              updateItemStatus(orderId, this.dataset.itemId, this.value, this.dataset.currentStatus);
+            });
+          });
+
+          // Set up event listeners for cancel request buttons
+          document.querySelectorAll('.accept-cancel-btn').forEach(button => {
+            button.addEventListener('click', function () {
+              acceptItemCancellation(orderId, this.dataset.itemId);
+            });
+          });
+
           const orderDetailsModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
           orderDetailsModal.show();
         } else {
@@ -719,37 +697,87 @@
         alert('Failed to load order details. Please try again later.');
       }
     }
-  </script>
 
+    function getStatusOptions(currentStatus) {
+      const statusOrder = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled', 'Returned', 'Return Requested'];
+      let options = '';
 
-  <!-- req cancellation -->
-  <script>
-   $(document).ready(function () {
-    // Accept cancel request
-    $('.accept-cancel-request').on('click', function () {
-        const orderId = $(this).data('order-id');
+      statusOrder.forEach((status) => {
+        if (statusOrder.indexOf(currentStatus) <= statusOrder.indexOf(status)) {
+          options += `<option value="${status}" ${currentStatus === status ? 'selected' : ''}>${status}</option>`;
+        }
+      });
 
-        $.ajax({
-            url: `/admin/orders/${orderId}/accept-cancel`,
-            method: 'POST',
-            success: function (response) {
-                alert('Order cancelled successfully');
-                location.reload(); // Reload the page to reflect changes
+      return options;
+    }
+
+    async function updateItemStatus(orderId, itemId, newStatus, currentStatus) {
+      try {
+        if (isStatusChangeAllowed(currentStatus, newStatus)) {
+          const response = await fetch(`/admin/updateItemStatus/${orderId}/${itemId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
             },
-            error: function (xhr, status, error) {
-                console.error('Error accepting cancel request:', error);
-                alert('Failed to cancel the order.');
-            }
+            body: JSON.stringify({ status: newStatus })
+          });
+
+          const data = await response.json();
+          if (data.success) {
+            alert('Item status updated successfully');
+            document.getElementById(`status-${itemId}`).textContent = newStatus;
+          } else {
+            alert('Failed to update item status');
+          }
+        } else {
+          alert('You can only change the status from top to bottom order or the order is already cancelled.');
+        }
+      } catch (error) {
+        console.error('Error updating item status:', error);
+        alert('Failed to update item status');
+      }
+    }
+
+    function isStatusChangeAllowed(currentStatus, newStatus) {
+      const statusOrder = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled', 'Returned', 'Return Requested'];
+
+      const currentIndex = statusOrder.indexOf(currentStatus);
+      const newIndex = statusOrder.indexOf(newStatus);
+
+      return newIndex >= currentIndex && currentStatus !== 'Cancelled';
+    }
+
+    async function acceptItemCancellation(orderId, itemId) {
+      try {
+        const response = await fetch(`/admin/orders/${orderId}/items/${itemId}/accept-cancel`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
         });
-    });
 
-  
-});
-
+        const data = await response.json();
+        if (data.success) {
+          alert('Item cancellation accepted successfully');
+          const statusSpan = document.getElementById(`status-${itemId}`);
+          statusSpan.textContent = 'Cancelled';
+          const selectElement = document.querySelector(`.status-select[data-item-id="${itemId}"]`);
+          selectElement.value = 'Cancelled';
+          selectElement.disabled = true;
+          const cancelButton = document.querySelector(`.accept-cancel-btn[data-item-id="${itemId}"]`);
+          if (cancelButton) {
+            cancelButton.remove();
+          }
+        } else {
+          alert(data.message || 'Failed to accept item cancellation');
+        }
+      } catch (error) {
+        console.error('Error accepting item cancel request:', error);
+        alert('Failed to accept item cancellation');
+      }
+    }
 
   </script>
-
-
 
 
   <!-- Core JS -->

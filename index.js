@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const express = require("express");
-require('dotenv').config();
 const app = express();
+require('dotenv').config();
 const port = process.env.PORT || 3000
 const nocache = require("nocache");
 const passport = require('passport');
@@ -26,12 +26,7 @@ app.use(passport.session());
 app.use(nocache());
 
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('Successfully connected to MongoDB');
-    })
-    .catch((error) => {
-        console.error('Error connecting to MongoDB:', error);
-    });
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

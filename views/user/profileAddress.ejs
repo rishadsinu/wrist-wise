@@ -1,103 +1,114 @@
 <%- include ('../layouts/header.ejs') %>
-<style>
-    #addAddressModal .modal-content {
-        border-radius: 0.5rem;
-    }
+    <style>
+        #addAddressModal .modal-content {
+            border-radius: 0.5rem;
+        }
 
-    #addAddressModal .modal-header {
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #e9ecef;
-        padding: 1rem 1.5rem;
-    }
+        #addAddressModal .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1rem 1.5rem;
+        }
 
-    #addAddressModal .modal-body {
-        padding: 1.5rem;
-    }
+        #addAddressModal .modal-body {
+            padding: 1.5rem;
+        }
 
-    #addAddressModal .modal-footer {
-        background-color: #f8f9fa;
-        border-top: 1px solid #e9ecef;
-        padding: 1rem 1.5rem;
-    }
+        #addAddressModal .modal-footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            padding: 1rem 1.5rem;
+        }
 
-    #addAddressModal .form-control {
-        border-radius: 0.25rem;
-    }
+        #addAddressModal .form-control {
+            border-radius: 0.25rem;
+        }
 
-    #addAddressModal label {
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-    }
+        #addAddressModal label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
 
-    #addAddressModal .btn {
-        border-radius: 0.25rem;
-    }
+        #addAddressModal .btn {
+            border-radius: 0.25rem;
+        }
 
-    #addAddressModal .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
+        #addAddressModal .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
 
-    #addAddressModal .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
+        #addAddressModal .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
 
-    #addAddressModal .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
-    }
+        #addAddressModal .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
 
-    #addAddressModal .btn-secondary:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
-    }
-</style>
+        #addAddressModal .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
     <div class="page-wrapper">
         <header class="header">
+
             <div class="header-top">
                 <div class="container">
-                    <div class="header-left">
-                        <div class="header-dropdown">
-                            <a href="#">Usd</a>
-                            <div class="header-menu">
-                                <ul>
-                                    <li><a href="#">Eur</a></li>
-                                    <li><a href="#">Usd</a></li>
-                                </ul>
-                            </div><!-- End .header-menu -->
-                        </div><!-- End .header-dropdown -->
+                    <div class="header-left col-lg-7">
+                        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                            <div class="container breadcrumbs">
+                                <ol class="breadcrumb">
 
-                        <div class="header-dropdown">
-                            <a href="#">Eng</a>
-                            <div class="header-menu">
-                                <ul>
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">Spanish</a></li>
-                                </ul>
-                            </div><!-- End .header-menu -->
-                        </div><!-- End .header-dropdown -->
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
+                                    <!-- Current page breadcrumb without link -->
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        My Account
+                                    </li>
+                                </ol>
+                            </div>
+                            <!-- End .container -->
+                        </nav>
+                        <!-- End .breadcrumb-nav -->
+                    </div>
+                    <div class="header-right col-lg-5">
                         <ul class="top-menu">
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
-                                    <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
+                                    <li>
+                                        <a href="/wishlist"><i class="icon-heart-o"></i>Wishlist
+                                            <span>
+                                                (4)
+                                            </span>
+                                        </a>
+                                    </li>
                                     <li><a href="about.html">About Us</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                                    <li><a href="/contact-us">Contact Us</a></li>
+                                    <% if (user) { %>
+                                        <li>
+                                            <a href="userprofile"><i class="icon-user"></i>
+                                                <%= user.name || user.displayName %>
+                                            </a>
+                                        </li>
+                                        <% } else { %>
+                                            <li>
+                                                <a href="/login"><i class="icon-user"></i>Login</a>
+                                            </li>
+                                            <% } %>
                                 </ul>
                             </li>
-                        </ul><!-- End .top-menu -->
-                    </div><!-- End .header-right -->
-                </div><!-- End .container -->
-            </div><!-- End .header-top -->
+                        </ul>
+                        <!-- End .top-menu -->
+                    </div>
+                    <!-- End .header-right -->
+                </div>
+                <!-- End .container -->
 
-            <div class="header-middle sticky-header">
+            </div>
+            <div class="header-bottom sticky-header">
                 <div class="container">
                     <div class="header-left">
                         <button class="mobile-menu-toggler">
@@ -106,105 +117,58 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="assets/images/logo.png" alt="Molla Logo" width="105" height="25">
+                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
                         </a>
-
+                    </div>
+                    <div class="header-center">
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="home" class="sf-with-ul">Home</a>
-                                    
+                                    <a href="productlist" class="sf-with-ul">Home</a>
+
+
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>
+                                    <a href="category" class="sf-with-ul">Category</a>
 
                                     <div class="megamenu megamenu-md">
                                         <div class="row no-gutters">
                                             <div class="col-md-8">
                                                 <div class="menu-col">
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="menu-title">Shop with sidebar</div><!-- End .menu-title -->
-                                                            <ul>
-                                                                <li><a href="category-list.html">Shop List</a></li>
-                                                                <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
-                                                                <li><a href="category.html">Shop Grid 3 Columns</a></li>
-                                                                <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
-                                                                <li><a href="category-market.html"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>
-                                                            </ul>
 
-                                                            <div class="menu-title">Shop no sidebar</div><!-- End .menu-title -->
-                                                            <ul>
-                                                                <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
-                                                                <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
-                                                            </ul>
-                                                        </div><!-- End .col-md-6 -->
 
                                                         <div class="col-md-6">
-                                                            <div class="menu-title">Product Category</div><!-- End .menu-title -->
+                                                            <div class="menu-title">Product Categories</div>
+                                                            <!-- End .menu-title -->
                                                             <ul>
-                                                                <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
-                                                                <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
-                                                            </ul>
-                                                            <div class="menu-title">Shop Pages</div><!-- End .menu-title -->
-                                                            <ul>
-                                                                <li><a href="cart.html">Cart</a></li>
-                                                                <li><a href="checkout.html">Checkout</a></li>
-                                                                <li><a href="wishlist.html">Wishlist</a></li>
-                                                                <li><a href="dashboard.html">My Account</a></li>
-                                                                <li><a href="#">Lookbook</a></li>
-                                                            </ul>
-                                                        </div><!-- End .col-md-6 -->
-                                                    </div><!-- End .row -->
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-8 -->
+                                                                <li><a href="category">Product
+                                                                        Category</a></li>
 
-                                            <div class="col-md-4">
-                                                <div class="banner banner-overlay">
-                                                    <a href="category.html" class="banner banner-menu">
-                                                        <img src="assets/images/menu/banner-1.jpg" alt="Banner">
+                                                            </ul>
 
-                                                        <div class="banner-content banner-content-top">
-                                                            <div class="banner-title text-white">Last <br>Chance<br><span><strong>Sale</strong></span></div><!-- End .banner-title -->
-                                                        </div><!-- End .banner-content -->
-                                                    </a>
-                                                </div><!-- End .banner banner-overlay -->
-                                            </div><!-- End .col-md-4 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-md -->
+                                                        </div><!-- End .row -->
+                                                    </div><!-- End .menu-col -->
+                                                </div><!-- End .col-md-8 -->
+                                            </div><!-- End .row -->
+                                        </div><!-- End .megamenu megamenu-md -->
                                 </li>
                                 <li>
-                                    <a href="product.html" class="sf-with-ul">Product</a>
+                                    <a href="productlist" class="sf-with-ul">Product</a>
 
                                     <div class="megamenu megamenu-sm">
                                         <div class="row no-gutters">
                                             <div class="col-md-6">
                                                 <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div><!-- End .menu-title -->
+                                                    <div class="menu-title">Product Details</div>
+
                                                     <ul>
-                                                        <li><a href="product.html">Default</a></li>
-                                                        <li><a href="product-centered.html">Centered</a></li>
-                                                        <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
-                                                        <li><a href="product-gallery.html">Gallery</a></li>
-                                                        <li><a href="product-sticky.html">Sticky Info</a></li>
-                                                        <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
-                                                        <li><a href="product-fullwidth.html">Full Width</a></li>
-                                                        <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
+                                                        <li><a href="productlist">All Products</a></li>
                                                     </ul>
                                                 </div><!-- End .menu-col -->
                                             </div><!-- End .col-md-6 -->
 
-                                            <div class="col-md-6">
-                                                <div class="banner banner-overlay">
-                                                    <a href="category.html">
-                                                        <img src="assets/images/menu/banner-2.jpg" alt="Banner">
 
-                                                        <div class="banner-content banner-content-bottom">
-                                                            <div class="banner-title text-white">New Trends<br><span><strong>spring 2019</strong></span></div><!-- End .banner-title -->
-                                                        </div><!-- End .banner-content -->
-                                                    </a>
-                                                </div><!-- End .banner -->
-                                            </div><!-- End .col-md-6 -->
                                         </div><!-- End .row -->
                                     </div><!-- End .megamenu megamenu-sm -->
                                 </li>
@@ -213,68 +177,19 @@
 
                                     <ul>
                                         <li>
-                                            <a href="about.html" class="sf-with-ul">About</a>
+                                            <a href="about.html">About</a>
 
-                                            <ul>
-                                                <li><a href="about.html">About 01</a></li>
-                                                <li><a href="about-2.html">About 02</a></li>
-                                            </ul>
                                         </li>
                                         <li>
-                                            <a href="contact.html" class="sf-with-ul">Contact</a>
+                                            <a href="contact.html">Contact</a>
 
-                                            <ul>
-                                                <li><a href="contact.html">Contact 01</a></li>
-                                                <li><a href="contact-2.html">Contact 02</a></li>
-                                            </ul>
                                         </li>
                                         <li><a href="login.html">Login</a></li>
-                                        <li><a href="faq.html">FAQs</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
+                                        <li><a href="userprofile">My Account</a></li>
                                         <li><a href="coming-soon.html">Coming Soon</a></li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="blog.html" class="sf-with-ul">Blog</a>
 
-                                    <ul>
-                                        <li><a href="blog.html">Classic</a></li>
-                                        <li><a href="blog-listing.html">Listing</a></li>
-                                        <li>
-                                            <a href="#">Grid</a>
-                                            <ul>
-                                                <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
-                                                <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
-                                                <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
-                                                <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Masonry</a>
-                                            <ul>
-                                                <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
-                                                <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
-                                                <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
-                                                <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Mask</a>
-                                            <ul>
-                                                <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
-                                                <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Single Post</a>
-                                            <ul>
-                                                <li><a href="single.html">Default with sidebar</a></li>
-                                                <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
-                                                <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li>
                                     <a href="elements-list.html" class="sf-with-ul">Elements</a>
 
@@ -301,390 +216,354 @@
 
                     <div class="header-right">
                         <div class="header-search">
-                            <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
                             <form action="#" method="get">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..."
+                                        required>
                                 </div><!-- End .header-search-wrapper -->
                             </form>
                         </div><!-- End .header-search -->
-                        <div class="dropdown compare-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                                <i class="icon-random"></i>
-                            </a>
 
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <ul class="compare-products">
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
-                                    </li>
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
-                                    </li>
-                                </ul>
-
-                                <div class="compare-actions">
-                                    <a href="#" class="action-link">Clear All</a>
-                                    <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
-                                </div>
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .compare-dropdown -->
+                        <a href="wishlist" class="wishlist-link">
+                            <i class="icon-heart-o"></i>
+                            <span class="wishlist-count">3</span>
+                        </a>
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="/cart" class="dropdown-toggle" role="button">
                                 <i class="icon-shopping-cart"></i>
                                 <span class="cart-count">2</span>
                             </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-                                </div><!-- End .cart-product -->
-
-                                <div class="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
-                                </div><!-- End .dropdown-cart-total -->
-
-                                <div class="dropdown-cart-action">
-                                    <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                                </div><!-- End .dropdown-cart-total -->
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .cart-dropdown -->
+                        </div>
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
-            </div><!-- End .header-middle -->
+            </div><!-- End .header-bottom -->
         </header><!-- End .header -->
 
         <main class="main">
-        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
-        		<div class="container">
-        			<h1 class="page-title">My Account<span>Shop</span></h1>
-        		</div><!-- End .container -->
-        	</div><!-- End .page-header -->
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">My Account<span>Shop</span></h1>
+                </div><!-- End .container -->
+            </div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">My Account</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
-            	<div class="dashboard">
-	                <div class="container">
-	                	<div class="row">
-	                		<aside class="col-md-4 col-lg-3">
-	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row">
+                            <aside class="col-md-4 col-lg-3">
+                                <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-dashboard-link" href="/userprofile" role="tab"
                                             aria-controls="tab-dashboard" aria-selected="false">Account Details</a>
                                     </li>
-								    <li class="nav-item">
-								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
-								    </li>
-								  
-								    <li class="nav-item">
-								        <a class="nav-link active" href="/profileAddress" role="tab" >Adresses</a>
-								    </li>
-								    <li class="nav-item">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders"
+                                            role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="/profileAddress" role="tab">Adresses</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="#" id="logoutLink">Sign Out</a>
                                     </li>
-								</ul>
-	                		</aside>
+                                </ul>
+                            </aside>
 
-                            
+
                             <div class="col-md-8 col-lg-9">
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active">
                                         <div class="row">
-                                            <% if (addresses && addresses.length > 0) { %>
-                                                <% addresses.forEach(address => { %>
+                                            <% if (addresses && addresses.length> 0) { %>
+                                                <% addresses.forEach(address=> { %>
                                                     <div class="col-lg-6 mb-4">
                                                         <div class="card card-dashboard">
                                                             <div class="card-body">
                                                                 <p>
                                                                     Full Name: <%= address.fullName %><br>
-                                                                    Street Address: <%= address.streetAddress %><br>
-                                                                    Apartment Number: <%= address.apartmentNumber %><br>
-                                                                    State: <%= address.state %><br>
-                                                                    City: <%= address.city %><br>
-                                                                    Town: <%= address.town %><br>
-                                                                    Pin Code: <%= address.pinCode %><br>
-                                                                    Phone: <%= address.phone %><br>
-                                                                    Email: <%= address.email %><br>
-                                                                    <div class="footer-buttons" style="margin-bottom: 15px;
+                                                                        Street Address: <%= address.streetAddress %><br>
+                                                                            Apartment Number: <%=
+                                                                                address.apartmentNumber %><br>
+                                                                                State: <%= address.state %><br>
+                                                                                    City: <%= address.city %><br>
+                                                                                        Town: <%= address.town %><br>
+                                                                                            Pin Code: <%=
+                                                                                                address.pinCode %><br>
+                                                                                                Phone: <%= address.phone
+                                                                                                    %><br>
+                                                                                                    Email: <%=
+                                                                                                        address.email %>
+                                                                                                        <br>
+                                                                                                        <div class="footer-buttons"
+                                                                                                            style="margin-bottom: 15px;
                                                                     margin-left: 40px;
                                                                     margin-top: 32px;">
-                                                                    <button class="btn btn-link text-danger edit-address" data-id="<%= address._id %>">Edit <i class="icon-edit"></i></button>
-                                                                    <button class="btn btn-link text-danger delete-address" data-id="<%= address._id %>">Delete <i class="icon-edit"></i></button>
-                                                                </div>
+                                                                                                            <button
+                                                                                                                class="btn btn-link text-danger edit-address"
+                                                                                                                data-id="<%= address._id %>">Edit
+                                                                                                                <i
+                                                                                                                    class="icon-edit"></i></button>
+                                                                                                            <button
+                                                                                                                class="btn btn-link text-danger delete-address"
+                                                                                                                data-id="<%= address._id %>">Delete
+                                                                                                                <i
+                                                                                                                    class="icon-edit"></i></button>
+                                                                                                        </div>
                                                                 </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                <% }); %>
-                                            <% } else { %>
-                                                <div class="col-lg-12">
-                                                    <p>No addresses found.</p>
-                                                </div>
-                                            <% } %>
+                                                    <% }); %>
+                                                        <% } else { %>
+                                                            <div class="col-lg-12">
+                                                                <p>No addresses found.</p>
+                                                            </div>
+                                                            <% } %>
                                         </div>
-                                        
+
                                         <div class="add-address">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAddressModal">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#addAddressModal">
                                                 Add Address
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-	                	</div>
-	                </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
-       
-        <!-- Add this modal structure after your existing content -->
-<div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" style="
+
+        <!--  modal edit address -->
+        <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog"
+            aria-labelledby="editAddressModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="
         width: 525px;
         margin-left: 20px;
     ">
-          <form id="editAddressForm">
-            <input type="hidden" id="editAddressId" name="id">
-            <div class="form-group">
-              <label for="editFullName">Full Name</label>
-              <input type="text" class="form-control" id="editFullName" name="fullName" required>
+                        <form id="editAddressForm">
+                            <input type="hidden" id="editAddressId" name="id">
+                            <div class="form-group">
+                                <label for="editFullName">Full Name</label>
+                                <input type="text" class="form-control" id="editFullName" name="fullName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editStreetAddress">Street Address</label>
+                                <input type="text" class="form-control" id="editStreetAddress" name="streetAddress"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editApartmentNumber">Apartment Number</label>
+                                <input type="text" class="form-control" id="editApartmentNumber" name="apartmentNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="editCity">City</label>
+                                <input type="text" class="form-control" id="editCity" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editTown">Town</label>
+                                <input type="text" class="form-control" id="editTown" name="town" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editPinCode">Pin Code</label>
+                                <input type="text" class="form-control" id="editPinCode" name="pinCode" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editPhone">Phone</label>
+                                <input type="tel" class="form-control" id="editPhone" name="phone" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="updateAddressBtn">Update Address</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="editStreetAddress">Street Address</label>
-              <input type="text" class="form-control" id="editStreetAddress" name="streetAddress" required>
-            </div>
-            <div class="form-group">
-              <label for="editApartmentNumber">Apartment Number</label>
-              <input type="text" class="form-control" id="editApartmentNumber" name="apartmentNumber">
-            </div>
-            <div class="form-group">
-              <label for="editCity">City</label>
-              <input type="text" class="form-control" id="editCity" name="city" required>
-            </div>
-            <div class="form-group">
-              <label for="editTown">Town</label>
-              <input type="text" class="form-control" id="editTown" name="town" required>
-            </div>
-            <div class="form-group">
-              <label for="editPinCode">Pin Code</label>
-              <input type="text" class="form-control" id="editPinCode" name="pinCode" required>
-            </div>
-            <div class="form-group">
-              <label for="editPhone">Phone</label>
-              <input type="tel" class="form-control" id="editPhone" name="phone" required>
-            </div>
-          </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="updateAddressBtn">Update Address</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-<!-- Add Address Modal -->
-<div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addAddressModalLabel">Add New Address</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="addAddressForm">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" name="fullName" required>
+        <!-- Add Address Modal -->
+        <div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addAddressModalLabel">Add New Address</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addAddressForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" name="fullName" required>
+                                <div id="fullNameError" class="text-danger"></div> <!-- Error message -->
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div id="emailError" class="text-danger"></div> <!-- Error message -->
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone">Phone</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                                <div id="phoneError" class="text-danger"></div> <!-- Error message -->
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="pinCode">Pin Code</label>
+                                <input type="text" class="form-control" id="pinCode" name="pinCode" required>
+                                <div id="pinCodeError" class="text-danger"></div> <!-- Error message -->
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="phone">Phone</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="streetAddress">Street Address</label>
+                                <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                                <div id="streetAddressError" class="text-danger"></div> <!-- Error message -->
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="pinCode">Pin Code</label>
-                            <input type="text" class="form-control" id="pinCode" name="pinCode" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="apartmentNumber">Apartment Number</label>
+                                <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber">
+                                <div id="apartmentNumberError" class="text-danger"></div> <!-- Error message -->
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="town">Town</label>
+                                <input type="text" class="form-control" id="town" name="town" required>
+                                <div id="townError" class="text-danger"></div> <!-- Error message -->
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mb-3">
-                            <label for="streetAddress">Street Address</label>
-                            <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" name="city" required>
+                                <div id="cityError" class="text-danger"></div> <!-- Error message -->
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="state">State</label>
+                                <input type="text" class="form-control" id="state" name="state" required>
+                                <div id="stateError" class="text-danger"></div> <!-- Error message -->
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="apartmentNumber">Apartment Number</label>
-                            <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="town">Town</label>
-                            <input type="text" class="form-control" id="town" name="town" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="city">City</label>
-                            <input type="text" class="form-control" id="city" name="city" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="state">State</label>
-                            <input type="text" class="form-control" id="state" name="state" required>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveAddress">Save Address</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveAddress">Save Address</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
         <footer class="footer">
-        	<div class="footer-middle">
-	            <div class="container">
-	            	<div class="row">
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget widget-about">
-	            				<img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget widget-about">
+                                <img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105"
+                                    height="25">
+                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
+                                    magna eros eu erat. </p>
 
-	            				<div class="social-icons">
-	            					<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
-	            				</div><!-- End .soial-icons -->
-	            			</div><!-- End .widget about-widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <div class="social-icons">
+                                    <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                                            class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Twitter"><i
+                                            class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Instagram"><i
+                                            class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Youtube"><i
+                                            class="icon-youtube"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
+                                            class="icon-pinterest"></i></a>
+                                </div><!-- End .soial-icons -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
-	            					<li><a href="#">FAQ</a></li>
-	            					<li><a href="contact.html">Contact us</a></li>
-	            					<li><a href="login.html">Log in</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Molla</a></li>
+                                    <li><a href="#">How to shop on Molla</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="login.html">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Payment Methods</a></li>
-	            					<li><a href="#">Money-back guarantee!</a></li>
-	            					<li><a href="#">Returns</a></li>
-	            					<li><a href="#">Shipping</a></li>
-	            					<li><a href="#">Terms and conditions</a></li>
-	            					<li><a href="#">Privacy Policy</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <ul class="widget-list">
+                                    <li><a href="#">Payment Methods</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Terms and conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Sign In</a></li>
-	            					<li><a href="cart.html">View Cart</a></li>
-	            					<li><a href="#">My Wishlist</a></li>
-	            					<li><a href="#">Track My Order</a></li>
-	            					<li><a href="#">Help</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-	            	</div><!-- End .row -->
-	            </div><!-- End .container -->
-	        </div><!-- End .footer-middle -->
+                                <ul class="widget-list">
+                                    <li><a href="#">Sign In</a></li>
+                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
 
-	        <div class="footer-bottom">
-	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
-	        		<figure class="footer-payments">
-	        			<img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
-	        		</figure><!-- End .footer-payments -->
-	        	</div><!-- End .container -->
-	        </div><!-- End .footer-bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                    <!-- End .footer-copyright -->
+                    <figure class="footer-payments">
+                        <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                    </figure><!-- End .footer-payments -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
         </footer><!-- End .footer -->
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
@@ -698,10 +577,11 @@
 
             <form action="#" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
-            
+
             <nav class="mobile-nav">
                 <ul class="mobile-menu">
                     <li class="active">
@@ -741,10 +621,12 @@
                             <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
                             <li><a href="category.html">Shop Grid 3 Columns</a></li>
                             <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
-                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span
+                                            class="tip tip-hot">Hot</span></span></a></li>
                             <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
                             <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
-                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span
+                                            class="tip tip-new">New</span></span></a></li>
                             <li><a href="cart.html">Cart</a></li>
                             <li><a href="checkout.html">Checkout</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
@@ -756,7 +638,8 @@
                         <ul>
                             <li><a href="product.html">Default</a></li>
                             <li><a href="product-centered.html">Centered</a></li>
-                            <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-extended.html"><span>Extended Info<span
+                                            class="tip tip-new">New</span></span></a></li>
                             <li><a href="product-gallery.html">Gallery</a></li>
                             <li><a href="product-sticky.html">Sticky Info</a></li>
                             <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
@@ -866,186 +749,253 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-   
     <script>
-    $(document).ready(function() {
-        $('#saveAddress').click(function() {
-            var formData = $('#addAddressForm').serialize();
-            $.ajax({
-                url: '/add-address',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    if(response.success) {
-                        $('#addAddressModal').modal('hide');
-                        location.reload(); // Reload the page to show the new address
-                    } else {
-                        alert('Failed to add address. Please try again.');
-                    }
-                },
-                error: function() {
-                    alert('An error occurred. Please try again.');
+        $(document).ready(function () {
+            $('#saveAddress').click(function () {
+                var isValid = true;
+    
+                // Clear previous error messages
+                $('.text-danger').text('');
+    
+                var fullName = $('#fullName').val().trim();
+                if (fullName.length < 3) {
+                    $('#fullNameError').text('Full Name must be at least 3 characters.');
+                    isValid = false;
+                }
+
+                    var email = $('#email').val().trim();
+                var emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+                if (!emailPattern.test(email)) {
+                    $('#emailError').text('Please enter a valid Gmail address.');
+                    isValid = false;
+                }
+    
+                var phone = $('#phone').val().trim();
+                var phonePattern = /^\d{10}$/;
+                if (!phonePattern.test(phone)) {
+                    $('#phoneError').text('Phone number must be exactly 10 digits.');
+                    isValid = false;
+                }
+    
+                var pinCode = $('#pinCode').val().trim();
+                var pinCodePattern = /^\d{6}$/;
+                if (!pinCodePattern.test(pinCode)) {
+                    $('#pinCodeError').text('Please give valid pin code.');
+                    isValid = false;
+                }
+    
+                var streetAddress = $('#streetAddress').val().trim();
+                if (streetAddress.length < 10) {
+                    $('#streetAddressError').text('Give currect street address.');
+                    isValid = false;
+                }
+    
+                var apartmentNumber = $('#apartmentNumber').val().trim();
+                if (apartmentNumber !== '' && (!/^\d{1,3}$/.test(apartmentNumber) || parseInt(apartmentNumber) > 999)) {
+                    $('#apartmentNumberError').text('Provide valid appartment number');
+                    isValid = false;
+                }
+    
+                var town = $('#town').val().trim();
+                if (!/^[a-zA-Z\s]+$/.test(town)) {
+                    $('#townError').text('Give valid town.');
+                    isValid = false;
+                }
+    
+                var city = $('#city').val().trim();
+                if (!/^[a-zA-Z\s]+$/.test(city)) {
+                    $('#cityError').text('Provide currect city .');
+                    isValid = false;
+                }
+    
+                var state = $('#state').val().trim();
+                if (!/^[a-zA-Z\s]+$/.test(state)) {
+                    $('#stateError').text('Provide true state .');
+                    isValid = false;
+                }
+    
+                if (isValid) {
+                    var formData = $('#addAddressForm').serialize();
+                    $.ajax({
+                        url: '/add-address',
+                        type: 'POST',
+                        data: formData,
+                        success: function (response) {
+                            if (response.success) {
+                                $('#addAddressModal').modal('hide');
+                                location.reload();
+                            } else {
+                                alert('Failed to add address. Please try again.');
+                            }
+                        },
+                        error: function () {
+                            alert('An error occurred. Please try again.');
+                        }
+                    });
                 }
             });
         });
-    });
+    </script>
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.edit-address').on('click', function () {
+                const addressId = $(this).data('id');
+                const addressCard = $(this).closest('.card-body');
+
+                $('#editAddressId').val(addressId);
+                $('#editFullName').val(addressCard.find('p').text().match(/Full Name: (.*)/)[1]);
+                $('#editStreetAddress').val(addressCard.find('p').text().match(/Street Address: (.*)/)[1]);
+                $('#editApartmentNumber').val(addressCard.find('p').text().match(/Apartment Number: (.*)/)[1]);
+                $('#editCity').val(addressCard.find('p').text().match(/City: (.*)/)[1]);
+                $('#editTown').val(addressCard.find('p').text().match(/Town: (.*)/)[1]);
+                $('#editPinCode').val(addressCard.find('p').text().match(/Pin Code: (.*)/)[1]);
+                $('#editPhone').val(addressCard.find('p').text().match(/Phone: (.*)/)[1]);
+
+                $('#editAddressModal').modal('show');
+            });
+
+            $('#updateAddressBtn').on('click', function () {
+                const formData = $('#editAddressForm').serialize();
+
+                $.ajax({
+                    url: '/update-address',
+                    method: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            $('#editAddressModal').modal('hide');
+                            location.reload(); 
+                        } else {
+                            alert('Failed to update address. Please try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            });
+        });
     </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-  // Open edit modal and populate form
-  $('.edit-address').on('click', function() {
-    const addressId = $(this).data('id');
-    const addressCard = $(this).closest('.card-body');
-    
-    $('#editAddressId').val(addressId);
-    $('#editFullName').val(addressCard.find('p').text().match(/Full Name: (.*)/)[1]);
-    $('#editStreetAddress').val(addressCard.find('p').text().match(/Street Address: (.*)/)[1]);
-    $('#editApartmentNumber').val(addressCard.find('p').text().match(/Apartment Number: (.*)/)[1]);
-    $('#editCity').val(addressCard.find('p').text().match(/City: (.*)/)[1]);
-    $('#editTown').val(addressCard.find('p').text().match(/Town: (.*)/)[1]);
-    $('#editPinCode').val(addressCard.find('p').text().match(/Pin Code: (.*)/)[1]);
-    $('#editPhone').val(addressCard.find('p').text().match(/Phone: (.*)/)[1]);
-    
-    $('#editAddressModal').modal('show');
-  });
+<!-- delete address -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-address');
 
-  // Handle form submission
-  $('#updateAddressBtn').on('click', function() {
-    const formData = $('#editAddressForm').serialize();
-    
-    $.ajax({
-      url: '/update-address',
-      method: 'POST',
-      data: formData,
-      success: function(response) {
-        if (response.success) {
-          $('#editAddressModal').modal('hide');
-          location.reload(); // Reload the page to show updated address
-        } else {
-          alert('Failed to update address. Please try again.');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const addressId = this.getAttribute('data-id');
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Cancel",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes Delete '
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteAddress(addressId);
+                        }
+                    });
+                });
+            });
+        });
+
+        function deleteAddress(addressId) {
+            fetch(`/delete-address/${addressId}`, {
+                method: 'DELETE',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your address has been deleted.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Failed to delete the address.',
+                            'error'
+                        );
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred while deleting the address.',
+                        'error'
+                    );
+                });
         }
-      },
-      error: function() {
-        alert('An error occurred. Please try again.');
-      }
-    });
-  });
-});
-</script>
+    </script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const deleteButtons = document.querySelectorAll('.delete-address');
-    
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+<!-- Logout  js -->
+    <script>
+        document.getElementById('logoutLink').addEventListener('click', function (e) {
             e.preventDefault();
-            const addressId = this.getAttribute('data-id');
-            
+
             Swal.fire({
-                title: 'Are you sure?',
-                text: "Cancel",
-                icon: 'warning',
+                title: 'Ready to leave?',
+                text: "You're about to sign out of your account.",
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes Delete '
+                confirmButtonText: 'Yes I Will',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    container: 'my-swal'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    deleteAddress(addressId);
+                    // Send a request to the server to log out
+                    fetch('/logout', {
+                        method: 'POST',
+                        credentials: 'same-origin'
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                Swal.fire({
+                                    title: 'Signed Out!',
+                                    text: 'You have been successfully logged out.',
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6'
+                                }).then(() => {
+                                    // Redirect to home page
+                                    window.location.href = '/';
+                                });
+                            } else {
+                                throw new Error('Logout failed');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                title: 'Oops...',
+                                text: 'Failed to sign out. Please try again.',
+                                icon: 'error',
+                                confirmButtonColor: '#3085d6'
+                            });
+                        });
                 }
             });
         });
-    });
-});
-
-function deleteAddress(addressId) {
-    fetch(`/delete-address/${addressId}`, {
-        method: 'DELETE',
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire(
-                'Deleted!',
-                'Your address has been deleted.',
-                'success'
-            ).then(() => {
-                location.reload();
-            });
-        } else {
-            Swal.fire(
-                'Error!',
-                'Failed to delete the address.',
-                'error'
-            );
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire(
-            'Error!',
-            'An error occurred while deleting the address.',
-            'error'
-        );
-    });
-}
-</script>
-
-<script>
-document.getElementById('logoutLink').addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    Swal.fire({
-        title: 'Ready to leave?',
-        text: "You're about to sign out of your account.",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes I Will',
-        cancelButtonText: 'Cancel',
-        customClass: {
-            container: 'my-swal'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Send a request to the server to log out
-            fetch('/logout', {
-                method: 'POST',
-                credentials: 'same-origin'
-            })
-            .then(response => {
-                if (response.ok) {
-                    Swal.fire({
-                        title: 'Signed Out!',
-                        text: 'You have been successfully logged out.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6'
-                    }).then(() => {
-                        // Redirect to home page
-                        window.location.href = '/';
-                    });
-                } else {
-                    throw new Error('Logout failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    title: 'Oops...',
-                    text: 'Failed to sign out. Please try again.',
-                    icon: 'error',
-                    confirmButtonColor: '#3085d6'
-                });
-            });
-        }
-    });
-});
-</script>
+    </script>
+    <Script>
+        
+    </Script>
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>

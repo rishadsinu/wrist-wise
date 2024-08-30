@@ -105,6 +105,11 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    productImages: [
+        {
+            type: String // Store image paths or URLs
+        }
+    ],
     orderId: {
         type: String,
         unique: true,
@@ -113,9 +118,4 @@ const orderSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Order', orderSchema);
-// addressDistrict: {
-//     type: String,
-//     required: true
-// },
 
-// default: "Pending",

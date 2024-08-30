@@ -91,6 +91,15 @@ const placeOrder = async (req, res) => {
             orderId: `ORDER-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
         });
         await order.save();
+
+        for (let item of cart.items) {
+            await Product.findByIdAndUpdate(
+                item.product._id,
+                { $inc: { stock: -item.quantity } }, 
+                { new: true }
+            );
+        }
+
         cart.items = [];
         await cart.save();
 
@@ -103,17 +112,15 @@ const placeOrder = async (req, res) => {
 
 const getOrderPlaced = async (req, res) => {
     try {
+        const user = req.session.user
         const orderId = req.query.orderId;
         const order = await Order.findById(orderId).populate('items.product');
         if (!order) {
             return res.status(404).send('Order not found');
         }
-        res.render('orderPlaced', {
-            order: order,
-        });
+        res.render('orderPlaced', {order: order, user});
     } catch (error) {
-        console.error('Error fetching order details:', error);
-        res.status(500).send('An error occurred');
+        console.error(error);
     }
 };
 

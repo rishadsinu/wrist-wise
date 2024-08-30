@@ -84,11 +84,13 @@
     </style>
 </head>
 
-<body>
+<!-- <body>
     <form action="/verify-otp" method="POST">
         <h2>Verify OTP</h2>
         <div class="info-message">OTP has been sent to your email.</div>
         <div id="timer">02:00</div>
+        <input type="hidden" name="email" value="<%= email %>">
+
         <input type="text" name="otp" placeholder="Enter 4-digit OTP" required>
         <button type="submit">Verify</button>
         <div class="resend-link">
@@ -141,8 +143,78 @@
         });
 
     </script>
-</body>
+</body> -->
 
+<body>
+    <form action="/verify-otp" method="POST">
+        <h2>Verify OTP</h2>
+        <div class="info-message">OTP has been sent to your email.</div>
+        <div id="timer">01:00</div>
+        <input type="hidden" name="email" value="<%= email %>">
+
+        <input type="text" name="otp" placeholder="Enter 4-digit OTP" required>
+        <button type="submit">Verify</button>
+        <div class="resend-link" style="display: none;">
+            <a href="#" id="resendOTP">Resend OTP</a>
+        </div>
+    </form>
+
+    <script>
+        let countdownInterval;
+
+        function startCountdown(duration, display) {
+            clearInterval(countdownInterval);  // Clear any previous interval
+
+            let timer = duration, minutes, seconds;
+            const resendLink = document.querySelector('.resend-link');
+
+            countdownInterval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = 0;
+                    display.textContent = "00:00";
+                    resendLink.style.display = 'block';
+                    clearInterval(countdownInterval);  // Stop the countdown
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            const oneMinute = 60;
+            const display = document.querySelector('#timer');
+            startCountdown(oneMinute, display);
+        };
+
+        document.getElementById('resendOTP').addEventListener('click', function (e) {
+            e.preventDefault();
+            fetch('/resend-otp', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('New OTP sent successfully');
+                        // Reset the timer
+                        const oneMinute = 60;
+                        startCountdown(oneMinute, document.querySelector('#timer'));
+                        document.querySelector('.resend-link').style.display = 'none'; // Hide the link again
+                    } else {
+                        alert('Failed to resend OTP. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        });
+
+    </script>
+</body>
 
 
 </html>

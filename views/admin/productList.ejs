@@ -73,17 +73,18 @@
             </a>
             <ul class="menu-sub">
               <li class="menu-item">
-                <a href="app-ecommerce-dashboard.html" class="menu-link">
+                <a href="dashboard" class="menu-link">
                   <div data-i18n="Dashboard">Dashboard</div>
                 </a>
               </li>
+            
               <li class="menu-item active open">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                   <div data-i18n="Products">Products</div>
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item active">
-                    <a href="app-ecommerce-product-list.html" class="menu-link">
+                    <a href="productlist" class="menu-link">
                       <div data-i18n="Product List">Product List</div>
                     </a>
                   </li>
@@ -93,7 +94,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="app-ecommerce-category-list.html" class="menu-link">
+                    <a href="categorylist" class="menu-link">
                       <div data-i18n="categorylist">Category List</div>
                     </a>
                   </li>
@@ -105,7 +106,7 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item">
-                    <a href="app-ecommerce-order-list.html" class="menu-link">
+                    <a href="orderlist" class="menu-link">
                       <div data-i18n="Order List">Order List</div>
                     </a>
                   </li>
@@ -284,8 +285,6 @@
 
         </ul>
 
-
-
       </aside>
       <!-- / Menu -->
 
@@ -393,7 +392,6 @@
             </ul>
           </div>
         </nav>
-
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
@@ -407,14 +405,7 @@
               <div class="card-datatable table-responsive">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                   <div class="card-header d-flex border-top rounded-0 flex-wrap pb-md-0 pt-0">
-                    <!-- <div class="me-5 ms-n2 mt-5 mb-5">
-                      <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                        <label>
-                          <input type="search" class="form-control form-control-sm" placeholder="Search"
-                            aria-controls="DataTables_Table_0">
-                        </label>
-                      </div>
-                    </div> -->
+                    
                     <div class="me-5 ms-n2">
                       <div id="DataTables_Table_0_filter" class="dataTables_filter">
                         <label>
@@ -519,23 +510,82 @@
                         <% }); %>
                     </tbody>
                   </table>
-                  <div class="row mx-1">
+                  <!-- <div class="row mx-1">
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                        Displaying <%= products.length %> of <%= products.length %> entries
+                        Showing 1 to 7 of 14 entries
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                         <ul class="pagination">
-                          <!-- Pagination logic can go here -->
+                          <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                            <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
+                              data-dt-idx="previous" tabindex="-1" class="page-link"><i
+                                class="ri-arrow-left-s-line"></i></a>
+                          </li>
+                          <li class="paginate_button page-item active">
+                            <a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page"
+                              data-dt-idx="0" tabindex="0" class="page-link">1</a>
+                          </li>
+                          <li class="paginate_button page-item ">
+                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0"
+                              class="page-link">2</a>
+                          </li>
+                          <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0"
+                              class="page-link"><i class="ri-arrow-right-s-line"></i></a>
+                          </li>
                         </ul>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
+                  <div class="row mx-1">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                            Showing <%= (currentPage - 1) * 10 + 1 %> to <%= Math.min(currentPage * 10, totalProducts) %> of <%= totalProducts %> entries
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                            <ul class="pagination">
+                                <% if (currentPage > 1) { %>
+                                    <li class="paginate_button page-item previous" id="DataTables_Table_0_previous">
+                                        <a href="?page=<%= currentPage - 1 %>" aria-controls="DataTables_Table_0" role="link"
+                                            data-dt-idx="previous" tabindex="0" class="page-link"><i class="ri-arrow-left-s-line"></i></a>
+                                    </li>
+                                <% } else { %>
+                                    <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                                        <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
+                                            data-dt-idx="previous" tabindex="-1" class="page-link"><i class="ri-arrow-left-s-line"></i></a>
+                                    </li>
+                                <% } %>
+                
+                                <% for (let i = 1; i <= totalPages; i++) { %>
+                                    <li class="paginate_button page-item <%= i === currentPage ? 'active' : '' %>">
+                                        <a href="?page=<%= i %>" aria-controls="DataTables_Table_0" role="link"
+                                            data-dt-idx="<%= i - 1 %>" tabindex="0" class="page-link"><%= i %></a>
+                                    </li>
+                                <% } %>
+                
+                                <% if (currentPage < totalPages) { %>
+                                    <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                                        <a href="?page=<%= currentPage + 1 %>" aria-controls="DataTables_Table_0" role="link"
+                                            data-dt-idx="next" tabindex="0" class="page-link"><i class="ri-arrow-right-s-line"></i></a>
+                                    </li>
+                                <% } else { %>
+                                    <li class="paginate_button page-item next disabled" id="DataTables_Table_0_next">
+                                        <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
+                                            data-dt-idx="next" tabindex="-1" class="page-link"><i class="ri-arrow-right-s-line"></i></a>
+                                    </li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -545,14 +595,13 @@
     </div>
 
     <div class="layout-overlay layout-menu-toggle"></div>
-
-
     <!-- Drag Target Area To SlideIn Menu On Small Screens -->
     <div class="drag-target"></div>
 
   </div>
   <!-- / Layout wrapper -->
 
+  <!-- edit product modal -->
   <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -584,13 +633,7 @@
               <label for="editStock" class="form-label">Stock</label>
               <input type="number" class="form-control" id="editStock" name="stock" required>
             </div>
-            <!-- <div class="mb-3">
-              <label for="editCategory" class="form-label">Category</label>
-              <select class="form-select" id="editCategory" name="category" required>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
-              </select>
-            </div> -->
+           
             <div class="mb-3">
               <label for="editCategory" class="form-label">Category</label>
               <select class="form-select" id="editCategory" name="category" required>

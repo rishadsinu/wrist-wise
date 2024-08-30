@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: function () { return !this.googleId; }
     },
+
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
+    
     is_verified: {
         type: Number,
         default: 0

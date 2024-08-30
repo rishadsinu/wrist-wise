@@ -11,7 +11,6 @@ const loadLogin = async (req, res) => {
         res.render('adminLogin');
     } catch (error) {
         console.log(error);
-        res.status(500).send('Server error');
     }
 };
 
@@ -27,7 +26,6 @@ const loginAdmin = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send('Server error');
     }
 };
 
@@ -36,7 +34,6 @@ const loadDashboard = async (req, res) => {
         res.render('dashboard');
     } catch (error) {
         console.log(error);
-        res.status(500).send('Server error');
     }
 };
 
@@ -46,8 +43,7 @@ const loadCustomers = async (req, res) => {
             .sort({ createdAt: -1 });
         res.render('usersList', { users: users });
     } catch (error) {
-        console.error('Error in loadCustomers:', error);
-        res.status(500).send('Server error');
+        console.error(error);
     }
 };
 
@@ -59,8 +55,7 @@ const blockUser = async (req, res) => {
         }
         res.json({ success: true, message: 'User blocked successfully', user: user });
     } catch (error) {
-        console.error('Error blocking user:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        console.error(error);
     }
 };
 
@@ -72,8 +67,7 @@ const unblockUser = async (req, res) => {
         }
         res.json({ success: true, message: 'User unblocked successfully', user: user });
     } catch (error) {
-        console.error('Error unblocking user:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        console.error(error);
     }
 };
 

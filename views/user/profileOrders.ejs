@@ -1,6 +1,6 @@
 <%- include ('../layouts/header.ejs') %>
 
-    <style>
+    <!-- <style>
         .modal-body .card {
             margin-bottom: 1rem;
             margin-left: 28px;
@@ -11,7 +11,7 @@
             margin-bottom: 0;
             width: 500px;
         }
-    </style>
+    </style> -->
 
     <div class="page-wrapper">
         <header class="header">
@@ -22,15 +22,10 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-                                    <!-- Breadcrumbs with links -->
-                                    <li class="breadcrumb-item">
-                                        <a href="/home">
-                                            Home
-                                        </a>
-                                    </li>
+                                  
                                     <!-- Current page breadcrumb without link -->
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Home
+                                        My Account
                                     </li>
                                 </ol>
                             </div>
@@ -62,7 +57,7 @@
                                             <li>
                                                 <a href="/login"><i class="icon-user"></i>Login</a>
                                             </li>
-                                                     <% } %>
+                                           <% } %>
                                 </ul>
                             </li>
                         </ul>
@@ -71,7 +66,7 @@
                     <!-- End .header-right -->
                 </div>
                 <!-- End .container -->
-                      
+              
             </div>
             <div class="header-bottom sticky-header">
                 <div class="container">
@@ -82,7 +77,7 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="/images/logo 2.png" alt="Molla Logo" width="82" height="20">
+                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
                         </a>
                     </div>
                     <div class="header-center">
@@ -205,7 +200,7 @@
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-bottom -->
-        </header>
+        </header><!-- End .header -->
 
         <main class="main">
             <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
@@ -216,8 +211,7 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">My Account</li>
                     </ol>
                 </div><!-- End .container -->
@@ -253,30 +247,35 @@
                             <div class="col-md-8 col-lg-9">
                                 <div class="tab-content">
 
-                                    <!-- <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+
+                                    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
                                         <% if (orders && orders.length > 0) { %>
                                             <div class="container">
                                                 <div class="table-responsive">
                                                     <table class="table table-hover table-bordered">
                                                         <thead class="thead-dark">
                                                             <tr>
+                                                                <th scope="col">Image</th>
                                                                 <th scope="col">Order ID</th>
                                                                 <th scope="col">Order Date</th>
                                                                 <th scope="col">Status</th>
-                                                                <th scope="col">Total Amount</th>
-                                                                <th scope="col">Cancel </th>
                                                                 <th scope="col">Details</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            
                                                             <% orders.forEach(order => { %>
                                                                 <tr>
+                                                                    <td>
+                                                                        <% if (order.productImages && order.productImages.length > 0) { %>
+                                                                            <img src="/images/<%= order.productImages[0] %>" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover; margin-left: 29px;">
+                                                                        <% } else { %>
+                                                                            <img src="/images/placeholder.jpg" alt="No Image Available" style="width: 50px; height: 50px; object-fit: cover;">
+                                                                        <% } %>
+                                                                    </td>
                                                                     <td><strong>#<%= order.orderId %></strong></td>
                                                                     <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
                                                                     <td><span class="badge badge-primary"><%= order.status %></span></td>
-                                                                    <td><span class="text-success font-weight-bold">₹<%= order.totalPrice.toFixed(2) %></span></td>
-                                                                    <td>Cancel Order</td>
-
                                                                     <td>
                                                                         <button type="button" class="btn btn-primary btn-sm view-order-btn" data-toggle="modal" data-target="#orderModal" data-order-id="<%= order._id %>">
                                                                             View <i class="fas fa-eye"></i>
@@ -284,6 +283,8 @@
                                                                     </td>
                                                                 </tr>
                                                             <% }); %>
+                                                            
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -295,68 +296,37 @@
                                                 </div>
                                             </div>
                                         <% } %>
-                                    </div> -->
-                                    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel"
-                                        aria-labelledby="tab-dashboard-link">
-                                        <% if (orders && orders.length> 0) { %>
-                                            <div class="container">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover table-bordered">
-                                                        <thead class="thead-dark">
-                                                            <tr>
-                                                                <th scope="col">Order ID</th>
-                                                                <th scope="col">Order Date</th>
-                                                                <th scope="col">Status</th>
-                                                                <th scope="col">Cancel</th>
-                                                                <th scope="col">Details</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <% orders.forEach(order=> { %>
-                                                                <tr>
-                                                                    <td><strong>#<%= order.orderId %></strong></td>
-                                                                    <td>
-                                                                        <%= new
-                                                                            Date(order.createdAt).toLocaleDateString()
-                                                                            %>
-                                                                    </td>
-                                                                    <td><span class="badge badge-primary">
-                                                                            <%= order.status %>
-                                                                        </span></td>
-                                                                    <td>
-                                                                        <button type="button"
-                                                                            class="btn btn-danger btn-sm cancel-order-btn"
-                                                                            data-toggle="modal"
-                                                                            data-target="#cancelOrderModal"
-                                                                            data-order-id="<%= order._id %>">
-                                                                            Cancel Order
-                                                                        </button>
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button"
-                                                                            class="btn btn-primary btn-sm view-order-btn"
-                                                                            data-toggle="modal"
-                                                                            data-target="#orderModal"
-                                                                            data-order-id="<%= order._id %>">
-                                                                            View <i class="fas fa-eye"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                                <% }); %>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <% } else { %>
-                                                <div class="container">
-                                                    <div class="alert alert-info" role="alert">
-                                                        <i class="fas fa-info-circle"></i> You have no orders yet.
-                                                    </div>
-                                                </div>
-                                                <% } %>
                                     </div>
 
                                 </div>
+                                <!-- pagination -->
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                            <a class="page-link page-link-prev" href="?page=<%= currentPage - 1 %>"
+                                                aria-label="Previous" tabindex="-1">
+                                                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+                                            </a>
+                                        </li>
+
+                                        <% for (let i=1; i <=totalPages; i++) { %>
+                                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                <a class="page-link" href="?page=<%= i %>">
+                                                    <%= i %>
+                                                </a>
+                                            </li>
+                                            <% } %>
+
+                                                <li
+                                                    class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                                    <a class="page-link page-link-next"
+                                                        href="?page=<%= currentPage + 1 %>" aria-label="Next">
+                                                        Next <span aria-hidden="true"><i
+                                                                class="icon-long-arrow-right"></i></span>
+                                                    </a>
+                                                </li>
+                                    </ul>
+                                </nav>
                             </div>
 
 
@@ -452,45 +422,11 @@
             .modal-body .total-row {
                 font-weight: bold;
             }
-        </style>
 
-
-        <!-- Cancel Order Modal -->
-        <div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog"
-            aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="cancelOrderModalLabel">Cancel Order</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="cancelOrderForm">
-                            <div class="form-group">
-                                <label for="cancelReason">&nbsp;&nbsp; Reason for Cancellation </label>
-                                <textarea class="form-control" id="cancelReason" rows="3" required></textarea>
-                            </div>
-                            <input type="hidden" id="cancelOrderId" name="orderId">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" id="confirmCancelOrder">Request to Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <style>
-           
-            textarea.form-control {
-                width: 545px;
-                margin-left: 16px;
+            .modal-content {
+                width: 775px;
             }
         </style>
-
-
         <!-- Order Details Modal -->
         <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel"
             aria-hidden="true">
@@ -509,7 +445,48 @@
             </div>
         </div>
 
+        <!-- Cancellation Reason  Modal -->
+        <div class="modal fade" id="cancelItemModal" tabindex="-1" role="dialog" aria-labelledby="cancelItemModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="cancelItemModalLabel"><i class="fas fa-times-circle"></i> Cancel Item</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="cancelItemForm">
+                            <div class="form-group">
+                                <label for="cancelReason" class="font-weight-bold">Reason for cancellation:</label>
+                                <textarea class="form-control border-danger" id="cancelReason" rows="4" placeholder="Please provide a reason..." required></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fas fa-arrow-left"></i> Close</button>
+                        <button type="button" class="btn btn-danger" id="confirmCancelItem"><i class="fas fa-paper-plane"></i> Request Cancellation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<style>
+    .form-group {
+    margin-bottom: 2rem;
+    width: 540px;
+    margin-left: 15px;
+}
+.modal-content {
+    width: 775px;
+}
 
+.modal-dialog {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    min-height: calc(100% - 1rem); 
+}
+</style>        
 
         <footer class="footer">
             <div class="footer-middle">
@@ -776,155 +753,171 @@
 
     <!-- order Details modal -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <script>
         $(document).ready(function () {
-            $('.view-order-btn').on('click', function () {
-                var orderId = $(this).data('order-id');
-                var modalBody = $('#orderModal .modal-body');
+            let currentOrderId, currentItemId;
 
-                // Clear previous content
+            // View Order Button Click
+            $(document).on('click', '.view-order-btn', function () {
+                const orderId = $(this).data('order-id');
+                const modalBody = $('#orderModal .modal-body');
+
                 modalBody.empty();
-
-                // Show loading indicator
                 modalBody.html('<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>');
 
-                // Fetch order details
                 $.ajax({
-                    url: '/user/order-details/' + orderId,
+                    url: `/user/order-details/${orderId}`,
                     method: 'GET',
                     success: function (order) {
-                        var content = `
-                    <div class="row mb-4">
-                        <div class="col-md-6 mb-3">
-                            <div class="card order-card">
-                                <div class="card-body">
-                                    <h5 class="card-title"><i class="icon-map-marker"></i> Shipping Address</h5>
-                                    <p class="card-text">
-                                        <strong>${order.address.addressName}</strong><br>
-                                        ${order.address.addressStreet}<br>
-                                        ${order.address.addressHouse}<br>
-                                        ${order.address.addressCity}, ${order.address.addressState} ${order.address.addressPin}<br>
-                                        <strong>Phone:</strong> ${order.address.addressMobile}<br>
-                                        <strong>Email:</strong> ${order.address.addressEmail}
-                                    </p>
+                        const content = `
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card order-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="icon-map-marker"></i> Shipping Address</h5>
+                                            <p class="card-text">
+                                                <strong>${order.address.addressName}</strong><br>
+                                                ${order.address.addressStreet}<br>
+                                                ${order.address.addressHouse}<br>
+                                                ${order.address.addressCity}, ${order.address.addressState} ${order.address.addressPin}<br>
+                                                <strong>Phone:</strong> ${order.address.addressMobile}<br>
+                                                <strong>Email:</strong> ${order.address.addressEmail}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card order-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="icon-info-circle"></i> Order Summary</h5>
+                                            <p class="card-text">
+                                                <strong>Order ID:</strong> ${order.orderId}<br>
+                                                <strong>Order Date:</strong> ${new Date(order.createdAt).toLocaleDateString()}<br>
+                                                <strong>Payment Method:</strong> ${order.paymentMethod}<br>
+                                                <strong>Total Amount:</strong> ₹${order.totalPrice.toFixed(2)}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="card order-card">
+                            <div class="card mb-4 invoice-card">
                                 <div class="card-body">
-                                    <h5 class="card-title"><i class="icon-info-circle"></i> Order Summary</h5>
-                                    <p class="card-text">
-                                        <strong>Order ID:</strong> ${order.orderId}<br>
-                                        <strong>Order Date:</strong> ${new Date(order.createdAt).toLocaleDateString()}<br>
-                                        <strong>Payment Method:</strong> ${order.paymentMethod}<br>
-                                        <strong>Total Amount:</strong> ₹${order.totalPrice.toFixed(2)}
-                                    </p>
+                                    <h5 class="card-title"><i class="icon-file-text"></i> Invoice</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-invoice">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th class="text-center">Quantity</th>
+                                                    <th class="text-right">Price</th>
+                                                    <th class="text-right">Subtotal</th>
+                                                    <th class="text-center">Status</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${order.items.map(item => `
+                                                    <tr data-item-id="${item._id}">
+                                                        <td>${item.product.productTitle}</td>
+                                                        <td class="text-center">${item.quantity}</td>
+                                                        <td class="text-right">₹${item.price.toFixed(2)}</td>
+                                                        <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
+                                                        <td class="text-center">
+                                                            <span class="badge badge-primary">${item.order_status}</span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            ${item.order_status !== 'Cancelled' && item.order_status !== 'Delivered' && item.order_status !== 'Cancellation Requested' ?
+                                `<button type="button" class="btn btn-danger btn-sm cancel-item-btn"
+                                                                    data-order-id="${order._id}" data-item-id="${item._id}">
+                                                                    Cancel
+                                                                </button>`
+                                : ''
+                            }
+                                                        </td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                                                    <td class="text-right">₹${order.totalPrice.toFixed(2)}</td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="text-right"><strong>Shipping:</strong></td>
+                                                    <td class="text-right">Free</td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                                <tr class="total-row">
+                                                    <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                                                    <td class="text-right"><strong>₹${order.totalPrice.toFixed(2)}</strong></td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card mb-4 invoice-card">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="icon-file-text"></i> Invoice</h5>
-                            <div class="table-responsive">
-                                <table class="table table-invoice">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th class="text-center">Quantity</th>
-                                            <th class="text-right">Price</th>
-                                            <th class="text-right">Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${order.items.map(item => `
-                                            <tr>
-                                                <td>${item.product.productTitle}</td>
-                                                <td class="text-center">${item.quantity}</td>
-                                                <td class="text-right">₹${item.price.toFixed(2)}</td>
-                                                <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
-                                            </tr>
-                                        `).join('')}
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
-                                            <td class="text-right">₹${order.totalPrice.toFixed(2)}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="text-right"><strong>Shipping:</strong></td>
-                                            <td class="text-right">Free</td>
-                                        </tr>
-                                        <tr class="total-row">
-                                            <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                                            <td class="text-right"><strong>₹${order.totalPrice.toFixed(2)}</strong></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                        `;
 
                         modalBody.html(content);
+                        $('#orderModal').modal('show');
                     },
                     error: function () {
                         modalBody.html('<div class="alert alert-danger">Error loading order details.</div>');
                     }
                 });
             });
-        });
-    </script>
 
-
-
-    <!-- js for cancel order -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.cancel-order-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const orderId = button.getAttribute('data-order-id');
-                    document.getElementById('cancelOrderId').value = orderId;
-                });
+            // Cancel Item Button Click (using event delegation)
+            $(document).on('click', '.cancel-item-btn', function () {
+                currentItemId = $(this).data('item-id');
+                currentOrderId = $(this).data('order-id');
+                $('#cancelItemModal').modal('show');
             });
 
-            document.getElementById('confirmCancelOrder').addEventListener('click', async () => {
-                const orderId = document.getElementById('cancelOrderId').value;
-                const cancelReason = document.getElementById('cancelReason').value;
-
-                if (cancelReason.trim() === '') {
+            // Handle the cancellation confirmation
+            $('#confirmCancelItem').on('click', function () {
+                const reason = $('#cancelReason').val().trim();
+                if (reason === '') {
                     alert('Please provide a reason for cancellation.');
                     return;
                 }
 
-                try {
-                    const response = await fetch(`/orders/${orderId}/cancel`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ cancelReason })
-                    });
-
-                    if (response.ok) {
-                        // Refresh the page automatically
-                        location.reload();
-                    } else {
-                        console.error('Failed to send cancellation request.');
+                $.ajax({
+                    url: `/user/cancel-item/${currentOrderId}/${currentItemId}`,
+                    method: 'POST',
+                    data: { cancelReason: reason },
+                    success: function (response) {
+                        $('#cancelItemModal').modal('hide');
+                        updateItemStatus(currentItemId, 'Cancellation Requested');
+                        alert(response.message);
+                    },
+                    error: function () {
+                        alert('Error cancelling item. Please try again.');
                     }
-                } catch (error) {
-                    console.error('Error cancelling order:', error);
-                }
+                });
+            });
 
-                // Close the modal
-                $('#cancelOrderModal').modal('hide');
+            function updateItemStatus(itemId, newStatus) {
+                $(`#orderModal .modal-body tr[data-item-id="${itemId}"] .badge`)
+                    .text(newStatus)
+                    .removeClass('badge-primary')
+                    .addClass('badge-warning');
+
+                $(`#orderModal .modal-body tr[data-item-id="${itemId}"] .cancel-item-btn`)
+                    .prop('disabled', true)
+                    .text('Cancellation Requested');
+            }
+
+            // Clear cancel reason when modal is hidden
+            $('#cancelItemModal').on('hidden.bs.modal', function () {
+                $('#cancelReason').val('');
             });
         });
     </script>
-
-
 
 
 

@@ -1,5 +1,52 @@
 <%- include ('../layouts/header.ejs') %>
 
+    <!-- search stle -->
+    <style>
+        .search-results-container {
+            position: absolute;
+            top: 100%;
+            left: -330px;
+            right: 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            display: flex;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-result-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-info h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .search-result-info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .search-result-price {
+            font-weight: bold;
+            color: #e44d26;
+        }
+    </style>
+
     <div class="page-wrapper">
         <header class="header">
 
@@ -9,15 +56,9 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-                                    <!-- Breadcrumbs with links -->
-                                    <li class="breadcrumb-item">
-                                        <a href="/home">
-                                            Home
-                                        </a>
-                                    </li>
-                                    <!-- Current page breadcrumb without link -->
+
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Home
+                                        Product List
                                     </li>
                                 </ol>
                             </div>
@@ -47,13 +88,16 @@
                                             <li>
                                                 <a href="/login"><i class="icon-user"></i>Login</a>
                                             </li>
-                                                     <% } %>
+                                            <% } %>
                                 </ul>
                             </li>
                         </ul>
+                        <!-- End .top-menu -->
                     </div>
+                    <!-- End .header-right -->
                 </div>
-                      
+                <!-- End .container -->
+
             </div>
             <div class="header-bottom sticky-header">
                 <div class="container">
@@ -64,7 +108,7 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="/images/logo 2.png" alt="Molla Logo" width="82" height="20">
+                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
                         </a>
                     </div>
                     <div class="header-center">
@@ -162,16 +206,18 @@
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
+
                         <div class="header-search">
                             <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
+                            <form id="searchForm" action="#" method="get">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..."
-                                        required>
-                                </div><!-- End .header-search-wrapper -->
+                                    <input type="search" class="form-control" name="q" id="searchInput"
+                                        placeholder="Search in..." required>
+                                </div>
                             </form>
-                        </div><!-- End .header-search -->
+                            <div id="searchResults" class="search-results-container"></div>
+                        </div>
 
                         <a href="wishlist" class="wishlist-link">
                             <i class="icon-heart-o"></i>
@@ -181,7 +227,6 @@
                         <div class="dropdown cart-dropdown">
                             <a href="/cart" class="dropdown-toggle" role="button">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
                             </a>
                         </div>
                     </div><!-- End .header-right -->
@@ -190,22 +235,23 @@
         </header><!-- End .header -->
 
         <main class="main">
-        	<div class="page-header text-center" style="background-color:rgb(51, 41, 41);">
-        		<div class="container">
-        			<h1 class="page-title">Products <span>Elements</span></h1>
-        		</div><!-- End .container -->
-        	</div>
+            <div class="page-header text-center" style="background-color:rgb(51, 41, 41);">
+                <div class="container">
+                    <h1 class="page-title">Products <span>Elements</span></h1>
+                </div><!-- End .container -->
+            </div>
 
-    <style>.page-header .page-title {
-        color: white;
-    }</style>
-            
+            <style>
+                .page-header .page-title {
+                    color: white;
+                }
+            </style>
+
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="elements-list.html">Elements</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Products</li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item acti"><a href="#">Products</a></li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
@@ -215,156 +261,206 @@
 
                     <hr class="mt-3 mb-5">
                     <div class="row">
-                        <% if (typeof products !== 'undefined' && products.length > 0) { %>
-                            <% products.forEach(product => { %>
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="product product-3">
-                                    <figure class="product-media">
-                                        <% if (product.productDiscountedPrice < product.productPrice) { %>
-                                            <span class="product-label">Sale</span>
-                                        <% } %>
-                                        <a href="product/<%= product._id %>">
-                                            <% if (product.productImages.length > 0) { %>
-                                                <img src="/images/<%= product.productImages[0] %>" alt="<%= product.productTitle %>" class="product-image">
-                                            <% } else { %>
-                                                <img src="/path/to/default/image.jpg" alt="No Image" class="product-image">
-                                            <% } %>
-                                        </a>
-                    
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="product/<%= product._id %>" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                            <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
-                                        </div>
-                                    </figure>
-                    
-                                    <div class="product-body">
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div>
-                                        <div class="product-cat">
-                                            <a href="#"><%= product.category %></a>
-                                        </div>
-                                        
-                                        <h3 class="product-title"><a href="product/<%= product._id %>"><%= product.productTitle %></a></h3>
-                                        <div class="product-price">
+                        <% if (typeof products !=='undefined' && products.length> 0) { %>
+                            <% products.forEach(product=> { %>
+                                <div class="col-6 col-md-4 col-lg-3">
+                                    <div class="product product-3">
+                                        <figure class="product-media">
                                             <% if (product.productDiscountedPrice < product.productPrice) { %>
-                                                <span class="new-price">₹<%= product.productDiscountedPrice.toFixed(2) %></span>
-                                                <span class="old-price">₹<%= product.productPrice.toFixed(2) %></span>
-                                            <% } else { %>
-                                                ₹<%= product.productPrice.toFixed(2) %>
-                                            <% } %>
-                                        </div>
-                                    </div>
-                    
-                                    <div class="product-footer">
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <!-- <div class="ratings-val" style="width: <%= (product.ratings / 5) * 100 %>%;"></div> -->
-                                            </div>
-                                            <span class="ratings-text">( <%= product.reviewsCount %> Reviews )</span>
-                                        </div>
-                    
-                                        <% if (product.productImages.length > 1) { %>
-                                            <div class="product-nav product-nav-thumbs">
-                                                <% product.productImages.slice(0, 3).forEach((image, index) => { %>
-                                                    <a href="#" class="<%= index === 0 ? 'active' : '' %>">
-                                                        <img src="/images/<%= image %>" alt="product desc">
+                                                <span class="product-label">Sale</span>
+                                                <% } %>
+                                                    <a href="product/<%= product._id %>">
+                                                        <% if (product.productImages.length> 0) { %>
+                                                            <img src="/images/<%= product.productImages[0] %>"
+                                                                alt="<%= product.productTitle %>" class="product-image">
+                                                            <% } else { %>
+                                                                <img src="/path/to/default/image.jpg" alt="No Image"
+                                                                    class="product-image">
+                                                                <% } %>
                                                     </a>
-                                                <% }); %>
+
+                                                    <div class="product-action-vertical">
+                                                        <a href="#"
+                                                            class="btn-product-icon btn-wishlist btn-expandable"><span>add
+                                                                to wishlist</span></a>
+                                                        <a href="product/<%= product._id %>"
+                                                            class="btn-product-icon btn-quickview"
+                                                            title="Quick view"><span>Quick view</span></a>
+                                                        <a href="#" class="btn-product-icon btn-compare"
+                                                            title="Compare"><span>Compare</span></a>
+                                                    </div>
+                                        </figure>
+
+                                        <div class="product-body">
+                                            <div class="product-action">
+                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
                                             </div>
-                                        <% } %>
+                                            <div class="product-cat">
+                                                <a href="#">
+                                                    <%= product.category %>
+                                                </a>
+                                            </div>
+
+                                            <h3 class="product-title"><a href="product/<%= product._id %>">
+                                                    <%= product.productTitle %>
+                                                </a></h3>
+                                            <div class="product-price">
+                                                <% if (product.productDiscountedPrice < product.productPrice) { %>
+                                                    <span class="new-price">₹<%=
+                                                            product?.productDiscountedPrice?.toFixed(2) %></span>
+                                                    <span class="old-price">₹<%= product?.productPrice?.toFixed(2) %>
+                                                    </span>
+                                                    <% } else { %>
+                                                        ₹<%= product.productPrice.toFixed(2) %>
+                                                            <% } %>
+                                            </div>
+                                        </div>
+
+                                        <div class="product-footer">
+                                            <div class="ratings-container">
+                                                <div class="ratings">
+                                                    <!-- <div class="ratings-val" style="width: <%= (product.ratings / 5) * 100 %>%;"></div> -->
+                                                </div>
+                                                <span class="ratings-text">( <%= product.reviewsCount %> Reviews
+                                                        )</span>
+                                            </div>
+
+                                            <% if (product.productImages.length> 1) { %>
+                                                <div class="product-nav product-nav-thumbs">
+                                                    <% product.productImages.slice(0, 3).forEach((image, index)=> { %>
+                                                        <a href="#" class="<%= index === 0 ? 'active' : '' %>">
+                                                            <img src="/images/<%= image %>" alt="product desc">
+                                                        </a>
+                                                        <% }); %>
+                                                </div>
+                                                <% } %>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <% }); %>
-                            <% } else { %>
-                                <p>No products available.</p>
-                            <% } %>
+                                <% }); %>
+                                    <% } else { %>
+                                        <p>No products available.</p>
+                                        <% } %>
                     </div>
-                    
+
 
                     <hr class="mt-0 mb-5" />
-                </div> 
+                </div>
+                <!-- pagination -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                            <a class="page-link page-link-prev" href="?page=<%= currentPage - 1 %>"
+                                aria-label="Previous" tabindex="-1">
+                                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+                            </a>
+                        </li>
+
+                        <% for (let i=1; i <=totalPages; i++) { %>
+                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                <a class="page-link" href="?page=<%= i %>">
+                                    <%= i %>
+                                </a>
+                            </li>
+                            <% } %>
+
+                                <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                    <a class="page-link page-link-next" href="?page=<%= currentPage + 1 %>"
+                                        aria-label="Next">
+                                        Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                                    </a>
+                                </li>
+                    </ul>
+                </nav>
+
+
 
             </div>
 
-            
+
         </main>
 
         <footer class="footer">
-        	<div class="footer-middle">
-	            <div class="container">
-	            	<div class="row">
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget widget-about">
-	            				<img src="/assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget widget-about">
+                                <img src="/assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105"
+                                    height="25">
+                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
+                                    magna eros eu erat. </p>
 
-	            				<div class="social-icons">
-                                    <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+                                <div class="social-icons">
+                                    <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                                            class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Twitter"><i
+                                            class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Instagram"><i
+                                            class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Youtube"><i
+                                            class="icon-youtube"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
+                                            class="icon-pinterest"></i></a>
                                 </div><!-- End .soial-icons -->
-	            			</div><!-- End .widget about-widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
-	            					<li><a href="#">FAQ</a></li>
-	            					<li><a href="contact.html">Contact us</a></li>
-	            					<li><a href="login.html">Log in</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Molla</a></li>
+                                    <li><a href="#">How to shop on Molla</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="login.html">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Payment Methods</a></li>
-	            					<li><a href="#">Money-back guarantee!</a></li>
-	            					<li><a href="#">Returns</a></li>
-	            					<li><a href="#">Shipping</a></li>
-	            					<li><a href="#">Terms and conditions</a></li>
-	            					<li><a href="#">Privacy Policy</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <ul class="widget-list">
+                                    <li><a href="#">Payment Methods</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Terms and conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Sign In</a></li>
-	            					<li><a href="cart.html">View Cart</a></li>
-	            					<li><a href="#">My Wishlist</a></li>
-	            					<li><a href="#">Track My Order</a></li>
-	            					<li><a href="#">Help</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-	            	</div><!-- End .row -->
-	            </div><!-- End .container -->
-	        </div><!-- End .footer-middle -->
+                                <ul class="widget-list">
+                                    <li><a href="#">Sign In</a></li>
+                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
 
-	        <div class="footer-bottom">
-	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
-	        		<figure class="footer-payments">
-	        			<img src="/assets/images/payments.png" alt="Payment methods" width="272" height="20">
-	        		</figure><!-- End .footer-payments -->
-	        	</div><!-- End .container -->
-	        </div><!-- End .footer-bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                    <!-- End .footer-copyright -->
+                    <figure class="footer-payments">
+                        <img src="/assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                    </figure><!-- End .footer-payments -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
         </footer><!-- End .footer -->
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
@@ -378,10 +474,11 @@
 
             <form action="#" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
-            
+
             <nav class="mobile-nav">
                 <ul class="mobile-menu">
                     <li class="active">
@@ -421,10 +518,12 @@
                             <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
                             <li><a href="category.html">Shop Grid 3 Columns</a></li>
                             <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
-                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span
+                                            class="tip tip-hot">Hot</span></span></a></li>
                             <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
                             <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
-                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span
+                                            class="tip tip-new">New</span></span></a></li>
                             <li><a href="cart.html">Cart</a></li>
                             <li><a href="checkout.html">Checkout</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
@@ -436,7 +535,8 @@
                         <ul>
                             <li><a href="product">Default</a></li>
                             <li><a href="product-centered.html">Centered</a></li>
-                            <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
+                            <li><a href="product-extended.html"><span>Extended Info<span
+                                            class="tip tip-new">New</span></span></a></li>
                             <li><a href="product-gallery.html">Gallery</a></li>
                             <li><a href="product-sticky.html">Sticky Info</a></li>
                             <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
@@ -541,6 +641,73 @@
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
 
+    <!-- search js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+
+            let debounceTimer;
+
+            searchInput.addEventListener('input', function () {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const query = this.value.trim();
+                    if (query.length > 2) {
+                        fetchSearchResults(query);
+                    } else {
+                        searchResults.innerHTML = '';
+                    }
+                }, 300);
+            });
+
+            searchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                if (query) {
+                    fetchSearchResults(query);
+                }
+            });
+
+            function fetchSearchResults(query) {
+                fetch(`/search?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        displaySearchResults(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        searchResults.innerHTML = '<p>An error occurred while searching. Please try again.</p>';
+                    });
+            }
+
+            function displaySearchResults(results) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<p>No results found.</p>';
+                    return;
+                }
+
+                const resultsHtml = results.map(product => `
+    <div class="search-result-item">
+      <a class="product-gallery-item active" href="#"
+         data-image="/images/${product.image}"
+         data-zoom-image="/images/${product.image}">
+        <img src="/images/${product.image}" alt="${product.name}" class="search-result-image">
+      </a>
+      <div class="search-result-info">
+        <h3><a href="/product/${product.id}">${product.name}</a></h3>
+        <p>${product.description.substring(0, 50)}...</p>
+        <span class="search-result-price">$${product.price.toFixed(2)}</span>
+      </div>
+    </div>
+    `).join('');
+
+                searchResults.innerHTML = resultsHtml;
+            }
+        });
+
+    </script>
 
     <!-- Plugins JS File -->
     <script src="/assets/js/jquery.min.js"></script>

@@ -8,24 +8,41 @@ const path = require('path');
 const fs = require('fs');
 
 const loadOrdersList = async (req, res) => {
-    try {
-        const orders = await Order.find().populate('userId').sort({ createdAt: -1 });
-        const formattedOrders = orders.map(order => ({
-            _id: order._id,
-            orderId: order.orderId,
-            createdAt: order.createdAt,
-            status: order.items[0].order_status, 
-            userName: order.userId.name,
-            cancelRequest: order.items.some(item => item.order_status === 'Cancellation Requested'),
-            items: order.items 
-        }));
+  try {
+      const page = parseInt(req.query.page) || 1; 
+      const limit = 10;
 
-        res.render('ordersList', { orders: formattedOrders });
-    } catch (error) {
-        console.error('Error loading orders list:', error);
-        res.status(500).send('Internal Server Error');
-    }
+      const totalOrders = await Order.countDocuments();
+      const totalPages = Math.ceil(totalOrders / limit); 
+
+      const orders = await Order.find()
+          .populate('userId')
+          .sort({ createdAt: -1 })
+          .skip((page - 1) * limit)
+          .limit(limit);
+
+      const formattedOrders = orders.map(order => ({
+          _id: order._id,
+          orderId: order.orderId,
+          createdAt: order.createdAt,
+          status: order.items[0].order_status,
+          userName: order.userId ? order.userId.name : 'Unknown User',
+          cancelRequest: order.items.some(item => item.order_status === 'Cancellation Requested'),
+          items: order.items
+      }));
+
+      res.render('ordersList', {
+          orders: formattedOrders,
+          currentPage: page,
+          totalPages: totalPages,
+          totalOrders: totalOrders
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
+  }
 };
+
 
 const getOrderDetails = async (req, res) => {
     try {
@@ -43,73 +60,63 @@ const getOrderDetails = async (req, res) => {
     }
 };
 
-const updateOrderStatus = async (req, res) => {
-
+const updateItemStatus = async (req, res) => {
     try {
-        const { orderId } = req.params;
-        const { status } = req.body;
-
-        const result = await Order.updateOne(
-            { _id: orderId },
-            { $set: { "items.$[].order_status": status } }
-        );
-        if (result.nModified > 0) {
-            const updatedOrder = await Order.findById(orderId);
-            res.json({ success: true, message: 'Order status updated successfully', updatedOrder });
-        } else {
-            res.status(404).json({ success: false, message: 'Order status not updated or order not found' });
-        }
+      const { orderId, itemId } = req.params;
+      const { status } = req.body;
+  
+      const order = await Order.findById(orderId);
+      if (!order) {
+        return res.status(404).json({ success: false, message: 'Order not found' });
+      }
+  
+      const item = order.items.id(itemId);
+      if (!item) {
+        return res.status(404).json({ success: false, message: 'Item not found' });
+      }
+  
+      item.order_status = status;
+      await order.save();
+  
+      res.json({ success: true, message: 'Item status updated successfully', updatedOrder: order });
     } catch (error) {
-        console.error('Error updating order status:', error);
-        res.status(500).json({ success: false, message: 'Failed to update order status', error: error.message });
+      console.error('Error updating item status:', error);
+      res.status(500).json({ success: false, message: 'Failed to update item status', error: error.message });
     }
-};
+  };
 
 const acceptCancellationRequest = async (req, res) => {
     try {
-        const orderId = req.params.orderId;
-        const order = await Order.findById(orderId);
-
-        if (!order) {
-            return res.status(404).json({ success: false, message: 'Order not found' });
-        }
-        order.items[0].order_status = 'Cancelled'; 
-        order.cancelRequest = false; 
-
-        await order.save();
-
-        res.json({ success: true, message: 'Order cancelled successfully' });
+      const { orderId, itemId } = req.params;
+      const order = await Order.findById(orderId);
+  
+      if (!order) {
+        return res.status(404).json({ success: false, message: 'Order not found' });
+      }
+  
+      const item = order.items.id(itemId);
+      if (!item) {
+        return res.status(404).json({ success: false, message: 'Item not found' });
+      }
+  
+      if (item.order_status !== 'Cancellation Requested') {
+        return res.status(400).json({ success: false, message: 'Item is not in cancellation requested state' });
+      }
+  
+      item.order_status = 'Cancelled';
+      await order.save();
+  
+      res.json({ success: true, message: 'Item cancellation accepted successfully' });
     } catch (error) {
-        console.error('Error accepting cancel request:', error);
-        res.status(500).json({ success: false, message: 'Failed to cancel the order.' });
+      console.error('Error accepting item cancellation:', error);
+      res.status(500).json({ success: false, message: 'Failed to accept item cancellation.' });
     }
-};
-
-const rejectCancellationRequest =  async (req, res) => {
-    try {
-        const orderId = req.params.orderId;
-        const order = await Order.findById(orderId);
-
-        if (!order) {
-            return res.status(404).json({ success: false, message: 'Order not found' });
-        }
-
-        order.cancelRequest = false; 
-
-        await order.save();
-
-        res.json({ success: true, message: 'Cancel request rejected successfully' });
-    } catch (error) {
-        console.error('Error rejecting cancel request:', error);
-        res.status(500).json({ success: false, message: 'Failed to reject the cancel request.' });
-    }
-}
-
+  };
 
 module.exports = {
     loadOrdersList,
     getOrderDetails,
-    updateOrderStatus,
+    updateItemStatus,
     acceptCancellationRequest,
-    rejectCancellationRequest
+    
 }

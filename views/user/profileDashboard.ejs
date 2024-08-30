@@ -16,15 +16,9 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-                                    <!-- Breadcrumbs with links -->
-                                    <li class="breadcrumb-item">
-                                        <a href="/home">
-                                            Home
-                                        </a>
-                                    </li>
-                                    <!-- Current page breadcrumb without link -->
+                                    
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Home
+                                        My Account
                                     </li>
                                 </ol>
                             </div>
@@ -56,7 +50,7 @@
                                             <li>
                                                 <a href="/login"><i class="icon-user"></i>Login</a>
                                             </li>
-                                                     <% } %>
+                                           <% } %>
                                 </ul>
                             </li>
                         </ul>
@@ -65,7 +59,7 @@
                     <!-- End .header-right -->
                 </div>
                 <!-- End .container -->
-                      
+              
             </div>
             <div class="header-bottom sticky-header">
                 <div class="container">
@@ -76,7 +70,7 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="/images/logo 2.png" alt="Molla Logo" width="82" height="20">
+                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
                         </a>
                     </div>
                     <div class="header-center">
@@ -191,73 +185,11 @@
                         </a>
 
                         <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <a href="/cart" class="dropdown-toggle" role="button">
                                 <i class="icon-shopping-cart"></i>
                                 <span class="cart-count">2</span>
-
                             </a>
-
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="/assets/images/products/cart/product-1.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i
-                                                class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product" class="product-image">
-                                                <img src="/assets/images/products/cart/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i
-                                                class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-                                </div><!-- End .cart-product -->
-
-                                <div class="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
-                                </div><!-- End .dropdown-cart-total -->
-
-                                <div class="dropdown-cart-action">
-                                    <a href="cart" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i
-                                            class="icon-long-arrow-right"></i></a>
-                                </div><!-- End .dropdown-cart-total -->
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .cart-dropdown -->
+                        </div>
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-bottom -->
@@ -276,8 +208,7 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">My Account</li>
                     </ol>
                 </div><!-- End .container -->
@@ -315,48 +246,39 @@
                             <div class="col-md-8 col-lg-9">
                                 <div class="tab-content">
 
-                                    <div class="tab-pane fade show active" >
+                                    <div class="tab-pane fade show active">
                                         <form id="userDetailsForm" action="/update-profile" method="POST">
                                             <div class="form-row">
-                                                <!-- Full Name -->
                                                 <div class="col-md-12 mb-3">
                                                     <label for="displayName">Full Name</label>
-                                                    <input type="text" class="form-control" id="displayName" name="name"
-                                                        value="<%= user.name %>" readonly>
+                                                    <input type="text" class="form-control" id="displayName" name="name" value="<%= user.name %>" readonly>
+                                                    <div id="nameError" class="text-danger"></div> <!-- Error message for name -->
                                                 </div>
                                             </div>
                                             <div class="form-row">
-                                                <!-- Email -->
                                                 <div class="col-md-12 mb-3">
                                                     <label for="email">Email address</label>
-                                                    <input type="email" class="form-control" id="email" name="email"
-                                                        value="<%= user.email %>" readonly>
+                                                    <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" readonly>
                                                 </div>
                                             </div>
                                             <div class="form-row">
-                                                <!-- Phone Number -->
                                                 <div class="col-md-12 mb-3">
                                                     <label for="phoneNumber">Phone Number</label>
-                                                    <input type="text" class="form-control" id="phoneNumber"
-                                                        name="phone" value="<%= user.phone %>" readonly>
+                                                    <input type="text" class="form-control" id="phoneNumber" name="phone" value="<%= user.phone %>" readonly>
+                                                    <div id="phoneError" class="text-danger"></div> <!-- Error message for phone -->
                                                 </div>
                                             </div>
-
-                                            <!-- Edit/Update Details and Change Password Section -->
+                                    
                                             <div class="form-row">
                                                 <div class="col-md-12 mb-3">
-                                                    <button type="button" id="editButton" class="btn btn-primary">Edit
-                                                        Details</button>
-                                                    <button type="submit" id="updateButton" class="btn btn-success"
-                                                        style="display: none;">Update Details</button>
-                                                    <!-- <button type="button" id="changePasswordButton" class="btn btn-secondary ml-2">Change Password</button> -->
-                                                    <button type="button"
-                                                        onclick="window.location.href='/change-password'"
-                                                        class="btn btn-secondary ml-2">Change Password</button>
+                                                    <button type="button" id="editButton" class="btn btn-primary">Edit Details</button>
+                                                    <button type="submit" id="updateButton" class="btn btn-success" style="display: none;">Update Details</button>
+                                                    <button type="button" onclick="window.location.href='/change-password'" class="btn btn-secondary ml-2">Change Password</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
+
                                 </div>
                             </div><!-- End .col-lg-9 -->
                         </div><!-- End .row -->
@@ -626,7 +548,7 @@
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
 
-    
+   <!-- edit user details validation -->
     <script>
         document.getElementById('editButton').addEventListener('click', function () {
             document.getElementById('displayName').readOnly = false;
@@ -634,7 +556,34 @@
             this.style.display = 'none';
             document.getElementById('updateButton').style.display = 'inline-block';
         });
+    
+        document.getElementById('userDetailsForm').addEventListener('submit', function (e) {
+            let isValid = true;
+    
+            const name = document.getElementById('displayName').value.trim();
+            const phone = document.getElementById('phoneNumber').value.trim();
+    
+            const nameError = document.getElementById('nameError');
+            const phoneError = document.getElementById('phoneError');
+    
+            nameError.textContent = '';
+            phoneError.textContent = '';
+    
+            if (name.length < 2) {
+                nameError.textContent = 'Enter a valid name.';
+                isValid = false;
+            }
+    
+            if (!/^\d{10}$/.test(phone)) {
+                phoneError.textContent = 'Enter a valid phone number.';
+                isValid = false;
+            }
+                if (!isValid) {
+                e.preventDefault();
+            }
+        });
     </script>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

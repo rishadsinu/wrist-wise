@@ -349,12 +349,9 @@
 
             </ul>
           </div>
-
         </nav>
 
         <!-- / Navbar -->
-
-
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
@@ -371,95 +368,196 @@
                 </div>
               </div>
 
-              <form action="/admin/submit-product" method="POST" enctype="multipart/form-data">
+              <!-- <form action="/admin/submit-product" method="POST" enctype="multipart/form-data">
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h5 class="card-title mb-0 text-primary">Product Details</h5>
+                  <div class="card-header py-3">
+                    <h5 class="card-title mb-0 text-primary">Product Details</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label for="ecommerce-product-name">Product Title</label>
+                        <input type="text" class="form-control" id="ecommerce-product-name" name="productTitle"
+                          placeholder="Product Title" required>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="ecommerce-category-description">Description</label>
+                        <textarea class="form-control" id="ecommerce-category-description" name="productDescription"
+                          placeholder="Product Description"></textarea>
+                      </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label for="ecommerce-product-name">Product Title</label>
-                                <input type="text" class="form-control" id="ecommerce-product-name" name="productTitle" placeholder="Product Title" required>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="ecommerce-category-description">Description</label>
-                                <textarea class="form-control" id="ecommerce-category-description" name="productDescription" placeholder="Product Description"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="ecommerce-product-price" class="form-label">Price:</label>
-                                    <input type="number" class="form-control" id="ecommerce-product-price" name="productPrice" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="ecommerce-product-discount-price" class="form-label">Discount Price:</label>
-                                    <input type="number" class="form-control" id="ecommerce-product-discount-price" name="productDiscountedPrice">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="productImages" class="form-label">Product Images:</label>
-                            <div class="row" id="imagePreviewContainer">
-                                <div class="col-md-4 mb-3">
-                                    <input type="file" class="form-control image-input" name="productImages" accept=".jpeg, .jpg, .png" required>
-                                    <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <input type="file" class="form-control image-input" name="productImages" accept=".jpeg, .jpg, .png" required>
-                                    <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <input type="file" class="form-control image-input" name="productImages" accept=".jpeg, .jpg, .png" required>
-                                    <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
-                                </div>
-                            </div>
+                          <label for="ecommerce-product-price" class="form-label">Price:</label>
+                          <input type="number" class="form-control" id="ecommerce-product-price" name="productPrice"
+                            required>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="stock" class="form-label">Stock:</label>
-                                    <input type="number" class="form-control" id="stock" name="stock" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <!-- <div class="mb-3">
-                                    <label for="category" class="form-label">Category:</label>
-                                    <select class="form-select" id="category" name="category" required>
-                                        <option value="" disabled selected>Select category</option>
-                                        <option value="category1">Category 1</option>
-                                        <option value="category2">Category 2</option>
-                                    </select>
-                                </div> -->
-                                <div class="mb-3">
-                                  <label for="editCategory" class="form-label">Category</label>
-                                  <select class="form-select" id="editCategory" name="category" required>
-                                    <% categories.forEach(function(category) { %>
-                                      <option value="<%= category._id %>"><%= category.name %></option>
-                                    <% }); %>
-                                  </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="publishStatus" class="form-label">Status:</label>
-                                    <select class="form-select" id="publishStatus" name="isListed" required>
-                                        <option value="" disabled selected>Select status</option>
-                                        <option value="true">Active</option>
-                                        <option value="false">Inactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Submit Product</button>
+                          <label for="ecommerce-product-discount-price" class="form-label">Discount Price:</label>
+                          <input type="number" class="form-control" id="ecommerce-product-discount-price"
+                            name="productDiscountedPrice">
                         </div>
+                      </div>
                     </div>
+                    <div class="mb-3">
+                      <label for="productImages" class="form-label">Product Images:</label>
+                      <div class="row" id="imagePreviewContainer">
+                        <div class="col-md-4 mb-3">
+                          <input type="file" class="form-control image-input" name="productImages"
+                            accept=".jpeg, .jpg, .png" required>
+                          <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <input type="file" class="form-control image-input" name="productImages"
+                            accept=".jpeg, .jpg, .png" required>
+                          <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <input type="file" class="form-control image-input" name="productImages"
+                            accept=".jpeg, .jpg, .png" required>
+                          <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="stock" class="form-label">Stock:</label>
+                          <input type="number" class="form-control" id="stock" name="stock" required>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="editCategory" class="form-label">Category</label>
+                          <select class="form-select" id="editCategory" name="category" required>
+                            <% categories.forEach(function(category) { %>
+                              <option value="<%= category.name %>">
+                                <%= category.name %>
+                              </option>
+                              <% }); %>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="publishStatus" class="form-label">Status:</label>
+                          <select class="form-select" id="publishStatus" name="isListed" required>
+                            <option value="" disabled selected>Select status</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-primary">Submit Product</button>
+                    </div>
+                  </div>
                 </div>
-               </form>
+              </form> -->
+
+
+              <form action="/admin/submit-product" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h5 class="card-title mb-0 text-primary">Product Details</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label for="ecommerce-product-name">Product Title</label>
+                        <input type="text" class="form-control" id="ecommerce-product-name" name="productTitle"
+                          placeholder="Product Title" required>
+                        <div class="text-danger" id="titleError"></div>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label for="ecommerce-category-description">Description</label>
+                        <textarea class="form-control" id="ecommerce-category-description" name="productDescription"
+                          placeholder="Product Description"></textarea>
+                        <div class="text-danger" id="descriptionError"></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="ecommerce-product-price" class="form-label">Price:</label>
+                          <input type="number" class="form-control" id="ecommerce-product-price" name="productPrice"
+                            required>
+                          <div class="text-danger" id="priceError"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="ecommerce-product-discount-price" class="form-label">Discount Price:</label>
+                          <input type="number" class="form-control" id="ecommerce-product-discount-price"
+                            name="productDiscountedPrice">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="productImages" class="form-label">Product Images:</label>
+                      <div class="row" id="imagePreviewContainer">
+                        <div class="col-md-4 mb-3">
+                          <input type="file" class="form-control image-input" name="productImages"
+                            accept=".jpeg, .jpg, .png" required>
+                          <div class="text-danger" id="imageError0"></div>
+                          <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <input type="file" class="form-control image-input" name="productImages"
+                            accept=".jpeg, .jpg, .png" required>
+                          <div class="text-danger" id="imageError1"></div>
+                          <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <input type="file" class="form-control image-input" name="productImages"
+                            accept=".jpeg, .jpg, .png" required>
+                          <div class="text-danger" id="imageError2"></div>
+                          <div class="image-preview mt-2" style="width: 200px; height: 200px;"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="stock" class="form-label">Stock:</label>
+                          <input type="number" class="form-control" id="stock" name="stock" required>
+                          <div class="text-danger" id="stockError"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="editCategory" class="form-label">Category</label>
+                          <select class="form-select" id="editCategory" name="category" required>
+                            <% categories.forEach(function(category) { %>
+                              <option value="<%= category.name %>">
+                                <%= category.name %>
+                              </option>
+                              <% }); %>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="publishStatus" class="form-label">Status:</label>
+                          <select class="form-select" id="publishStatus" name="isListed" required>
+                            <option value="" disabled selected>Select status</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-primary">Submit Product</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
 
             </div>
           </div>
@@ -482,45 +580,105 @@
   </div>
   <!-- / Layout wrapper -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const imageInputs = document.querySelectorAll('.image-input');
-            const previewContainers = document.querySelectorAll('.image-preview');
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const imageInputs = document.querySelectorAll('.image-input');
+      const previewContainers = document.querySelectorAll('.image-preview');
 
-            imageInputs.forEach((input, index) => {
-                input.addEventListener('change', function (e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function (event) {
-                            const img = new Image();
-                            img.onload = function () {
-                                previewContainers[index].innerHTML = '';
-                                previewContainers[index].appendChild(img);
-                                new Cropper(img, {
-                                    aspectRatio: 1,
-                                    viewMode: 1,
-                                    crop: function () {
-                                        const canvas = this.cropper.getCroppedCanvas();
-                                                                                   // { width: 750, height: 750 }
-                                        canvas.toBlob(function (blob) {
-                                            const croppedFile = new File([blob], file.name, { type: file.type });
-                                            const dataTransfer = new DataTransfer();
-                                            dataTransfer.items.add(croppedFile);
-                                            input.files = dataTransfer.files;
-                                        });
-                                    }
-                                });
-                            };
-                            img.src = event.target.result;
-                        };
-                        reader.readAsDataURL(file);
-                    }
+      imageInputs.forEach((input, index) => {
+        input.addEventListener('change', function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              const img = new Image();
+              img.onload = function () {
+                previewContainers[index].innerHTML = '';
+                previewContainers[index].appendChild(img);
+                new Cropper(img, {
+                  aspectRatio: 1,
+                  viewMode: 1,
+                  crop: function () {
+                    const canvas = this.cropper.getCroppedCanvas({ width: 750, height: 750 });
+
+                    canvas.toBlob(function (blob) {
+                      const croppedFile = new File([blob], file.name, { type: file.type });
+                      const dataTransfer = new DataTransfer();
+                      dataTransfer.items.add(croppedFile);
+                      input.files = dataTransfer.files;
+                    });
+                  }
                 });
-            });
+              };
+              img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+          }
         });
-    </script>
+      });
+    });
+  </script>
+
+
+<!-- add product validation -->
+<script>
+  function validateForm() {
+    let isValid = true;
+
+    // Clear previous error messages
+    document.getElementById("titleError").innerText = "";
+    document.getElementById("descriptionError").innerText = "";
+    document.getElementById("priceError").innerText = "";
+    document.querySelectorAll('.text-danger[id^="imageError"]').forEach(el => el.innerText = "");
+    document.getElementById("stockError").innerText = "";
+
+    const title = document.getElementById("ecommerce-product-name").value.trim();
+    const description = document.getElementById("ecommerce-category-description").value.trim();
+    const price = document.getElementById("ecommerce-product-price").value;
+    const images = document.querySelectorAll(".image-input");
+    const stock = document.getElementById("stock").value;
+
+    // Validate Product Title
+    if (title.length < 3) {
+      document.getElementById("titleError").innerText = "Product title must be at least 3 characters long.";
+      isValid = false;
+    }
+
+    // Validate Description
+    if (description.length < 5) {
+      document.getElementById("descriptionError").innerText = "Description must be at least 5 characters long.";
+      isValid = false;
+    }
+
+    // Validate Price
+    if (price < 10) {
+      document.getElementById("priceError").innerText = "Price must be at least 10.";
+      isValid = false;
+    }
+
+    // Validate Images
+    images.forEach((image, index) => {
+      const file = image.files[0];
+      if (file) {
+        const fileType = file.type.toLowerCase();
+        if (!["image/jpeg", "image/jpg", "image/png"].includes(fileType)) {
+          document.getElementById(`imageError${index}`).innerText = "Invalid file format. Only jpg, jpeg, and png are allowed.";
+          isValid = false;
+        }
+      }
+    });
+
+    // Validate Stock
+    if (stock < 1) {
+      document.getElementById("stockError").innerText = "Stock must be at least 1.";
+      isValid = false;
+    }
+
+    return isValid;
+  }
+</script>
+
 
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->

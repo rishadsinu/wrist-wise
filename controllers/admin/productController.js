@@ -6,11 +6,27 @@ const Category = require('../../models/categoryModel')
 const path = require('path');
 const fs = require('fs');
 
+
 const loadProductlist = async (req, res) => {
     try {
-        const products = await Product.find().sort({ createdAt: -1 });
+        const page = parseInt(req.query.page) || 1; 
+        const limit = 10; 
+        const totalProducts = await Product.countDocuments();
+        const totalPages = Math.ceil(totalProducts / limit); 
+
+        const products = await Product.find()
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit);
         const categories = await Category.find();
-        res.render('productList', { products, categories });
+
+        res.render('productList', {
+            products,
+            categories,
+            currentPage: page,
+            totalPages,
+            totalProducts 
+        });
     } catch (error) {
         console.log(error);
         res.status(500).send('Server error');
@@ -86,17 +102,14 @@ const updateProduct = async (req, res) => {
 
         }
         updateData.productImages = updatedImages;
-
         const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
 
         if (!updatedProduct) {
             return res.status(404).json({ success: false, error: 'Product not found' });
         }
-
         res.json({ success: true, product: updatedProduct });
     } catch (error) {
-        console.error('Error updating product:', error);
-        res.status(500).json({ success: false, error: 'Server error' });
+        console.error( error);
     }
 };
 module.exports = {

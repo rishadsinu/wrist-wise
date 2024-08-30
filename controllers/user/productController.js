@@ -8,12 +8,28 @@ const Cart = require('../../models/cartModel');
 
 const loadProductlist = async (req, res) => {
     try {
-        const user = req.session.user
-        const products = await Product.find({ isListed: true }).sort({ createdAt: -1 });
-        res.render('productslist', { products, user });
+        const user = req.session.user;
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 12; 
+
+        const totalProducts = await Product.countDocuments({ isListed: true });
+
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        const products = await Product.find({ isListed: true })
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        res.render('productslist', {
+            products,
+            user,
+            currentPage: page,
+            totalPages,
+        });
     } catch (error) {
-        console.log(error.message);
-        res.status(500).send('An error occurred while loading products');
+        console.log(error);
     }
 };
 
@@ -22,8 +38,7 @@ const getProducts = async (req, res) => {
         const products = await Product.find({ isListed: true });
         res.render('productslist', { products });
     } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).render('error', { message: 'An error occurred while fetching products' });
+        console.error(error);
     }
 };
 
@@ -37,11 +52,9 @@ const getProductDetails = async (req, res) => {
         }
         res.render('product', { product, user });
     } catch (error) {
-        console.error('Error fetching product details:', error);
-        res.status(500).render('error', { message: 'An error occurred while fetching product details' });
+        console.error(error);
     }
 };
-
 
 const addToCart = async (req, res) => {
     try {
@@ -51,21 +64,20 @@ const addToCart = async (req, res) => {
 
         const { productId, quantity } = req.body;
         const userId = req.session.user._id;
-
         let cart = await Cart.findOne({ user: userId });
 
         if (!cart) {
             cart = new Cart({ user: userId, items: [] });
         }
-
+        
         const existingItemIndex = cart.items.findIndex(item => item.product.toString() === productId);
-
         if (existingItemIndex > -1) {
-            cart.items[existingItemIndex].quantity += quantity;
+            // Update quantity instead of adding
+            cart.items[existingItemIndex].quantity = parseInt(quantity, 10);
         } else {
-            cart.items.push({ product: productId, quantity });
+            cart.items.push({ product: productId, quantity: parseInt(quantity, 10) });
         }
-
+        
         await cart.save();
 
         res.json({ success: true, message: 'Product added to cart successfully' });
@@ -74,7 +86,6 @@ const addToCart = async (req, res) => {
         res.status(500).json({ success: false, message: 'An error occurred while adding the product to cart' });
     }
 };
-
 const loadCart = async (req, res) => {
     try {
 
@@ -86,8 +97,7 @@ const loadCart = async (req, res) => {
 
         res.render('cart', { user: req.session.user, cart });
     } catch (error) {
-        console.error('Error loading cart:', error);
-        res.status(500).render('error', { message: 'An error occurred while loading the cart' });
+        console.error(error);
     }
 };
 
@@ -165,7 +175,32 @@ const updateCart =  async (req, res) => {
     }
   };
 
-
+  const loadSearch = async (req, res) => {
+    try {
+      const query = req.query.q.toLowerCase();
+      const products = await Product.find({
+        $or: [
+          { productTitle: { $regex: query, $options: "i" } },
+          { productDescription: { $regex: query, $options: "i" } }
+        ],
+        isListed: true,
+      }).limit(10);
+  
+      const results = products.map((product) => ({
+        id: product._id,
+        name: product.productTitle,
+        description: product.productDescription,
+        price: product.productPrice,
+        discountedPrice: product.productDiscountedPrice,
+        image: product.productImages[0], 
+      }));
+  
+      res.json(results);
+    } catch (error) {
+      console.error("Error in product search:", error);
+      res.status(500).json({ error: "An error occurred while searching for products" });
+    }
+  }
 module.exports = {
     getProductDetails,
     getProducts,
@@ -173,5 +208,6 @@ module.exports = {
     loadCart,
     addToCart,
     removeFromCart,
-    updateCart
+    updateCart,
+    loadSearch
 }

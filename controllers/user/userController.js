@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const otpGenerator = require('otp-generator');
 const Category = require('../../models/categoryModel');
 const Product = require('../../models/productModel');
+const crypto = require('crypto')
 
 const securePassword = async (password) => {
     try {
@@ -12,7 +13,6 @@ const securePassword = async (password) => {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         return hashedPassword;
     } catch (error) {
-        console.error("Error hashing password:", error);
         throw error;
     }
 };
@@ -36,40 +36,31 @@ const loadRegister = async (req, res) => {
 
 const insertUser = async (req, res) => {
     try {
-
         const existingUser = await User.findOne({ email: req.body.email });
         if (existingUser) {
             return res.render('registration', { message: "Email already exists." });
         }
-
         const hashedPassword = await securePassword(req.body.password);
         const otp = Math.floor(1000 + Math.random() * 9000).toString();
         const otpExpiry = new Date(Date.now() + 2 * 60 * 1000);
 
-        const user = new User({
+        const tempUser = {
             name: req.body.fullname,
             email: req.body.email,
             phone: req.body.phone,
             password: hashedPassword,
-            is_admin: 0,
             otp: otp,
-            otpExpiry: otpExpiry,
-            isVerified: false,
-            isBlocked: false
+            otpExpiry: otpExpiry
+        };
+
+        req.session.tempUser = tempUser;
+
+        await sendOTPEmail(tempUser.email, otp);
+
+        return res.render('verifyOTP', {
+            message: "Your registration has been completed. Please enter the OTP sent to your email.",
+            email: tempUser.email
         });
-
-        const userdata = await user.save();
-
-        if (userdata) {
-            await sendOTPEmail(userdata.email, otp);
-            req.session.userId = userdata._id;
-            return res.render('verifyOTP', {
-                message: "Your registration has been completed. Please enter the OTP sent to your email.",
-                email: userdata.email
-            });
-        } else {
-            return res.render('registration', { message: "Your registration has failed." });
-        }
     } catch (error) {
         console.log(error.message);
         return res.render('registration', { message: "An error occurred during registration." });
@@ -87,80 +78,94 @@ async function sendOTPEmail(email, otp) {
         },
     });
     await transporter.sendMail({
-        from: '"Your App" <your-email@gmail.com>',
+        from: '"Your App" rishadsinu2233@gmail.com',
         to: email,
-        subject: "Wrist Wise Watches Your OTP for registration",
+        subject: "Wrist Wise Watches  Your OTP for registration",
         text: `Your OTP is: ${otp}. It will expire in 2 minutes.`,
         html: `<b>Your OTP is: ${otp}</b><br>It will expire in 2 minutes.`,
     });
 }
-
 const resendOTP = async (req, res) => {
     try {
-        const userId = req.session.userId;
-        const user = await User.findById(userId);
+        const email = req.session.tempUser.email; 
 
-        if (!user) {
+        if (!email) {
             return res.json({ success: false, message: "User not found." });
         }
-        const newOTP = Math.floor(1000 + Math.random() * 9000).toString();
-        const newOTPExpiry = new Date(Date.now() + 2 * 60 * 1000);
 
-        user.otp = newOTP;
-        user.otpExpiry = newOTPExpiry;
-        await user.save();
+        const currentTime = new Date();
+        const lastOTPTime = new Date(req.session.tempUser.otpSentTime || 0);
+        const timeDifference = (currentTime - lastOTPTime) / 1000; 
 
-        await sendOTPEmail(user.email, newOTP);
+        if (timeDifference < 60) {
+            return res.json({ success: false, message: "Please wait before requesting a new OTP." });
+        }
 
-        res.json({ success: true, message: "New OTP sent successfully." });
+        const newOTP = Math.floor(1000 + Math.random() * 9000).toString(); 
+        const newOTPExpiry = new Date(Date.now() + 2 * 60 * 1000); 
+
+        req.session.tempUser.otp = newOTP; 
+        req.session.tempUser.otpExpiry = newOTPExpiry; 
+        req.session.tempUser.otpSentTime = currentTime; 
+
+        await sendOTPEmail(email, newOTP); 
+
+        return res.json({ success: true, message: "New OTP sent successfully." });
     } catch (error) {
-        console.log(error.message);
-        res.json({ success: false, message: "Failed to resend OTP." });
+        console.error(error.message);
+        return res.json({ success: false, message: "Failed to resend OTP." });
     }
 };
 
-
 const verifyOTP = async (req, res) => {
     try {
-        const { otp } = req.body;
-        const userId = req.session.userId;
-        const user = await User.findById(userId);
+        const { otp, email } = req.body;
+        const tempUser = req.session.tempUser;
 
-        if (!user) {
-            return res.render('verifyOTP', { message: "User not found." });
+        if (!tempUser) {
+            return res.render('verifyOTP', { message: "Session expired. Please register again.", email });
         }
-        if (user.otp !== otp || user.otpExpiry < new Date()) {
-            return res.render('verifyOTP', {
-                message: "Invalid or expired OTP.",
-                email: user.email
-            });
+
+        if (tempUser.email !== email) {
+            return res.render('verifyOTP', { message: "Invalid email.", email });
         }
-        user.isVerified = true;
-        user.otp = undefined;
-        user.otpExpiry = undefined;
+
+        if (tempUser.otp !== otp || tempUser.otpExpiry < new Date()) {
+            return res.render('verifyOTP', { message: "Invalid or expired OTP.", email });
+        }
+        const user = new User({
+            name: tempUser.name,
+            email: tempUser.email,
+            phone: tempUser.phone,
+            password: tempUser.password,
+            is_admin: 0,
+            isVerified: true
+        });
+
         await user.save();
-
+        req.session.tempUser = undefined;
         req.session.user = user;
 
         res.redirect('/home');
-
     } catch (error) {
         console.log(error.message);
-        res.render('verifyOTP', { message: "An error occurred during verification." });
+        res.render('verifyOTP', { message: "An error occurred during verification.", email: req.body.email });
     }
 };
 
 const loadLogin = async (req, res) => {
     try {
-        res.render('login', { message: req.query.message });
+        const message = req.query.message;  
+        res.render('login', { message });
     } catch (error) {
         console.log(error.message);
     }
 };
 
 const loadWishlist = (req, res) => {
+    const user = req.session.user
     if (req.session.user) {
-        res.render('wishlist');
+        res.render('wishlist',{user});
     } else {
         res.redirect('/login?message=' + encodeURIComponent('Please log in to view your wishlist'));
     }
@@ -173,7 +178,6 @@ const verifylogin = async (req, res) => {
         if (!email || !password) {
             return res.render('login', { message: 'Email and password are required' });
         }
-
         const userData = await User.findOne({ email: email });
 
         if (userData) {
@@ -209,79 +213,88 @@ const googleLogin = (req, res) => {
     res.redirect('/home');
 };
 
-const loadForgotPassword = async (req, res) => {
-    try {
-        res.render('forgotPassword', { message: null });
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send('Error loading forgot password page');
-    }
+const userLogout = async (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ message: 'Could not log out, please try again' });
+        }
+        res.status(200).json({ message: 'Logout successful' });
+    });
 };
 
+const loadForgotPassword = (req, res) => {
+    res.render('forgotPassword');
+};
 
-const sendResetPasswordLink = async (req, res) => {
+const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
         const user = await User.findOne({ email });
         if (!user) {
-            return res.render('forgotPassword', { message: 'User not found' });
+            return res.status(404).render('forgot-password', { message: 'User not found' });
         }
-        
-        const resetToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
-        user.resetPasswordToken = resetToken;
-        user.resetPasswordExpires = Date.now() + 3600000; 
+        const token = crypto.randomBytes(20).toString('hex');
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000;
         await user.save();
 
-        const resetLink = `${req.protocol}://${req.hostname}:${process.env.PORT}/resetpassword/${resetToken}`;
-        
-        let transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS
             }
         });
-
-        let mailOptions = {
+        const mailOptions = {
             from: process.env.EMAIL_USER,
             to: user.email,
             subject: 'Password Reset Link',
-            text: `Please use the following link to reset your password: ${resetLink}`
+            text: `You can change your Wrist Wise account's password usig this link.\n\n
+                Please click on the following link, and reset your password:\n\n
+                http://${req.headers.host}/reset-password/${token}\n\n`
         };
-
         await transporter.sendMail(mailOptions);
-        
-        res.render('forgotPassword', { message: 'Reset link sent to your email' });
+        res.render('forgotPassword', { message: 'email has been sent into your email account.' });
     } catch (error) {
-        console.error('Error sending reset password link:', error);
-        res.status(500).send('An error occurred while sending the reset password link');
+        console.error(error);
     }
 };
 
 const loadResetPassword = async (req, res) => {
     try {
-        const { token } = req.params;
         const user = await User.findOne({
-            resetPasswordToken: token,
-            resetPasswordExpires: { $gt: Date.now() } 
+            resetPasswordToken: req.params.token,
+            resetPasswordExpires: { $gt: Date.now() }
         });
+
         if (!user) {
-            return res.render('resetPassword', { message: 'Invalid or expired token', token: null });
+            return res.status(400).render('reset-password', { message: 'Password token is invalid .', token: req.params.token });
         }
-        res.render('resetPassword', { token, message: null });
+
+        res.render('resetPassword', { token: req.params.token });
     } catch (error) {
-        console.error('Error loading reset password page:', error);
-        res.status(500).send('An error occurred while loading the reset password page');
+        console.error(error);
     }
 };
 
-const userLogout = async (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).json({ message: 'Could not log out, please try again' });
+const resetPassword = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            resetPasswordToken: req.params.token,
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+        if (!user) {
+            return res.status(400).render('reset-password', { message: ' token is invalid.', token: req.params.token });
+        }
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+        res.render('login', { message: 'Your password has been changed successfully.' });
+    } catch (error) {
+        console.error(error);
     }
-    res.status(200).json({ message: 'Logout successful' });
-  });
 };
 
 module.exports = {
@@ -294,9 +307,10 @@ module.exports = {
     verifylogin,
     insertUser,
     googleLogin,
+    userLogout,
     loadForgotPassword,
-    sendResetPasswordLink,
+    forgotPassword,
     loadResetPassword,
-    userLogout
-
+    resetPassword,
+    
 }

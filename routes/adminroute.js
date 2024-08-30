@@ -59,9 +59,9 @@ adminRoute.post('/edit-category', categoryController.editCategory);
 // order
 adminRoute.get('/orderlist',orderController.loadOrdersList);
 adminRoute.get('/orderdetails/:orderId', orderController.getOrderDetails);
-adminRoute.put('/updateOrderStatus/:orderId', orderController.updateOrderStatus);
-adminRoute.post('/orders/:orderId/accept-cancel', orderController.acceptCancellationRequest);
-
+adminRoute.put('/updateItemStatus/:orderId/:itemId', orderController.updateItemStatus);
+adminRoute.post('/orders/:orderId/items/:itemId/accept-cancel', orderController.acceptCancellationRequest);
 adminRoute.get('/logout', adminAuth, adminController.logout);
+
 
 module.exports = adminRoute;

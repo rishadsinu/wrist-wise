@@ -6,22 +6,15 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-left col-lg-7">
-                        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-                                    <!-- Breadcrumbs with links -->
-                                    <li class="breadcrumb-item">
-                                        <a href="/home">
-                                            Home
-                                        </a>
-                                    </li>
-                                    <!-- Current page breadcrumb without link -->
+                               
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Home
+                                        Product
                                     </li>
                                 </ol>
                             </div>
-                            <!-- End .container -->
                         </nav>
                         <!-- End .breadcrumb-nav -->
                     </div>
@@ -49,7 +42,7 @@
                                             <li>
                                                 <a href="/login"><i class="icon-user"></i>Login</a>
                                             </li>
-                                                     <% } %>
+                                           <% } %>
                                 </ul>
                             </li>
                         </ul>
@@ -58,7 +51,7 @@
                     <!-- End .header-right -->
                 </div>
                 <!-- End .container -->
-                      
+              
             </div>
             <div class="header-bottom sticky-header">
                 <div class="container">
@@ -69,19 +62,19 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="/images/logo 2.png" alt="Molla Logo" width="82" height="20">
+                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
                         </a>
                     </div>
                     <div class="header-center">
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="productlist" class="sf-with-ul">Home</a>
+                                    <a href="/home" class="sf-with-ul">Home</a>
 
 
                                 </li>
                                 <li>
-                                    <a href="category" class="sf-with-ul">Category</a>
+                                    <a href="/category" class="sf-with-ul">Category</a>
 
                                     <div class="megamenu megamenu-md">
                                         <div class="row no-gutters">
@@ -94,7 +87,7 @@
                                                             <div class="menu-title">Product Categories</div>
                                                             <!-- End .menu-title -->
                                                             <ul>
-                                                                <li><a href="category">Product
+                                                                <li><a href="/category">Product
                                                                         Category</a></li>
 
                                                             </ul>
@@ -192,15 +185,15 @@
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-bottom -->
-        </header>
+        </header><!-- End .header -->
 
         <main class="main">
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Products</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Default</li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/productlist">Products</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Product</li>
                     </ol>
 
                     <nav class="product-pager ml-auto" aria-label="Product">
@@ -278,7 +271,7 @@
 
                                     <div class="product-price">
                                         <% if (product.productDiscountedPrice < product.productPrice) { %>
-                                            <span class="new-price">₹<%= product.productDiscountedPrice.toFixed(2) %>
+                                            <span class="new-price">₹<%= product?.productDiscountedPrice?.toFixed(2) %>
                                             </span>
                                             <span class="old-price">₹<%= product.productPrice.toFixed(2) %></span>
                                             <% } else { %>
@@ -312,16 +305,13 @@
                                             <% } %>
                                         </span>
                                     </div>
-                                    
-
+                   
                                     <div class="details-filter-row details-row-size">
                                         <label for="qty">Qty:</label>
                                         <div class="product-details-quantity">
-                                            <input type="number" id="qty" class="form-control" value="1" min="1"
-                                                max="10" step="1" data-decimals="0" required>
-                                        </div><!-- End .product-details-quantity -->
+                                            <input type="number" id="qty" class="form-control" value="1" min="1"  max="<%= Math.min(product.stock, 10) %>"  step="1" data-decimals="0" required>
+                                        </div>
                                     </div>
-
                                     <div class="product-details-action">
                                         <a href="#" class="btn-product btn-cart" data-product-id="<%= product._id %>">
                                             <span>add to cart</span>
@@ -897,7 +887,6 @@
     </div><!-- End .mobile-menu-container -->
 
     
-    <!-- added product moment js massage -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -906,11 +895,12 @@
             $('.btn-cart').on('click', function (e) {
                 e.preventDefault();
                 const productId = $(this).data('product-id');
-
+                const quantity = parseInt($('#qty').val(), 10);
+    
                 $.ajax({
                     url: '/add-to-cart',
                     method: 'POST',
-                    data: { productId: productId, quantity: 1 },
+                    data: { productId: productId, quantity: quantity },
                     success: function (response) {
                         if (response.success) {
                             Toastify({
@@ -924,12 +914,19 @@
                         }
                     },
                     error: function () {
-                        // Optionally handle errors silently
+                        Toastify({
+                            text: "Error adding product to cart",
+                            duration: 3000,
+                            close: false,
+                            gravity: "bottom",
+                            position: "center",
+                            backgroundColor: "#F44336",
+                        }).showToast();
                     }
                 });
             });
         });
-    </script>
+    </script> 
 
     <!-- Plugins JS File -->
     <script src="/assets/js/jquery.min.js"></script>

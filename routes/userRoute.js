@@ -44,9 +44,10 @@ userRoute.post('/login', preventLoginPageAccess, userController.verifylogin);
 userRoute.post('/verify-otp', userController.verifyOTP);
 userRoute.post('/logout', userController.userLogout)
 
-userRoute.get('/forgetpassword', userController.loadForgotPassword)
-userRoute.post('/forgotpassword', userController.sendResetPasswordLink);
-userRoute.get('/resetpassword/:token', userController.loadResetPassword);
+userRoute.get('/forgotpassword', userController.loadForgotPassword);
+userRoute.post('/forgot-password', userController.forgotPassword);
+userRoute.get('/reset-password/:token', userController.loadResetPassword);
+userRoute.post('/reset-password/:token', userController.resetPassword);
 
 // Google OAuth routes
 userRoute.get('/auth/google',
@@ -61,6 +62,8 @@ userRoute.get('/auth/google/callback',
 userRoute.get('/productlist', productController.loadProductlist);
 userRoute.get('/productlist', productController.getProducts);
 userRoute.get('/product/:id', productController.getProductDetails);
+userRoute.get('/search',  productController.loadSearch);
+
 
 // User Profile
 userRoute.get('/userprofile', isLoggedIn, profileController.loadUserProfile);
@@ -73,7 +76,8 @@ userRoute.post('/update-address', isLoggedIn, profileController.updateAddress);
 userRoute.delete('/delete-address/:id', isLoggedIn, profileController.deleteAddress);
 userRoute.get('/profileOrders', isLoggedIn, profileController.loadProfileOrders)
 userRoute.get('/user/order-details/:orderId', profileController.getOrderDetails);
-userRoute.post('/orders/:orderId/cancel', profileController.requestCancellation);
+
+userRoute.post('/user/cancel-item/:orderId/:itemId', profileController.requestCancellation);
 
 // cart // order 
 userRoute.get('/cart', isLoggedIn, productController.loadCart);

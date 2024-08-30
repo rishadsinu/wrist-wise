@@ -1,5 +1,5 @@
-const User = require("../../models/userModel");
 const bcrypt = require("bcrypt");
+const User = require("../../models/userModel");
 const Category = require('../../models/categoryModel');
 const Product = require('../../models/productModel');
 const Address = require('../../models/addressModel');
@@ -17,19 +17,18 @@ const loadUserProfile = async (req, res) => {
 
 const updateUserProfile = async (req, res) => {
     try {
-        const userId = req.session.user._id;
-        const { name, phone } = req.body;
+        const userId = req.session.user._id
+        const { name, phone } = req.body
 
-        await User.findByIdAndUpdate(userId, { name, phone });
+        await User.findByIdAndUpdate(userId, { name, phone })
+        req.session.user = { ...req.session.user, name, phone }
+        res.redirect('/userprofile')
 
-        req.session.user = { ...req.session.user, name, phone };
-
-        res.redirect('/userprofile');
     } catch (error) {
-        console.error('Error updating user profile:', error);
-        res.status(500).send('An error occurred while updating your profile');
+        console.log(error);
+
     }
-};
+}
 
 const loadChangePasswordPage = async (req, res) => {
     res.render('changePassword', { message: null });
@@ -45,7 +44,6 @@ const changePassword = async (req, res) => {
         if (!isMatch) {
             return res.render('changePassword', { message: { type: 'danger', text: 'Current password is incorrect' } });
         }
-
         if (newPassword !== confirmPassword) {
             return res.render('changePassword', { message: { type: 'danger', text: 'New password and confirm password do not match' } });
         }
@@ -62,12 +60,12 @@ const changePassword = async (req, res) => {
 
 const loadProfileAddress = async (req, res) => {
     try {
+        const user = req.session.user
         const userId = req.session.user._id;
         const addresses = await Address.find({ userId: userId });
-        res.render("profileAddress", { addresses: addresses });
+        res.render("profileAddress", { addresses: addresses , user});
     } catch (error) {
         console.log(error);
-        res.status(500).send('An error occurred');
     }
 };
 
@@ -86,12 +84,10 @@ const addAddress = async (req, res) => {
             phone: req.body.phone,
             email: req.body.email
         });
-
         await newAddress.save();
         res.json({ success: true });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ success: false });
     }
 };
 
@@ -109,11 +105,9 @@ const updateAddress = async (req, res) => {
             pinCode,
             phone
         });
-
         res.json({ success: true });
     } catch (error) {
         console.error('Error updating address:', error);
-        res.status(500).json({ success: false, error: 'Server error while updating address.' });
     }
 };
 
@@ -123,8 +117,7 @@ const deleteAddress = async (req, res) => {
         await Address.findByIdAndDelete(addressId);
         res.json({ success: true });
     } catch (error) {
-        console.error('Error deleting address:', error);
-        res.status(500).json({ success: false, error: 'Failed to delete address' });
+        console.error( error);
     }
 };
 
@@ -135,21 +128,37 @@ const loadProfileOrders = async (req, res) => {
         }
 
         const userId = req.session.user._id;
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 6; 
+        const totalOrders = await Order.countDocuments({ userId });
+        const totalPages = Math.ceil(totalOrders / limit);
+
         const orders = await Order.find({ userId })
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .populate({
+                path: 'items.product',
+                select: 'productImages' 
+            });
 
         const formattedOrders = orders.map(order => ({
             _id: order._id,
             orderId: order.orderId,
             createdAt: order.createdAt,
             status: order.items[0].order_status,
-            totalPrice: order.totalPrice
+            totalPrice: order.totalPrice,
+            productImages: order.items[0].product.productImages 
         }));
 
-        res.render('profileOrders', { orders: formattedOrders, user: req.session.user });
+        res.render('profileOrders', {
+            orders: formattedOrders,
+            user: req.session.user,
+            currentPage: page,
+            totalPages
+        });
     } catch (error) {
-        console.error('Error fetching orders:', error);
-        res.status(500).send('Internal Server Error');
+        console.error(error);
     }
 };
 
@@ -164,14 +173,13 @@ const getOrderDetails = async (req, res) => {
 
         res.json(order);
     } catch (error) {
-        console.error('Error fetching order details:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error(error);
     }
 };
 
 const requestCancellation = async (req, res) => {
     try {
-        const { orderId } = req.params;
+        const { orderId, itemId } = req.params;
         const { cancelReason } = req.body;
         const order = await Order.findById(orderId);
 
@@ -179,17 +187,23 @@ const requestCancellation = async (req, res) => {
             return res.status(404).json({ error: 'Order not found' });
         }
 
-        order.items.forEach(item => {
-            item.order_status = 'Cancellation Requested';
-            item.cancel_reason = cancelReason;
-        });
+        const item = order.items.id(itemId);
+        if (!item) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+
+        if (item.order_status === 'Cancelled' || item.order_status === 'Delivered') {
+            return res.status(400).json({ error: 'Cannot request cancellation for this item.' });
+        }
+
+        item.order_status = 'Cancellation Requested';
+        item.cancelReason = cancelReason;
 
         await order.save();
 
         res.status(200).json({ message: 'Cancellation request submitted successfully.' });
     } catch (error) {
-        console.error('Error handling cancellation request:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error(error);
     }
 };
 

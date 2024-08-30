@@ -1,4 +1,52 @@
 <%- include ('../layouts/header.ejs') %>
+
+    <!-- search stle -->
+    <style>
+        .search-results-container {
+            position: absolute;
+            top: 100%;
+            left: -330px;
+            right: 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            display: flex;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-result-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-info h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .search-result-info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .search-result-price {
+            font-weight: bold;
+            color: #e44d26;
+        }
+    </style>
+
     <div class="page-wrapper">
         <header class="header">
 
@@ -8,19 +56,16 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-                                    <!-- Breadcrumbs with links -->
-                                    <li class="breadcrumb-item">
-                                        <a href="/home">
-                                            Home
-                                        </a>
-                                    </li>
+                                
                                     <!-- Current page breadcrumb without link -->
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Home
+                                        Category
                                     </li>
                                 </ol>
                             </div>
+                            <!-- End .container -->
                         </nav>
+                        <!-- End .breadcrumb-nav -->
                     </div>
                     <div class="header-right col-lg-5">
                         <ul class="top-menu">
@@ -46,13 +91,16 @@
                                             <li>
                                                 <a href="/login"><i class="icon-user"></i>Login</a>
                                             </li>
-                                                     <% } %>
+                                           <% } %>
                                 </ul>
                             </li>
                         </ul>
+                        <!-- End .top-menu -->
                     </div>
+                    <!-- End .header-right -->
                 </div>
-                      
+                <!-- End .container -->
+              
             </div>
             <div class="header-bottom sticky-header">
                 <div class="container">
@@ -63,7 +111,7 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="/images/logo 2.png" alt="Molla Logo" width="82" height="20">
+                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
                         </a>
                     </div>
                     <div class="header-center">
@@ -163,14 +211,15 @@
                     <div class="header-right">
                         <div class="header-search">
                             <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
+                            <form id="searchForm" action="#" method="get">
                                 <div class="header-search-wrapper">
                                     <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..."
-                                        required>
-                                </div><!-- End .header-search-wrapper -->
+                                    <input type="search" class="form-control" name="q" id="searchInput"
+                                        placeholder="Search in..." required>
+                                </div>
                             </form>
-                        </div><!-- End .header-search -->
+                            <div id="searchResults" class="search-results-container"></div>
+                        </div>
 
                         <a href="wishlist" class="wishlist-link">
                             <i class="icon-heart-o"></i>
@@ -201,9 +250,8 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Grid 3 Columns</li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="#">Category</a></li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
@@ -279,7 +327,7 @@
                                                             <% if (product.productDiscountedPrice <
                                                                 product.productPrice) { %>
                                                                 <span class="new-price">₹<%=
-                                                                        product.productDiscountedPrice.toFixed(2) %>
+                                                                        product?.productDiscountedPrice?.toFixed(2) %>
                                                                 </span>
                                                                 <span class="old-price">₹<%=
                                                                         product.productPrice.toFixed(2) %></span>
@@ -316,28 +364,28 @@
                                 </div>
                             </div>
 
-
+                            <!-- pagination -->
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1"
-                                            aria-disabled="true">
+                                    <li class="page-item <%= currentPage == 1 ? 'disabled' : '' %>">
+                                        <a class="page-link page-link-prev" href="?page=<%= currentPage - 1 %>" aria-label="Previous">
                                             <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
                                         </a>
                                     </li>
-                                    <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item-total">of 6</li>
-                                    <li class="page-item">
-                                        <a class="page-link page-link-next" href="#" aria-label="Next">
+                                    <% for (let i = 1; i <= totalPages; i++) { %>
+                                        <li class="page-item <%= currentPage == i ? 'active' : '' %>">
+                                            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                        </li>
+                                    <% } %>
+                                    <li class="page-item-total">of <%= totalPages %></li>
+                                    <li class="page-item <%= currentPage == totalPages ? 'disabled' : '' %>">
+                                        <a class="page-link page-link-next" href="?page=<%= currentPage + 1 %>" aria-label="Next">
                                             Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
                                         </a>
                                     </li>
                                 </ul>
                             </nav>
-                        </div><!-- End .col-lg-9 -->
+                        </div>
 
 
                         <aside class="col-lg-3 order-lg-first">
@@ -906,7 +954,73 @@
         });
     </script>
 
+<!-- search js -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
 
+        let debounceTimer;
+
+        searchInput.addEventListener('input', function () {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const query = this.value.trim();
+                if (query.length > 2) {
+                    fetchSearchResults(query);
+                } else {
+                    searchResults.innerHTML = '';
+                }
+            }, 300);
+        });
+
+        searchForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (query) {
+                fetchSearchResults(query);
+            }
+        });
+
+        function fetchSearchResults(query) {
+            fetch(`/search?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    searchResults.innerHTML = '<p>An error occurred while searching. Please try again.</p>';
+                });
+        }
+
+        function displaySearchResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<p>No results found.</p>';
+                return;
+            }
+
+            const resultsHtml = results.map(product => `
+<div class="search-result-item">
+  <a class="product-gallery-item active" href="#"
+     data-image="/images/${product.image}"
+     data-zoom-image="/images/${product.image}">
+    <img src="/images/${product.image}" alt="${product.name}" class="search-result-image">
+  </a>
+  <div class="search-result-info">
+    <h3><a href="/product/${product.id}">${product.name}</a></h3>
+    <p>${product.description.substring(0, 50)}...</p>
+    <span class="search-result-price">$${product.price.toFixed(2)}</span>
+  </div>
+</div>
+`).join('');
+
+            searchResults.innerHTML = resultsHtml;
+        }
+    });
+
+</script>
     <!-- Plugins JS File -->
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>

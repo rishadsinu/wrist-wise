@@ -700,67 +700,63 @@
     <script src="/assets/js/main.js"></script>
     
 
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            let isValid = true;
-        
-            // Full Name validation
-            const fullname = document.getElementById('fullname');
-            const fullnameError = document.getElementById('fullname-error');
-            if (fullname.value.length < 3) {
-                fullnameError.style.display = 'block';
-                isValid = false;
-            } else {
-                fullnameError.style.display = 'none';
-            }
-        
-            // Email validation
-            const email = document.getElementById('email');
-            const emailError = document.getElementById('email-error');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email.value)) {
-                emailError.style.display = 'block';
-                isValid = false;
-            } else {
-                emailError.style.display = 'none';
-            }
-        
-            // Phone validation
-            const phone = document.getElementById('phone');
-            const phoneError = document.getElementById('phone-error');
-            const phoneRegex = /^\d{10}$/;
-            if (!phoneRegex.test(phone.value)) {
-                phoneError.style.display = 'block';
-                isValid = false;
-            } else {
-                phoneError.style.display = 'none';
-            }
-        
-            // Password validation
-            const password = document.getElementById('signup-password');
-            const passwordError = document.getElementById('password-error');
-            const passwordRegex = /^[a-zA-Z0-9]{6,}$/;
-            if (!passwordRegex.test(password.value)) {
-                passwordError.style.display = 'block';
-                isValid = false;
-            } else {
-                passwordError.style.display = 'none';
-            }
-        
-            // Repeat Password validation
-            const repeatPassword = document.getElementById('repeat-password');
-            const repeatPasswordError = document.getElementById('repeat-password-error');
-            if (password.value !== repeatPassword.value) {
-                repeatPasswordError.style.display = 'block';
-                isValid = false;
-            } else {
-                repeatPasswordError.style.display = 'none';
-            }
-        
-            if (!isValid) {
-                event.preventDefault();
-            }
-        });
-        </script>
-
+        <script>
+            document.getElementById('registrationForm').addEventListener('submit', function(event) {
+                let isValid = true;
+            
+                const fullname = document.getElementById('fullname');
+                const fullnameError = document.getElementById('fullname-error');
+                if (fullname.value.length < 3) {
+                    fullnameError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    fullnameError.style.display = 'none';
+                }
+            
+                const email = document.getElementById('email');
+                const emailError = document.getElementById('email-error');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov|mil)$/;
+                if (!emailRegex.test(email.value)) {
+                    emailError.textContent = 'Enter a valid email address';
+                    emailError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    emailError.style.display = 'none';
+                }
+            
+                const phone = document.getElementById('phone');
+                const phoneError = document.getElementById('phone-error');
+                const phoneRegex = /^\d{10}$/;
+                if (!phoneRegex.test(phone.value)) {
+                    phoneError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    phoneError.style.display = 'none';
+                }
+            
+                const password = document.getElementById('signup-password');
+                const passwordError = document.getElementById('password-error');
+                const passwordRegex = /^[a-zA-Z0-9]{6,}$/;
+                if (!passwordRegex.test(password.value)) {
+                    passwordError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    passwordError.style.display = 'none';
+                }
+            
+                const repeatPassword = document.getElementById('repeat-password');
+                const repeatPasswordError = document.getElementById('repeat-password-error');
+                if (password.value !== repeatPassword.value) {
+                    repeatPasswordError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    repeatPasswordError.style.display = 'none';
+                }
+            
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+            </script>
+            
     <%- include ('../layouts/footer.ejs') %>
