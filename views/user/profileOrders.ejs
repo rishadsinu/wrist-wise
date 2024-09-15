@@ -12,6 +12,98 @@
             width: 500px;
         }
     </style> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 80%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table thead th {
+            background-color: #343a40;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .table td {
+            font-size: 1.3rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .badge-primary {
+            background-color: #ffffff;
+            color: rgb(31, 45, 33);
+            font-size: 1.2rem;
+            padding: 0.4em 0.6em;
+            border-radius: 12px;
+        }
+
+        .text-success {
+            font-weight: bold;
+        }
+
+        .table td .btn-primary {
+            background-color: #ffffff;
+            border-color: #ffffff;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .table td .btn-primary:hover {
+            background-color: #ffffff;
+            border-color: #004085;
+        }
+
+        .table td .fas {
+            font-size: 1.3rem;
+        }
+
+
+
+        .modal-body .card {
+            margin-bottom: 1rem;
+        }
+
+        .modal-body .table-invoice {
+            margin-bottom: 0;
+        }
+
+        .modal-body .total-row {
+            font-weight: bold;
+        }
+
+        .modal-content {
+            width: 775px;
+        }
+    </style>
 
     <div class="page-wrapper">
         <header class="header">
@@ -116,21 +208,7 @@
                                 <li>
                                     <a href="productlist" class="sf-with-ul">Product</a>
 
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div>
-
-                                                    <ul>
-                                                        <li><a href="productlist">All Products</a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-
-
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
+                                    
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
@@ -335,98 +413,8 @@
                 </div><!-- End .dashboard -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
+        
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <style>
-            .table {
-                border-collapse: separate;
-                border-spacing: 0;
-                width: 80%;
-                max-width: 100%;
-                margin-bottom: 1rem;
-                background-color: transparent;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                overflow: hidden;
-            }
-
-            .table th,
-            .table td {
-                padding: 1rem;
-                vertical-align: middle;
-                text-align: center;
-            }
-
-            .table thead th {
-                background-color: #343a40;
-                color: white;
-                text-transform: uppercase;
-                font-weight: bold;
-                border: none;
-                padding: 1.5rem;
-            }
-
-            .table tbody tr {
-                transition: all 0.3s ease-in-out;
-            }
-
-            .table tbody tr:hover {
-                background-color: #f8f9fa;
-            }
-
-            .table td {
-                font-size: 1.3rem;
-                border-top: 1px solid #dee2e6;
-            }
-
-            .badge-primary {
-                background-color: #ffffff;
-                color: rgb(31, 45, 33);
-                font-size: 1.2rem;
-                padding: 0.4em 0.6em;
-                border-radius: 12px;
-            }
-
-            .text-success {
-                font-weight: bold;
-            }
-
-            .table td .btn-primary {
-                background-color: #ffffff;
-                border-color: #ffffff;
-                color: rgb(0, 0, 0);
-                font-weight: bold;
-                padding: 0.25rem 0.5rem;
-                transition: background-color 0.3s ease;
-            }
-
-            .table td .btn-primary:hover {
-                background-color: #ffffff;
-                border-color: #004085;
-            }
-
-            .table td .fas {
-                font-size: 1.3rem;
-            }
-
-
-
-            .modal-body .card {
-                margin-bottom: 1rem;
-            }
-
-            .modal-body .table-invoice {
-                margin-bottom: 0;
-            }
-
-            .modal-body .total-row {
-                font-weight: bold;
-            }
-
-            .modal-content {
-                width: 775px;
-            }
-        </style>
         <!-- Order Details Modal -->
         <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel"
             aria-hidden="true">
@@ -759,7 +747,6 @@
         $(document).ready(function () {
             let currentOrderId, currentItemId;
 
-            // View Order Button Click
             $(document).on('click', '.view-order-btn', function () {
                 const orderId = $(this).data('order-id');
                 const modalBody = $('#orderModal .modal-body');
@@ -871,14 +858,12 @@
                 });
             });
 
-            // Cancel Item Button Click (using event delegation)
             $(document).on('click', '.cancel-item-btn', function () {
                 currentItemId = $(this).data('item-id');
                 currentOrderId = $(this).data('order-id');
                 $('#cancelItemModal').modal('show');
             });
 
-            // Handle the cancellation confirmation
             $('#confirmCancelItem').on('click', function () {
                 const reason = $('#cancelReason').val().trim();
                 if (reason === '') {
@@ -911,8 +896,6 @@
                     .prop('disabled', true)
                     .text('Cancellation Requested');
             }
-
-            // Clear cancel reason when modal is hidden
             $('#cancelItemModal').on('hidden.bs.modal', function () {
                 $('#cancelReason').val('');
             });

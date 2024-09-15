@@ -4,17 +4,11 @@
     <style>
         .card-address {
             border: 1px solid #dbc9c9;
-            /* Light grey border */
             border-radius: 8px;
-            /* Rounded corners */
             padding: 15px;
-            /* Space inside the card */
             margin-bottom: 20px;
-            /* Space below each card */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            /* Subtle shadow for depth */
             background-color: #fff;
-            /* White background */
         }
 
         .card-address .card-body {
@@ -26,8 +20,61 @@
         }
     </style>
 
+    <!-- add address modal -->
+    <style>
+        #addAddressModal .modal-content {
+            border-radius: 0.5rem;
+        }
 
+        #addAddressModal .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1rem 1.5rem;
+        }
 
+        #addAddressModal .modal-body {
+            padding: 1.5rem;
+        }
+
+        #addAddressModal .modal-footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            padding: 1rem 1.5rem;
+        }
+
+        #addAddressModal .form-control {
+            border-radius: 0.25rem;
+        }
+
+        #addAddressModal label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        #addAddressModal .btn {
+            border-radius: 0.25rem;
+        }
+
+        #addAddressModal .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        #addAddressModal .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        #addAddressModal .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        #addAddressModal .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
     <div class="page-wrapper">
         <header class="header">
 
@@ -37,7 +84,7 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-                                    
+
                                     <!-- Current page breadcrumb without link -->
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Checkout
@@ -72,7 +119,7 @@
                                             <li>
                                                 <a href="/login"><i class="icon-user"></i>Login</a>
                                             </li>
-                                           <% } %>
+                                            <% } %>
                                 </ul>
                             </li>
                         </ul>
@@ -81,7 +128,7 @@
                     <!-- End .header-right -->
                 </div>
                 <!-- End .container -->
-              
+
             </div>
             <div class="header-bottom sticky-header">
                 <div class="container">
@@ -99,7 +146,7 @@
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="productlist" class="sf-with-ul">Home</a>
+                                    <a href="home" class="sf-with-ul">Home</a>
 
 
                                 </li>
@@ -131,21 +178,7 @@
                                 <li>
                                     <a href="productlist" class="sf-with-ul">Product</a>
 
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div>
-
-                                                    <ul>
-                                                        <li><a href="productlist">All Products</a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-
-
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
+                                    
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
@@ -277,16 +310,22 @@
                                             <% }); %>
                                                 <% } else { %>
                                                     <p>No addresses found.</p>
+
                                                     <% } %>
 
-
+                                                        <div class="add-address">
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#addAddressModal">
+                                                                Add Address
+                                                            </button>
+                                                        </div>
                                 </div>
 
                                 <aside class="col-lg-3">
                                     <div class="summary">
                                         <h3 class="summary-title">Your Order</h3>
 
-                                        <table class="table table-summary">
+                                        <!-- <table class="table table-summary">
                                             <thead>
                                                 <tr>
                                                     <th>Product</th>
@@ -307,23 +346,50 @@
                                                     <td>₹<span id="checkout-total">0.00</span></td>
                                                 </tr>
                                             </tbody>
+                                        </table> -->
+                                        <table class="table table-summary">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="summary-subtotal">
+                                                    <td>Subtotal:</td>
+                                                    <td>₹<%= cartSubtotal %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Shipping:</td>
+                                                    <td>₹<%= shippingCharge %></td>
+                                                </tr>
+                                                <tr class="summary-total">
+                                                    <td>Total:</td>
+                                                    <td>₹<%= cartTotal %></td>
+                                                </tr>
+                                            </tbody>
                                         </table>
-
                                         <div class="accordion-summary" id="accordion-payment">
-                                           
+
+                                    
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="cod" name="paymentMethod" value="Cash on Delivery">
+                                                    <!-- Cash on Delivery Option -->
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="cod" name="paymentMethod" value="Cash on Delivery">
                                                         <label class="custom-control-label" for="cod">Cash on Delivery</label>
+                                                    </div>
+                                                    <!-- Razorpay Option -->
+                                                    <div class="custom-control custom-radio mt-2">
+                                                        <input type="radio" class="custom-control-input" id="razorpay" name="paymentMethod" value="Razorpay">
+                                                        <label class="custom-control-label" for="razorpay">Razorpay</label>
                                                     </div>
                                                 </div>
                                             </div>
-                                           
                                             
                                         </div>
-                                       
-                                        
+
+
                                         <button type="submit"
                                             class="btn btn-outline-primary-2 btn-order btn-block">PLACE ORDER</button>
                                     </div>
@@ -335,6 +401,86 @@
                 </div>
             </div>
         </main>
+
+        <!-- Add Address Modal -->
+        <div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addAddressModalLabel">Add New Address</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addAddressForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" name="fullName" required>
+                                    <div id="fullNameError" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <div id="emailError" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                                    <div id="phoneError" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="pinCode">Pin Code</label>
+                                    <input type="text" class="form-control" id="pinCode" name="pinCode" required>
+                                    <div id="pinCodeError" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="streetAddress">Street Address</label>
+                                    <input type="text" class="form-control" id="streetAddress" name="streetAddress"
+                                        required>
+                                    <div id="streetAddressError" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="apartmentNumber">Apartment Number</label>
+                                    <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber">
+                                    <div id="apartmentNumberError" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="town">Town</label>
+                                    <input type="text" class="form-control" id="town" name="town" required>
+                                    <div id="townError" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" required>
+                                    <div id="cityError" class="text-danger"></div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" id="state" name="state" required>
+                                    <div id="stateError" class="text-danger"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveAddress">Save Address</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <footer class="footer">
             <div class="footer-middle">
@@ -596,25 +742,19 @@
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
-    
+
 
     <!-- same time only tick on check box -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Get all the address checkboxes
             const checkboxes = document.querySelectorAll('.address-checkbox');
-
-            // Function to handle checkbox change
             const handleCheckboxChange = (event) => {
-                // Uncheck all checkboxes except the one that was clicked
                 checkboxes.forEach(checkbox => {
                     if (checkbox !== event.target) {
                         checkbox.checked = false;
                     }
                 });
             };
-
-            // Attach event listeners to each checkbox
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', handleCheckboxChange);
             });
@@ -622,7 +762,7 @@
     </script>
 
     <!-- Get cart's Total Summery -->
-    <script>
+    <!-- <script>
         async function updateCheckoutTotals() {
             try {
                 const response = await fetch('/cart-summary');
@@ -639,83 +779,84 @@
             }
         }
         document.addEventListener('DOMContentLoaded', updateCheckoutTotals);
-    </script>
-
-    <!-- order placed sweet alert and fuctionality -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.querySelector('.btn-order').addEventListener('click', function (e) {
-            e.preventDefault();
-
-            // Get the selected address checkbox
-            const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
-
-            // Check if an address is selected
-            if (!selectedAddress) {
-                Swal.fire('Error', 'Please select an address', 'error');
-                return;
-            }
-
-            // Prepare the order data
-            const orderData = {
-                selectedAddress: selectedAddress.getAttribute('data-address-id'),
-                paymentMethod: 'Cash on Delivery' // Adjust based on actual user selection
-            };
-
-            // Send the order request
-            fetch('/placeOrder', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire('Success', 'Your order was placed successfully!', 'success').then(() => {
-                            // Redirect to the orderPlaced page with the order ID as a query parameter
-                            window.location.href = `/orderPlaced?orderId=${data.orderId}`;
-                        });
-                    } else {
-                        Swal.fire('Error', data.message, 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'An unexpected error occurred', 'error');
-                });
-        });
     </script> -->
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.querySelector('.btn-order').addEventListener('click', function (e) {
             e.preventDefault();
-    
-            // Get the selected address checkbox
+
             const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
-    
-            // Check if an address is selected
+            const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+
             if (!selectedAddress) {
                 Swal.fire('Error', 'Please select an address', 'error');
                 return;
             }
-    
-            // Check if Cash on Delivery checkbox is checked
-            const codCheckbox = document.querySelector('#cod');
-            if (!codCheckbox.checked) {
-                Swal.fire('Error', 'Please select Cash on Delivery as your payment method', 'error');
+            if (!selectedPaymentMethod) {
+                Swal.fire('Error', 'Please select a payment method', 'error');
                 return;
             }
-    
-            // Prepare the order data
+
             const orderData = {
                 selectedAddress: selectedAddress.getAttribute('data-address-id'),
-                paymentMethod: 'Cash on Delivery'
+                paymentMethod: selectedPaymentMethod.value
             };
-    
-            // Send the order request
+
+            if (orderData.paymentMethod === 'Razorpay') {
+                initiateRazorpayPayment(orderData);
+            } else {
+                placeOrder(orderData);
+            }
+        });
+
+        function initiateRazorpayPayment(orderData) {
+            fetch('/create-razorpay-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const options = {
+                        key: '<%= razorpayKeyId %>', // Get this from your .env file
+                        amount: data.order.amount,
+                        currency: data.order.currency,
+                        name: 'Your Company Name',
+                        description: 'Purchase Description',
+                        order_id: data.order.id,
+                        handler: function (response) {
+                            orderData.razorpayOrderId = response.razorpay_order_id;
+                            orderData.razorpayPaymentId = response.razorpay_payment_id;
+                            orderData.razorpaySignature = response.razorpay_signature;
+                            placeOrder(orderData);
+                        },
+                        prefill: {
+                            name: '<%= user.name %>',
+                            email: '<%= user.email %>',
+                            contact: '<%= user.phone %>'
+                        },
+                        theme: {
+                            color: '#3399cc'
+                        }
+                    };
+                    const rzp = new Razorpay(options);
+                    rzp.open();
+                } else {
+                    Swal.fire('Error', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error', 'An unexpected error occurred', 'error');
+            });
+        }
+
+        function placeOrder(orderData) {
             fetch('/placeOrder', {
                 method: 'POST',
                 headers: {
@@ -723,24 +864,111 @@
                 },
                 body: JSON.stringify(orderData)
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire('Success', 'Your order was placed successfully!', 'success').then(() => {
-                            // Redirect to the orderPlaced page with the order ID as a query parameter
-                            window.location.href = `/orderPlaced?orderId=${data.orderId}`;
-                        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Success', 'Your order was placed successfully!', 'success').then(() => {
+                        window.location.href = `/orderPlaced?orderId=${data.orderId}`;
+                    });
+                } else {
+                    Swal.fire('Error', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error', 'An unexpected error occurred', 'error');
+            });
+        }
+    </script>
+
+    <!-- validation of add address -->
+    <script>
+        document.getElementById('saveAddress').addEventListener('click', async () => {
+            const form = document.getElementById('addAddressForm');
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const pinCode = document.getElementById('pinCode').value;
+            const streetAddress = document.getElementById('streetAddress').value;
+            const apartmentNumber = document.getElementById('apartmentNumber').value;
+            const town = document.getElementById('town').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+
+            let isValid = true;
+
+            if (!/^[a-zA-Z\s]{3,}$/.test(fullName)) {
+                document.getElementById('fullNameError').textContent = 'Full name must be at least 3 characters long.';
+                isValid = false;
+            } else {
+                document.getElementById('fullNameError').textContent = '';
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').textContent = '';
+            }
+            if (!/^\d{10}$/.test(phone)) {
+                document.getElementById('phoneError').textContent = 'Phone number must be exactly 10 digits.';
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').textContent = '';
+            }
+            if (!/^\d{6}$/.test(pinCode)) {
+                document.getElementById('pinCodeError').textContent = 'Pin code must be exactly 6 digits.';
+                isValid = false;
+            } else {
+                document.getElementById('pinCodeError').textContent = '';
+            }
+            if (streetAddress.length < 10) {
+                document.getElementById('streetAddressError').textContent = 'Street address must be at least 10 characters long.';
+                isValid = false;
+            } else {
+                document.getElementById('streetAddressError').textContent = '';
+            }
+            if (apartmentNumber && !/^\d+$/.test(apartmentNumber)) {
+                document.getElementById('apartmentNumberError').textContent = 'Apartment number must be a number.';
+                isValid = false;
+            } else {
+                document.getElementById('apartmentNumberError').textContent = '';
+            }
+
+            const fields = { town, city, state };
+            for (const [key, value] of Object.entries(fields)) {
+                if (value.length < 3) {
+                    document.getElementById(`${key}Error`).textContent = `${key.charAt(0).toUpperCase() + key.slice(1)} must be at least 3 characters long.`;
+                    isValid = false;
+                } else {
+                    document.getElementById(`${key}Error`).textContent = '';
+                }
+            }
+
+            if (isValid) {
+                const formData = new FormData(form);
+                try {
+                    const response = await fetch('/add-address', {
+                        method: 'POST',
+                        body: new URLSearchParams(formData),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        window.location.href = window.location.href;
                     } else {
-                        Swal.fire('Error', data.message, 'error');
+                        console.error(result.error);
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'An unexpected error occurred', 'error');
-                });
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                }
+            }
         });
     </script>
     
+
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>

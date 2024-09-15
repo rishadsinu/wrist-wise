@@ -1,0 +1,733 @@
+<%- include ('../adminLayouts/header.ejs') %>
+
+
+    <!-- ?PROD Only: Google Tag Manager (noscript) (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DDHKGP" height="0" width="0"
+            style="display: none; visibility: hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar  ">
+        <div class="layout-container">
+
+            <!-- Menu -->
+
+            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
+
+                <div class="app-brand demo ">
+                    <a href="index.html" class="app-brand-link">
+                        <span class="app-brand-logo demo me-1">
+                            <span style="color:var(--bs-primary);">
+                                <svg width="30" height="24" viewBox="0 0 250 196" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M12.3002 1.25469L56.655 28.6432C59.0349 30.1128 60.4839 32.711 60.4839 35.5089V160.63C60.4839 163.468 58.9941 166.097 56.5603 167.553L12.2055 194.107C8.3836 196.395 3.43136 195.15 1.14435 191.327C0.395485 190.075 0 188.643 0 187.184V8.12039C0 3.66447 3.61061 0.0522461 8.06452 0.0522461C9.56056 0.0522461 11.0271 0.468577 12.3002 1.25469Z"
+                                        fill="currentColor" />
+                                    <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M0 65.2656L60.4839 99.9629V133.979L0 65.2656Z" fill="black" />
+                                    <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M0 65.2656L60.4839 99.0795V119.859L0 65.2656Z" fill="black" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M237.71 1.22393L193.355 28.5207C190.97 29.9889 189.516 32.5905 189.516 35.3927V160.631C189.516 163.469 191.006 166.098 193.44 167.555L237.794 194.108C241.616 196.396 246.569 195.151 248.856 191.328C249.605 190.076 250 188.644 250 187.185V8.09597C250 3.64006 246.389 0.027832 241.935 0.027832C240.444 0.027832 238.981 0.441882 237.71 1.22393Z"
+                                        fill="currentColor" />
+                                    <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M250 65.2656L189.516 99.8897V135.006L250 65.2656Z" fill="black" />
+                                    <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M250 65.2656L189.516 99.0497V120.886L250 65.2656Z" fill="black" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z"
+                                        fill="currentColor" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z"
+                                        fill="white" fill-opacity="0.15" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z"
+                                        fill="currentColor" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z"
+                                        fill="white" fill-opacity="0.3" />
+                                </svg>
+                            </span>
+                        </span>
+                        <span class="app-brand-text demo menu-text fw-semibold ms-2">Materio</span>
+                    </a>
+
+                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+                        <i class="menu-toggle-icon d-xl-block align-middle"></i>
+                    </a>
+                </div>
+
+                <div class="menu-inner-shadow"></div>
+
+
+
+                <ul class="menu-inner py-1">
+                    <!-- Dashboards -->
+                    <!-- e-commerce-app menu start -->
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class='menu-icon tf-icons ri-shopping-bag-3-line'></i>
+                            <div data-i18n="eCommerce">eCommerce</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="dashboard" class="menu-link">
+                                    <div data-i18n="Dashboard">Dashboard</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                    <div data-i18n="Products">Products</div>
+                                </a>
+                                <ul class="menu-sub">
+                                    <li class="menu-item">
+                                        <a href="app-ecommerce-product-list.html" class="menu-link">
+                                            <div data-i18n="Product List">Product List</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="app-ecommerce-product-add.html" class="menu-link">
+                                            <div data-i18n="Add Product">Add Product</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="app-ecommerce-category-list.html" class="menu-link">
+                                            <div data-i18n="Category List">Category List</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item">
+                                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                    <div data-i18n="Order">Order</div>
+                                </a>
+                                <ul class="menu-sub">
+                                    <li class="menu-item">
+                                        <a href="app-ecommerce-order-list.html" class="menu-link">
+                                            <div data-i18n="Order List">Order List</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="app-ecommerce-order-details.html" class="menu-link">
+                                            <div data-i18n="Order Details">Order Details</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item">
+                                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                    <div data-i18n="Customer">Customer</div>
+                                </a>
+                                <ul class="menu-sub">
+                                    <li class="menu-item">
+                                        <a href="app-ecommerce-customer-all.html" class="menu-link">
+                                            <div data-i18n="All Customers">All Customers</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                            <div data-i18n="Customer Details">Customer Details</div>
+                                        </a>
+                                        <ul class="menu-sub">
+                                            <li class="menu-item">
+                                                <a href="app-ecommerce-customer-details-overview.html"
+                                                    class="menu-link">
+                                                    <div data-i18n="Overview">Overview</div>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="app-ecommerce-customer-details-security.html"
+                                                    class="menu-link">
+                                                    <div data-i18n="Security">Security</div>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="app-ecommerce-customer-details-billing.html" class="menu-link">
+                                                    <div data-i18n="Address & Billing">Address & Billing</div>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="app-ecommerce-customer-details-notifications.html"
+                                                    class="menu-link">
+                                                    <div data-i18n="Notifications">Notifications</div>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- e-commerce-app menu end -->
+                    <!-- Academy menu start -->
+
+                    <!-- Academy menu end -->
+
+                    <li class="menu-item active open">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class='menu-icon tf-icons ri-bill-line'></i>
+                            <div data-i18n="offer & Coupon">Offer & Coupen</div>
+                            <div class="badge bg-danger rounded-pill ms-auto"></div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item ">
+                                <a href="app-invoice-list.html" class="menu-link">
+                                    <div data-i18n="Offers">Offers</div>
+                                </a>
+                            </li>
+
+                            <li class="menu-item active">
+                                <a href="couponlist" class="menu-link">
+                                    <div data-i18n="Coupons">Coupons</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons ri-user-line"></i>
+                            <div data-i18n="Users">Users</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="app-user-list.html" class="menu-link">
+                                    <div data-i18n="List">List</div>
+                                </a>
+                            </li>
+
+                            <li class="menu-item">
+                                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                    <div data-i18n="View">View</div>
+                                </a>
+                                <ul class="menu-sub">
+                                    <li class="menu-item">
+                                        <a href="app-user-view-account.html" class="menu-link">
+                                            <div data-i18n="Account">Account</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="app-user-view-security.html" class="menu-link">
+                                            <div data-i18n="Security">Security</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="app-user-view-billing.html" class="menu-link">
+                                            <div data-i18n="Billing & Plans">Billing & Plans</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="app-user-view-notifications.html" class="menu-link">
+                                            <div data-i18n="Notifications">Notifications</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="app-user-view-connections.html" class="menu-link">
+                                            <div data-i18n="Connections">Connections</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </aside>
+            <!-- / Menu -->
+
+            <!-- Layout container -->
+            <div class="layout-page">
+
+                <!-- Navbar -->
+
+                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar">
+                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0   d-xl-none ">
+                        <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+                            <i class="ri-menu-fill ri-24px"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                            <!-- User -->
+                            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);"
+                                    data-bs-toggle="dropdown">
+                                    <div class="avatar avatar-online">
+                                        <img src="/adminAssets/img/avatars/1.png" alt
+                                            class="w-px-40 h-auto rounded-circle">
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
+                                    <li>
+                                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0 me-2">
+                                                    <div class="avatar avatar-online">
+                                                        <img src="/adminAssets/img/avatars/1.png" alt
+                                                            class="w-px-40 h-auto rounded-circle">
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-0 small">John Doe</h6>
+                                                    <small class="text-muted">Admin</small>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="pages-profile-user.html">
+                                            <i class="ri-user-3-line ri-22px me-2"></i>
+                                            <span class="align-middle">My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                                            <i class="ri-settings-4-line ri-22px me-2"></i>
+                                            <span class="align-middle">Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="pages-account-settings-billing.html">
+                                            <span class="d-flex align-items-center align-middle">
+                                                <i class="flex-shrink-0 ri-file-text-line ri-22px me-2"></i>
+                                                <span class="flex-grow-1 align-middle">Billing</span>
+                                                <span
+                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger h-px-20 d-flex align-items-center justify-content-center">4</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="pages-pricing.html">
+                                            <i class="ri-money-dollar-circle-line ri-22px me-2"></i>
+                                            <span class="align-middle">Pricing</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="pages-faq.html">
+                                            <i class="ri-question-line ri-22px me-2"></i>
+                                            <span class="align-middle">FAQ</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="d-grid px-4 pt-2 pb-1">
+                                            <a class="btn btn-danger d-flex" href="auth-login-cover.html"
+                                                target="_blank">
+                                                <small class="align-middle">Logout</small>
+                                                <i class="ri-logout-box-r-line ms-2 ri-16px"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--/ User -->
+
+
+
+                        </ul>
+                    </div>
+
+
+                    <!-- Search Small Screens -->
+
+                </nav>
+                <!-- Content wrapper -->
+
+                <div class="content-wrapper">
+
+                    <!-- Content -->
+
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productOfferModal">Add Coupon</button> -->
+                                <button id="addCouponBtn" class="btn btn-primary mb-3">Add Coupon</button>
+                            </div>
+                        </div>
+                        <div class="app-ecommerce">
+                            <div class="row">
+                                <div class="container">
+                                    <!-- Coupon List -->
+                                    <div id="couponList" class="row">
+                                        <% coupons.forEach(coupon=> { %>
+                                            <div class="col-md-6 mb-4">
+                                                <div class="card shadow">
+                                                    <div class="card-header py-3">
+                                                        <h5 class="card-title mb-0 text-primary">
+                                                            <%= coupon.couponName %>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="mb-3 text-success"><strong>Coupon code:</strong>
+                                                            <%= coupon.couponCode %>
+                                                        </p>
+                                                        <p class="mb-1"><strong>Minimum Amount:</strong>
+                                                            <%= coupon.minAmount %>
+                                                        </p>
+                                                        <p class="mb-1 text-success"><strong>Redeemable
+                                                                Discount:</strong>
+                                                            <%= coupon.discount %>%
+                                                        </p>
+                                                        <p class="mb-1"><strong>Expiry Date:</strong>
+                                                            <%= new Date(coupon.expiryDate).toLocaleDateString() %>
+                                                        </p>
+                                                        <p
+                                                            class="mb-3 text-<%= coupon.isListed ? 'success' : 'danger' %>">
+                                                            <strong>Status:</strong>
+                                                            <%= coupon.isListed ? 'Active' : 'Inactive' %>
+                                                        </p>
+                                                        <button class="btn btn-primary edit-coupon"
+                                                            data-coupon-id="<%= coupon._id %>">Edit Coupon</button>
+                                                        <button class="btn btn-danger delete-coupon"
+                                                            data-coupon-id="<%= coupon._id %>">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }); %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+
+
+    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+    <div class="drag-target"></div>
+
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Add Coupon Modal -->
+    <div class="modal fade" id="addCouponModal" tabindex="-1" aria-labelledby="addCouponModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCouponModalLabel">Add New Coupon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCouponForm">
+                        <div class="mb-3">
+                            <label for="couponCode" class="form-label">Coupon Code</label>
+                            <input type="text" class="form-control" id="couponCode" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="couponName" class="form-label">Coupon Name</label>
+                            <input type="text" class="form-control" id="couponName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="discount" class="form-label">Redeem Percentage</label>
+                            <input type="number" class="form-control" id="discount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="minAmount" class="form-label">Minimum Amount</label>
+                            <input type="number" class="form-control" id="minAmount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expiryDate" class="form-label">Expiry Date</label>
+                            <input type="date" class="form-control" id="expiryDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" required>
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveCouponBtn">Save Coupon</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Coupon Modal -->
+<div class="modal fade" id="editCouponModal" tabindex="-1" aria-labelledby="editCouponModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCouponModalLabel">Edit Coupon</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editCouponForm">
+                    <input type="hidden" id="editCouponId">
+                    <div class="mb-3">
+                        <label for="editCouponCode" class="form-label">Coupon Code</label>
+                        <input type="text" class="form-control" id="editCouponCode" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCouponName" class="form-label">Coupon Name</label>
+                        <input type="text" class="form-control" id="editCouponName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDiscount" class="form-label">Redeem Percentage</label>
+                        <input type="number" class="form-control" id="editDiscount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editMinAmount" class="form-label">Minimum Amount</label>
+                        <input type="number" class="form-control" id="editMinAmount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editExpiryDate" class="form-label">Expiry Date</label>
+                        <input type="date" class="form-control" id="editExpiryDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editStatus" class="form-label">Status</label>
+                        <select class="form-select" id="editStatus" required>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="updateCouponBtn">Update Coupon</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- edit  -->
+ 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const couponList = document.getElementById('couponList');
+        const editCouponModal = new bootstrap.Modal(document.getElementById('editCouponModal'));
+
+        // When clicking the "Edit Coupon" button
+        couponList.addEventListener('click', function (e) {
+            if (e.target.classList.contains('edit-coupon')) {
+                const couponId = e.target.getAttribute('data-coupon-id');
+
+                // Fetch the coupon data using its ID
+                fetch(`/admin/get-coupon/${couponId}`)
+                    .then(response => response.json())
+                    .then(coupon => {
+                        // Populate the form fields with the current coupon data
+                        document.getElementById('editCouponId').value = coupon._id;
+                        document.getElementById('editCouponCode').value = coupon.couponCode;
+                        document.getElementById('editCouponName').value = coupon.couponName;
+                        document.getElementById('editDiscount').value = coupon.discount;
+                        document.getElementById('editMinAmount').value = coupon.minAmount;
+                        document.getElementById('editExpiryDate').value = coupon.expiryDate.split('T')[0]; // Format date
+                        document.getElementById('editStatus').value = coupon.isListed;
+
+                        // Show the modal
+                        editCouponModal.show();
+                    })
+                    .catch(error => console.error('Error fetching coupon:', error));
+            }
+        });
+
+        // Update the coupon when clicking the "Update Coupon" button
+        document.getElementById('updateCouponBtn').addEventListener('click', function () {
+            const couponId = document.getElementById('editCouponId').value;
+            const couponData = {
+                couponCode: document.getElementById('editCouponCode').value,
+                couponName: document.getElementById('editCouponName').value,
+                discount: document.getElementById('editDiscount').value,
+                minAmount: document.getElementById('editMinAmount').value,
+                expiryDate: document.getElementById('editExpiryDate').value,
+                isListed: document.getElementById('editStatus').value
+            };
+
+            fetch(`/admin/update-coupon/${couponId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(couponData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Reload the page to show the updated coupon
+                } else {
+                    console.error('Error updating coupon: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+</script>
+
+<!-- delete -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const couponList = document.getElementById('couponList'); // Container for coupons
+
+        // When clicking the "Remove" button
+        couponList.addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-coupon')) {
+                const couponId = e.target.getAttribute('data-coupon-id');
+
+                // Confirm before deletion
+                if (confirm('Are you sure you want to remove this coupon?')) {
+                    // Send delete request
+                    fetch(`/admin/delete-coupon/${couponId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Coupon deleted successfully!');
+                            location.reload(); // Reload the page to reflect the deletion
+                        } else {
+                            alert('Error deleting coupon: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while deleting the coupon.');
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addCouponBtn = document.getElementById('addCouponBtn');
+            const addCouponModal = new bootstrap.Modal(document.getElementById('addCouponModal'));
+            const saveCouponBtn = document.getElementById('saveCouponBtn');
+            const addCouponForm = document.getElementById('addCouponForm');
+            const couponList = document.getElementById('couponList');
+
+            addCouponBtn.addEventListener('click', function () {
+                addCouponModal.show();
+            });
+
+            saveCouponBtn.addEventListener('click', function () {
+                if (addCouponForm.checkValidity()) {
+                    const formData = {
+                        couponCode: document.getElementById('couponCode').value,
+                        couponName: document.getElementById('couponName').value,
+                        discount: document.getElementById('discount').value,
+                        minAmount: document.getElementById('minAmount').value,
+                        expiryDate: document.getElementById('expiryDate').value,
+                        isListed: document.getElementById('status').value === 'true'
+                    };
+
+
+                    fetch('/admin/add-coupon', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Coupon added successfully!');
+                                addCouponModal.hide();
+                                addCouponToList(data.coupon);
+                                addCouponForm.reset();
+                            } else {
+                                alert('Error adding coupon: ' + data.message);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            alert('An error occurred while adding the coupon.');
+                        });
+                } else {
+                    addCouponForm.reportValidity();
+                }
+            });
+
+            function addCouponToList(coupon) {
+                const couponHTML = `
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <h5 class="card-title mb-0 text-primary">${coupon.couponName}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-3 text-success"><strong>Coupon code:</strong> ${coupon.couponCode}</p>
+                            <p class="mb-1"><strong>Minimum Amount:</strong> ${coupon.minAmount}</p>
+                            <p class="mb-1 text-success"><strong>Redeemable Discount:</strong> ${coupon.discount}%</p>
+                            <p class="mb-1"><strong>Expiry Date:</strong> ${new Date(coupon.expiryDate).toLocaleDateString()}</p>
+                            <p class="mb-3 text-${coupon.isListed ? 'success' : 'danger'}">
+                                <strong>Status:</strong> ${coupon.isListed ? 'Active' : 'Inactive'}
+                            </p>
+                            <button class="btn btn-primary edit-coupon" data-coupon-id="${coupon._id}">Edit Coupon</button>
+                            <button class="btn btn-danger delete-coupon" data-coupon-id="${coupon._id}">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+                couponList.insertAdjacentHTML('afterbegin', couponHTML);
+            }
+        });
+    </script>
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="/adminAssets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/adminAssets/vendor/libs/popper/popper.js"></script>
+    <script src="/adminAssets/vendor/js/bootstrap.js"></script>
+    <script src="/adminAssets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="/adminAssets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/adminAssets/vendor/libs/hammer/hammer.js"></script>
+    <script src="/adminAssets/vendor/libs/i18n/i18n.js"></script>
+    <script src="/adminAssets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="/adminAssets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="/adminAssets/vendor/libs/quill/katex.js"></script>
+    <script src="/adminAssets/vendor/libs/quill/quill.js"></script>
+    <script src="/adminAssets/vendor/libs/select2/select2.js"></script>
+    <script src="/adminAssets/vendor/libs/dropzone/dropzone.js"></script>
+    <script src="/adminAssets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
+    <script src="/adminAssets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="/adminAssets/vendor/libs/tagify/tagify.js"></script>
+
+    <!-- Main JS -->
+    <script src="/adminAssets/js/main.js"></script>
+
+
+    <!-- Page JS -->
+    <script src="/adminAssets/js/app-ecommerce-product-add.js"></script>
+
+    <%- include ('../adminLayouts/footer.ejs') %>

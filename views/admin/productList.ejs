@@ -1,7 +1,5 @@
 <%- include ('../adminLayouts/header.ejs') %>
 
-
-
   <!-- ?PROD Only: Google Tag Manager (noscript) (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DDHKGP" height="0" width="0"
       style="display: none; visibility: hidden"></iframe></noscript>
@@ -11,11 +9,9 @@
   <div class="layout-wrapper layout-content-navbar  ">
     <div class="layout-container">
 
-
       <!-- Menu -->
 
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-
 
         <div class="app-brand demo ">
           <a href="index.html" class="app-brand-link">
@@ -61,8 +57,6 @@
 
         <div class="menu-inner-shadow"></div>
 
-
-
         <ul class="menu-inner py-1">
 
           <!-- e-commerce-app menu start -->
@@ -77,7 +71,7 @@
                   <div data-i18n="Dashboard">Dashboard</div>
                 </a>
               </li>
-            
+
               <li class="menu-item active open">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                   <div data-i18n="Products">Products</div>
@@ -299,20 +293,15 @@
           class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
           id="layout-navbar">
 
-
-
           <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0   d-xl-none ">
             <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
               <i class="ri-menu-fill ri-24px"></i>
             </a>
           </div>
 
-
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-
             <ul class="navbar-nav flex-row align-items-center ms-auto">
-
 
               <!-- User -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -405,11 +394,12 @@
               <div class="card-datatable table-responsive">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                   <div class="card-header d-flex border-top rounded-0 flex-wrap pb-md-0 pt-0">
-                    
+
                     <div class="me-5 ms-n2">
                       <div id="DataTables_Table_0_filter" class="dataTables_filter">
                         <label>
-                          <input type="search" id="categorySearch" class="form-control form-control-sm" placeholder="Search Category" aria-controls="DataTables_Table_0">
+                          <input type="search" id="categorySearch" class="form-control form-control-sm"
+                            placeholder="Search Category" aria-controls="DataTables_Table_0">
                         </label>
                       </div>
                     </div>
@@ -436,7 +426,7 @@
                         <th class="sorting">Category</th>
                         <th class="sorting_disabled">Stock</th>
                         <th class="sorting">Price</th>
-                        <th class="sorting">Dis Price</th>
+                        <!-- <th class="sorting">Price</th> -->
                         <th class="sorting">Status</th>
                         <th class="sorting_disabled">Actions</th>
                       </tr>
@@ -471,7 +461,7 @@
                           </td>
                           <td>
                             <h6 class="text-truncate d-flex align-items-center mb-0 fw-normal">
-                              <%= product.category %>
+                              <%= product.category.name %>
                             </h6>
                           </td>
                           <td>
@@ -480,9 +470,9 @@
                           <td>
                             <%= product.productPrice %>
                           </td>
-                          <td>
+                          <!-- <td>
                             <%= product.productDiscountedPrice %>
-                          </td>
+                          </td> -->
                           <td>
                             <span class="badge rounded-pill bg-label-<%= product.isListed ? 'success' : 'danger' %>"
                               text-capitalized="">
@@ -510,80 +500,59 @@
                         <% }); %>
                     </tbody>
                   </table>
-                  <!-- <div class="row mx-1">
+
+                  <div class="row mx-1">
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                        Showing 1 to 7 of 14 entries
+                        Showing <%= (currentPage - 1) * 10 + 1 %> to <%= Math.min(currentPage * 10, totalProducts) %> of
+                            <%= totalProducts %> entries
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                         <ul class="pagination">
-                          <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
-                            <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
-                              data-dt-idx="previous" tabindex="-1" class="page-link"><i
-                                class="ri-arrow-left-s-line"></i></a>
-                          </li>
-                          <li class="paginate_button page-item active">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page"
-                              data-dt-idx="0" tabindex="0" class="page-link">1</a>
-                          </li>
-                          <li class="paginate_button page-item ">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0"
-                              class="page-link">2</a>
-                          </li>
-                          <li class="paginate_button page-item next" id="DataTables_Table_0_next">
-                            <a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0"
-                              class="page-link"><i class="ri-arrow-right-s-line"></i></a>
-                          </li>
+                          <% if (currentPage> 1) { %>
+                            <li class="paginate_button page-item previous" id="DataTables_Table_0_previous">
+                              <a href="?page=<%= currentPage - 1 %>" aria-controls="DataTables_Table_0" role="link"
+                                data-dt-idx="previous" tabindex="0" class="page-link"><i
+                                  class="ri-arrow-left-s-line"></i></a>
+                            </li>
+                            <% } else { %>
+                              <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                                <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
+                                  data-dt-idx="previous" tabindex="-1" class="page-link"><i
+                                    class="ri-arrow-left-s-line"></i></a>
+                              </li>
+                              <% } %>
+
+                                <% for (let i=1; i <=totalPages; i++) { %>
+                                  <li class="paginate_button page-item <%= i === currentPage ? 'active' : '' %>">
+                                    <a href="?page=<%= i %>" aria-controls="DataTables_Table_0" role="link"
+                                      data-dt-idx="<%= i - 1 %>" tabindex="0" class="page-link">
+                                      <%= i %>
+                                    </a>
+                                  </li>
+                                  <% } %>
+
+                                    <% if (currentPage < totalPages) { %>
+                                      <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                                        <a href="?page=<%= currentPage + 1 %>" aria-controls="DataTables_Table_0"
+                                          role="link" data-dt-idx="next" tabindex="0" class="page-link"><i
+                                            class="ri-arrow-right-s-line"></i></a>
+                                      </li>
+                                      <% } else { %>
+                                        <li class="paginate_button page-item next disabled"
+                                          id="DataTables_Table_0_next">
+                                          <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
+                                            data-dt-idx="next" tabindex="-1" class="page-link"><i
+                                              class="ri-arrow-right-s-line"></i></a>
+                                        </li>
+                                        <% } %>
                         </ul>
                       </div>
                     </div>
-                  </div> -->
-                  <div class="row mx-1">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                            Showing <%= (currentPage - 1) * 10 + 1 %> to <%= Math.min(currentPage * 10, totalProducts) %> of <%= totalProducts %> entries
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                            <ul class="pagination">
-                                <% if (currentPage > 1) { %>
-                                    <li class="paginate_button page-item previous" id="DataTables_Table_0_previous">
-                                        <a href="?page=<%= currentPage - 1 %>" aria-controls="DataTables_Table_0" role="link"
-                                            data-dt-idx="previous" tabindex="0" class="page-link"><i class="ri-arrow-left-s-line"></i></a>
-                                    </li>
-                                <% } else { %>
-                                    <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
-                                        <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
-                                            data-dt-idx="previous" tabindex="-1" class="page-link"><i class="ri-arrow-left-s-line"></i></a>
-                                    </li>
-                                <% } %>
-                
-                                <% for (let i = 1; i <= totalPages; i++) { %>
-                                    <li class="paginate_button page-item <%= i === currentPage ? 'active' : '' %>">
-                                        <a href="?page=<%= i %>" aria-controls="DataTables_Table_0" role="link"
-                                            data-dt-idx="<%= i - 1 %>" tabindex="0" class="page-link"><%= i %></a>
-                                    </li>
-                                <% } %>
-                
-                                <% if (currentPage < totalPages) { %>
-                                    <li class="paginate_button page-item next" id="DataTables_Table_0_next">
-                                        <a href="?page=<%= currentPage + 1 %>" aria-controls="DataTables_Table_0" role="link"
-                                            data-dt-idx="next" tabindex="0" class="page-link"><i class="ri-arrow-right-s-line"></i></a>
-                                    </li>
-                                <% } else { %>
-                                    <li class="paginate_button page-item next disabled" id="DataTables_Table_0_next">
-                                        <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
-                                            data-dt-idx="next" tabindex="-1" class="page-link"><i class="ri-arrow-right-s-line"></i></a>
-                                    </li>
-                                <% } %>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -625,21 +594,23 @@
               <label for="editProductPrice" class="form-label">Price</label>
               <input type="number" class="form-control" id="editProductPrice" name="productPrice" required>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label for="editProductDiscountedPrice" class="form-label">Discounted Price</label>
               <input type="number" class="form-control" id="editProductDiscountedPrice" name="productDiscountedPrice">
-            </div>
+            </div> -->
             <div class="mb-3">
               <label for="editStock" class="form-label">Stock</label>
               <input type="number" class="form-control" id="editStock" name="stock" required>
             </div>
-           
+
             <div class="mb-3">
               <label for="editCategory" class="form-label">Category</label>
               <select class="form-select" id="editCategory" name="category" required>
                 <% categories.forEach(function(category) { %>
-                  <option value="<%= category.name %>"><%= category.name %></option>
-                <% }); %>
+                  <option value="<%= category._id %>">
+                    <%= category.name %>
+                  </option>
+                  <% }); %>
               </select>
             </div>
             <div class="mb-3">
@@ -678,7 +649,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
@@ -769,7 +739,7 @@
           document.getElementById('editProductTitle').value = product.productTitle;
           document.getElementById('editProductDescription').value = product.productDescription;
           document.getElementById('editProductPrice').value = product.productPrice;
-          document.getElementById('editProductDiscountedPrice').value = product.productDiscountedPrice;
+          // document.getElementById('editProductDiscountedPrice').value = product.productDiscountedPrice;
           document.getElementById('editStock').value = product.stock;
           document.getElementById('editCategory').value = product.category;
           document.getElementById('editIsListed').value = product.isListed;
@@ -789,25 +759,27 @@
         });
     }
   </script>
+
+
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-  const searchInput = document.getElementById('categorySearch');
-  const table = document.getElementById('DataTables_Table_0');
-  const rows = table.getElementsByTagName('tr');
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.getElementById('categorySearch');
+      const table = document.getElementById('DataTables_Table_0');
+      const rows = table.getElementsByTagName('tr');
 
-  searchInput.addEventListener('keyup', function() {
-    const searchTerm = searchInput.value.toLowerCase();
+      searchInput.addEventListener('keyup', function () {
+        const searchTerm = searchInput.value.toLowerCase();
 
-    for (let i = 1; i < rows.length; i++) {
-      const rowData = rows[i].textContent.toLowerCase();
-      if (rowData.includes(searchTerm)) {
-        rows[i].style.display = '';
-      } else {
-        rows[i].style.display = 'none';
-      }
-    }
-  });
-});
+        for (let i = 1; i < rows.length; i++) {
+          const rowData = rows[i].textContent.toLowerCase();
+          if (rowData.includes(searchTerm)) {
+            rows[i].style.display = '';
+          } else {
+            rows[i].style.display = 'none';
+          }
+        }
+      });
+    });
   </script>
   <!-- endbuild -->
 

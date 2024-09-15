@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const express = require("express");
 const app = express();
 require('dotenv').config();
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4000
 const nocache = require("nocache");
 const passport = require('passport');
 const session = require("express-session");
@@ -22,11 +22,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(nocache());
 
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -45,7 +43,6 @@ app.use('/admin', adminRoute);
 
 const logoutRouter = require('./routes/userRoute');
 app.use('/', logoutRouter);
-
 
 app.listen(port, () => {
     console.log(`Listening to the server on http://localhost:${port}`);

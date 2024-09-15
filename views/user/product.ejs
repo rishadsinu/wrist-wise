@@ -1,5 +1,47 @@
 <%- include ('../layouts/header.ejs') %>
+<style>
+   .product-price {
+    font-family: Arial, sans-serif;
+    margin: 15px 0;
+}
 
+.price-wrapper {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.original-price {
+    font-size: 0.9em;
+    color: #777;
+    text-decoration: line-through;
+}
+
+.discounted-price, .regular-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #da7960;
+}
+
+.discount-percentage {
+    background-color: #4CAF50;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.6em;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .price-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+</style>
     <div class="page-wrapper">
         <header class="header">
 
@@ -99,23 +141,9 @@
                                         </div><!-- End .megamenu megamenu-md -->
                                 </li>
                                 <li>
-                                    <a href="productlist" class="sf-with-ul">Product</a>
+                                    <a href="/productlist" class="sf-with-ul">Product</a>
 
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div>
-
-                                                    <ul>
-                                                        <li><a href="productlist">All Products</a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-
-
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
+                                    
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
@@ -130,8 +158,7 @@
 
                                         </li>
                                         <li><a href="login.html">Login</a></li>
-                                        <li><a href="userprofile">My Account</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
+                                        <li><a href="/userprofile">My Account</a></li>
                                     </ul>
                                 </li>
 
@@ -269,16 +296,21 @@
                                                 product.reviewsCount %> Reviews)</a>
                                     </div><!-- End .rating-container -->
 
-                                    <div class="product-price">
-                                        <% if (product.productDiscountedPrice < product.productPrice) { %>
-                                            <span class="new-price">₹<%= product?.productDiscountedPrice?.toFixed(2) %>
-                                            </span>
-                                            <span class="old-price">₹<%= product.productPrice.toFixed(2) %></span>
+                                    <!-- <div class="product-price">
+                                        <span class="price">₹<%= product.productPrice.toFixed(2) %></span>
+                                      </div>
+                                       -->
+                                       <div class="product-price">
+                                        <div class="price-wrapper">
+                                            <% if (product.appliedOffer) { %>
+                                                <span class="original-price">₹<%= product.productPrice.toFixed(2) %></span>
+                                                <span class="discounted-price">₹<%= product.discountedPrice %></span>
+                                                <span class="discount-percentage"><%= product.appliedOffer.discount %>% OFF</span>
                                             <% } else { %>
-                                                $<%= product.productPrice.toFixed(2) %>
-                                                    <% } %>
+                                                <span class="regular-price">₹<%= product.productPrice.toFixed(2) %></span>
+                                            <% } %>
+                                        </div>
                                     </div>
-
                                     <div class="product-content">
                                         <p>
                                             <%= product.productDescription %>
@@ -327,7 +359,7 @@
                                         <div class="product-cat">
                                             <span>Category:</span>
                                             <a href="#">
-                                                <%= product.category %>
+                                                <%= product.category ? product.category.name : 'Uncategorized' %>
                                             </a>
                                         </div><!-- End .product-cat -->
 
@@ -915,7 +947,7 @@
                     },
                     error: function () {
                         Toastify({
-                            text: "Error adding product to cart",
+                            text: "Please Login To Add Cart",
                             duration: 3000,
                             close: false,
                             gravity: "bottom",

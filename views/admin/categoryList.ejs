@@ -100,7 +100,7 @@
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                   <div data-i18n="Order">Order</div>
                 </a>
-           
+
                 <ul class="menu-sub">
                   <li class="menu-item">
                     <a href="orderlist" class="menu-link">
@@ -392,18 +392,12 @@
                 <div class="card-datatable table-responsive">
                   <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                     <div class="card-header d-flex rounded-0 flex-wrap pb-md-0 pt-0">
-                      <!-- <div class="me-5 ms-n2">
-                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                          <label>
-                            <input type="search" class="form-control form-control-sm" placeholder="Search Category"
-                              aria-controls="DataTables_Table_0">
-                          </label>
-                        </div>
-                      </div> -->
+
                       <div class="me-5 ms-n2">
                         <div id="DataTables_Table_0_filter" class="dataTables_filter">
                           <label>
-                            <input type="search" id="categorySearch" class="form-control form-control-sm" placeholder="Search Category" aria-controls="DataTables_Table_0">
+                            <input type="search" id="categorySearch" class="form-control form-control-sm"
+                              placeholder="Search Category" aria-controls="DataTables_Table_0">
                           </label>
                         </div>
                       </div>
@@ -429,11 +423,8 @@
                         <tr>
                           <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1"
                             style="width: 0px; display: none;" aria-label=""></th>
-                          <!-- <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1"
-                            colspan="1" style="width: 18px;" data-col="1" aria-label=""><input type="checkbox"
-                              class="form-check-input"></th> -->
-                          <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" style="width: 250px;" aria-label="Categories: activate to sort column ascending"
+                          <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                            style="width: 250px;" aria-label="Categories: activate to sort column ascending"
                             aria-sort="descending">Categories</th>
                           <th class="" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                             style="width: 300px;" aria-label="Description: activate to sort column ascending">
@@ -450,8 +441,7 @@
                           <% categories.forEach(category=> { %>
                             <tr class="odd">
                               <td class="control" tabindex="0" style="display: none;"></td>
-                              <!-- <td class="dt-checkboxes-cell"><input type="checkbox"
-                                  class="dt-checkboxes form-check-input"></td> -->
+
                               <td class="sorting_1">
                                 <div class="d-flex align-items-center">
                                   <div class="avatar-wrapper me-3 rounded bg-label-secondary user-name"></div>
@@ -525,6 +515,7 @@
               </div>
 
 
+              <!-- Add Category modal -->
               <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -557,7 +548,7 @@
                 </div>
               </div>
 
-
+              <!-- Adit Category modal -->
               <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -618,21 +609,35 @@
 
         <div class="content-backdrop fade"></div>
       </div>
-      <!-- Content wrapper -->
     </div>
-    <!-- / Layout page -->
   </div>
-
-  <!-- Overlay -->
   <div class="layout-overlay layout-menu-toggle"></div>
-
-
-  <!-- Drag Target Area To SlideIn Menu On Small Screens -->
   <div class="drag-target"></div>
-
   </div>
   <!-- / Layout wrapper -->
 
+
+  <!-- category search -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.getElementById('categorySearch');
+      const table = document.getElementById('DataTables_Table_0');
+      const rows = table.getElementsByTagName('tr');
+
+      searchInput.addEventListener('keyup', function () {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        for (let i = 1; i < rows.length; i++) {
+          const rowData = rows[i].textContent.toLowerCase();
+          if (rowData.includes(searchTerm)) {
+            rows[i].style.display = '';
+          } else {
+            rows[i].style.display = 'none';
+          }
+        }
+      });
+    });
+  </script>
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
   <script src="/adminAssets/vendor/libs/jquery/jquery.js"></script>
@@ -660,26 +665,7 @@
   <!-- Main JS -->
   <script src="/adminAssets/js/main.js"></script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  const searchInput = document.getElementById('categorySearch');
-  const table = document.getElementById('DataTables_Table_0');
-  const rows = table.getElementsByTagName('tr');
 
-  searchInput.addEventListener('keyup', function() {
-    const searchTerm = searchInput.value.toLowerCase();
-
-    for (let i = 1; i < rows.length; i++) {
-      const rowData = rows[i].textContent.toLowerCase();
-      if (rowData.includes(searchTerm)) {
-        rows[i].style.display = '';
-      } else {
-        rows[i].style.display = 'none';
-      }
-    }
-  });
-});
-</script>
   <!-- Page JS -->
   <!-- <script src="/adminAssets/js/app-ecommerce-category-list.js"></script> -->
 

@@ -7,8 +7,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #f39c12;
+            --primary-color: #10285e;
+            --secondary-color: #00ff9d;
             --bg-color: #f4f7fa;
             --text-color: #333;
             --card-bg: #ffffff;
@@ -251,6 +251,42 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-file-invoice"></i> Invoice</h5>
+                <!-- <div class="table-responsive">
+                    <table class="table table-invoice">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-right">Price</th>
+                                <th class="text-right">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% order.items.forEach(item => { %>
+                                <tr>
+                                    <td><%= item.product.productTitle %></td>
+                                    <td class="text-center"><%= item.quantity %></td>
+                                    <td class="text-right">₹<%= item.price.toFixed(2) %></td>
+                                    <td class="text-right">₹<%= (item.price * item.quantity).toFixed(2) %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                                <td class="text-right">₹<%= order.totalPrice.toFixed(2) %></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right"><strong>Shipping:</strong></td>
+                                <td class="text-right">Free</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                                <td class="text-right"><strong>₹<%= order.totalPrice.toFixed(2) %></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div> -->
                 <div class="table-responsive">
                     <table class="table table-invoice">
                         <thead>
@@ -287,6 +323,7 @@
                         </tfoot>
                     </table>
                 </div>
+                
             </div>
         </div>
 
@@ -321,7 +358,6 @@
     </div>
 
     <script>
-        // Simple animation for order progress
         const progressSteps = document.querySelectorAll('.progress-step');
         let currentStep = 0;
 

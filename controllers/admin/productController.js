@@ -14,15 +14,15 @@ const loadProductlist = async (req, res) => {
         const totalProducts = await Product.countDocuments();
         const totalPages = Math.ceil(totalProducts / limit); 
 
-        const products = await Product.find()
+        const products = await Product.find().populate('category')
             .sort({ createdAt: -1 })
             .skip((page - 1) * limit)
             .limit(limit);
-        const categories = await Category.find();
+         const categories = await Category.find();
 
         res.render('productList', {
             products,
-            categories,
+             categories,
             currentPage: page,
             totalPages,
             totalProducts 
@@ -97,9 +97,7 @@ const updateProduct = async (req, res) => {
 
         if (req.files && req.files.length > 0) {
             const newImages = req.files.map(file => file.filename);
-
             updatedImages = [...newImages, ...existingProduct.productImages].slice(0, 3);
-
         }
         updateData.productImages = updatedImages;
         const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
@@ -112,6 +110,7 @@ const updateProduct = async (req, res) => {
         console.error( error);
     }
 };
+
 module.exports = {
     loadProductlist,
     loadAddproduct,

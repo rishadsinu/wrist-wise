@@ -46,7 +46,46 @@
             color: #e44d26;
         }
     </style>
+    <style>
+        .product-price {
+            font-family: Arial, sans-serif;
+            margin: 10px 0;
+        }
 
+        .price-wrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            /* This adds space between price elements */
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 5px;
+        }
+
+        .discounted-price,
+        .regular-price {
+            color: #c66d63;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .discount-percentage {
+            color: #27ae60;
+            font-size: 0.9em;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .price-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
     <div class="page-wrapper">
         <header class="header">
 
@@ -131,37 +170,20 @@
 
                                                         <div class="col-md-6">
                                                             <div class="menu-title">Product Categories</div>
-                                                            <!-- End .menu-title -->
                                                             <ul>
                                                                 <li><a href="category">Product
                                                                         Category</a></li>
 
                                                             </ul>
-
-                                                        </div><!-- End .row -->
-                                                    </div><!-- End .menu-col -->
-                                                </div><!-- End .col-md-8 -->
-                                            </div><!-- End .row -->
-                                        </div><!-- End .megamenu megamenu-md -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </li>
                                 <li>
                                     <a href="productlist" class="sf-with-ul">Product</a>
 
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div>
-
-                                                    <ul>
-                                                        <li><a href="productlist">All Products</a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-
-
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
@@ -266,53 +288,60 @@
                                 <div class="col-6 col-md-4 col-lg-3">
                                     <div class="product product-3">
                                         <figure class="product-media">
-                                            <% if (product.productDiscountedPrice < product.productPrice) { %>
-                                                <span class="product-label">Sale</span>
-                                                <% } %>
-                                                    <a href="product/<%= product._id %>">
-                                                        <% if (product.productImages.length> 0) { %>
-                                                            <img src="/images/<%= product.productImages[0] %>"
-                                                                alt="<%= product.productTitle %>" class="product-image">
-                                                            <% } else { %>
-                                                                <img src="/path/to/default/image.jpg" alt="No Image"
-                                                                    class="product-image">
-                                                                <% } %>
-                                                    </a>
+                                            <!-- Removed the discount label logic -->
+                                            <a href="product/<%= product._id %>">
+                                                <% if (product.productImages.length> 0) { %>
+                                                    <img src="/images/<%= product.productImages[0] %>"
+                                                        alt="<%= product.productTitle %>" class="product-image">
+                                                    <% } else { %>
+                                                        <img src="/path/to/default/image.jpg" alt="No Image"
+                                                            class="product-image">
+                                                        <% } %>
+                                            </a>
 
-                                                    <div class="product-action-vertical">
-                                                        <a href="#"
-                                                            class="btn-product-icon btn-wishlist btn-expandable"><span>add
-                                                                to wishlist</span></a>
-                                                        <a href="product/<%= product._id %>"
-                                                            class="btn-product-icon btn-quickview"
-                                                            title="Quick view"><span>Quick view</span></a>
-                                                        <a href="#" class="btn-product-icon btn-compare"
-                                                            title="Compare"><span>Compare</span></a>
-                                                    </div>
+                                            <div class="product-action-vertical">
+                                                <a href="#"
+                                                    class="btn-product-icon btn-wishlist btn-expandable"><span>Add to
+                                                        wishlist</span></a>
+                                                <a href="product/<%= product._id %>"
+                                                    class="btn-product-icon btn-quickview"
+                                                    title="Quick view"><span>Quick view</span></a>
+                                                <a href="#" class="btn-product-icon btn-compare"
+                                                    title="Compare"><span>Compare</span></a>
+                                            </div>
                                         </figure>
 
                                         <div class="product-body">
                                             <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                <a href="#" class="btn-product btn-cart"><span>Add to cart</span></a>
                                             </div>
                                             <div class="product-cat">
                                                 <a href="#">
-                                                    <%= product.category %>
+                                                    <%= product.category.name %>
                                                 </a>
                                             </div>
 
                                             <h3 class="product-title"><a href="product/<%= product._id %>">
                                                     <%= product.productTitle %>
                                                 </a></h3>
+                                            <!-- <div class="product-price">
+                                                ₹<%= product.productPrice.toFixed(2) %>
+                                            </div> -->
                                             <div class="product-price">
-                                                <% if (product.productDiscountedPrice < product.productPrice) { %>
-                                                    <span class="new-price">₹<%=
-                                                            product?.productDiscountedPrice?.toFixed(2) %></span>
-                                                    <span class="old-price">₹<%= product?.productPrice?.toFixed(2) %>
-                                                    </span>
+                                                <% if (product.appliedOffer) { %>
+                                                    <div class="price-wrapper">
+                                                        <span class="original-price">₹<%=
+                                                                product.productPrice.toFixed(2) %></span>
+                                                        <span class="discounted-price">₹<%= product.discountedPrice %>
+                                                                </span>
+                                                        <span class="discount-percentage">
+                                                            <%= product.appliedOffer.discount %>% off
+                                                        </span>
+                                                    </div>
                                                     <% } else { %>
-                                                        ₹<%= product.productPrice.toFixed(2) %>
-                                                            <% } %>
+                                                        <span class="regular-price">₹<%= product.productPrice.toFixed(2)
+                                                                %></span>
+                                                        <% } %>
                                             </div>
                                         </div>
 
@@ -342,6 +371,7 @@
                                         <p>No products available.</p>
                                         <% } %>
                     </div>
+
 
 
                     <hr class="mt-0 mb-5" />
@@ -643,70 +673,43 @@
 
     <!-- search js -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchForm = document.getElementById('searchForm');
-            const searchInput = document.getElementById('searchInput');
-            const searchResults = document.getElementById('searchResults');
-
-            let debounceTimer;
-
-            searchInput.addEventListener('input', function () {
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(() => {
-                    const query = this.value.trim();
-                    if (query.length > 2) {
-                        fetchSearchResults(query);
-                    } else {
-                        searchResults.innerHTML = '';
-                    }
-                }, 300);
-            });
-
-            searchForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const query = searchInput.value.trim();
-                if (query) {
-                    fetchSearchResults(query);
-                }
-            });
-
-            function fetchSearchResults(query) {
-                fetch(`/search?q=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        displaySearchResults(data);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        searchResults.innerHTML = '<p>An error occurred while searching. Please try again.</p>';
-                    });
+        function displaySearchResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<p>No results found.</p>';
+                return;
             }
 
-            function displaySearchResults(results) {
-                if (results.length === 0) {
-                    searchResults.innerHTML = '<p>No results found.</p>';
-                    return;
-                }
+            const resultsHtml = results.map(product => `
+        <div class="search-result-item">
+            <a class="product-gallery-item active" href="/product/${product._id}"
+               data-image="/images/${product.image}"
+               data-zoom-image="/images/${product.image}">
+                <img src="/images/${product.image}" alt="${product.productTitle}" class="search-result-image">
+            </a>
+            <div class="search-result-info">
+                <h3><a href="/product/${product._id}">${product.productTitle}</a></h3>
+                <p>${product.productDescription ? product.productDescription.substring(0, 50) + '...' : ''}</p>
+                <div class="search-result-price">
+                    ${product.hasOffer ? `
+                        <span class="original-price" style="text-decoration: line-through; color: red;">
+                            ₹${product.originalPrice}
+                        </span>
+                        <span class="discounted-price">
+                            ₹${product.discountedPrice}
+                        </span>
+                        <span class="discount-percentage">
+                            (${product.discount}% off - ${product.offerType === 'product' ? 'Product Offer' : 'Category Offer'})
+                        </span>
+                    ` : `
+                        ₹${product.originalPrice}
+                    `}
+                </div>
+            </div>
+         </div>
+         `).join('');
 
-                const resultsHtml = results.map(product => `
-    <div class="search-result-item">
-      <a class="product-gallery-item active" href="#"
-         data-image="/images/${product.image}"
-         data-zoom-image="/images/${product.image}">
-        <img src="/images/${product.image}" alt="${product.name}" class="search-result-image">
-      </a>
-      <div class="search-result-info">
-        <h3><a href="/product/${product.id}">${product.name}</a></h3>
-        <p>${product.description.substring(0, 50)}...</p>
-        <span class="search-result-price">$${product.price.toFixed(2)}</span>
-      </div>
-    </div>
-    `).join('');
-
-                searchResults.innerHTML = resultsHtml;
-            }
-        });
-
+            searchResults.innerHTML = resultsHtml;
+        }  
     </script>
 
     <!-- Plugins JS File -->

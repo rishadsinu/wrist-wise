@@ -156,21 +156,7 @@
                                 <li>
                                     <a href="productlist" class="sf-with-ul">Product</a>
 
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div>
-
-                                                    <ul>
-                                                        <li><a href="productlist">All Products</a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-
-
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
+                                    
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
@@ -407,81 +393,82 @@
 
         <!-- Add Address Modal -->
         <div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addAddressModalLabel">Add New Address</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="addAddressForm">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="fullName">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" name="fullName" required>
-                                <div id="fullNameError" class="text-danger"></div> <!-- Error message -->
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addAddressModalLabel">Add New Address</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addAddressForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" name="fullName" required>
+                                    <div id="fullNameError" class="text-danger"></div> <!-- Error message -->
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <div id="emailError" class="text-danger"></div> <!-- Error message -->
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                                <div id="emailError" class="text-danger"></div> <!-- Error message -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                                    <div id="phoneError" class="text-danger"></div> <!-- Error message -->
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="pinCode">Pin Code</label>
+                                    <input type="text" class="form-control" id="pinCode" name="pinCode" required>
+                                    <div id="pinCodeError" class="text-danger"></div> <!-- Error message -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="phone">Phone</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" required>
-                                <div id="phoneError" class="text-danger"></div> <!-- Error message -->
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="streetAddress">Street Address</label>
+                                    <input type="text" class="form-control" id="streetAddress" name="streetAddress"
+                                        required>
+                                    <div id="streetAddressError" class="text-danger"></div> <!-- Error message -->
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="pinCode">Pin Code</label>
-                                <input type="text" class="form-control" id="pinCode" name="pinCode" required>
-                                <div id="pinCodeError" class="text-danger"></div> <!-- Error message -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="apartmentNumber">Apartment Number</label>
+                                    <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber">
+                                    <div id="apartmentNumberError" class="text-danger"></div> <!-- Error message -->
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="town">Town</label>
+                                    <input type="text" class="form-control" id="town" name="town" required>
+                                    <div id="townError" class="text-danger"></div> <!-- Error message -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <label for="streetAddress">Street Address</label>
-                                <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
-                                <div id="streetAddressError" class="text-danger"></div> <!-- Error message -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" required>
+                                    <div id="cityError" class="text-danger"></div> <!-- Error message -->
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" id="state" name="state" required>
+                                    <div id="stateError" class="text-danger"></div> <!-- Error message -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="apartmentNumber">Apartment Number</label>
-                                <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber">
-                                <div id="apartmentNumberError" class="text-danger"></div> <!-- Error message -->
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="town">Town</label>
-                                <input type="text" class="form-control" id="town" name="town" required>
-                                <div id="townError" class="text-danger"></div> <!-- Error message -->
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="city">City</label>
-                                <input type="text" class="form-control" id="city" name="city" required>
-                                <div id="cityError" class="text-danger"></div> <!-- Error message -->
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="state">State</label>
-                                <input type="text" class="form-control" id="state" name="state" required>
-                                <div id="stateError" class="text-danger"></div> <!-- Error message -->
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveAddress">Save Address</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveAddress">Save Address</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <footer class="footer">
             <div class="footer-middle">
@@ -753,67 +740,67 @@
         $(document).ready(function () {
             $('#saveAddress').click(function () {
                 var isValid = true;
-    
+
                 // Clear previous error messages
                 $('.text-danger').text('');
-    
+
                 var fullName = $('#fullName').val().trim();
                 if (fullName.length < 3) {
                     $('#fullNameError').text('Full Name must be at least 3 characters.');
                     isValid = false;
                 }
 
-                    var email = $('#email').val().trim();
+                var email = $('#email').val().trim();
                 var emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
                 if (!emailPattern.test(email)) {
                     $('#emailError').text('Please enter a valid Gmail address.');
                     isValid = false;
                 }
-    
+
                 var phone = $('#phone').val().trim();
                 var phonePattern = /^\d{10}$/;
                 if (!phonePattern.test(phone)) {
                     $('#phoneError').text('Phone number must be exactly 10 digits.');
                     isValid = false;
                 }
-    
+
                 var pinCode = $('#pinCode').val().trim();
                 var pinCodePattern = /^\d{6}$/;
                 if (!pinCodePattern.test(pinCode)) {
                     $('#pinCodeError').text('Please give valid pin code.');
                     isValid = false;
                 }
-    
+
                 var streetAddress = $('#streetAddress').val().trim();
                 if (streetAddress.length < 10) {
                     $('#streetAddressError').text('Give currect street address.');
                     isValid = false;
                 }
-    
+
                 var apartmentNumber = $('#apartmentNumber').val().trim();
                 if (apartmentNumber !== '' && (!/^\d{1,3}$/.test(apartmentNumber) || parseInt(apartmentNumber) > 999)) {
                     $('#apartmentNumberError').text('Provide valid appartment number');
                     isValid = false;
                 }
-    
+
                 var town = $('#town').val().trim();
                 if (!/^[a-zA-Z\s]+$/.test(town)) {
                     $('#townError').text('Give valid town.');
                     isValid = false;
                 }
-    
+
                 var city = $('#city').val().trim();
                 if (!/^[a-zA-Z\s]+$/.test(city)) {
                     $('#cityError').text('Provide currect city .');
                     isValid = false;
                 }
-    
+
                 var state = $('#state').val().trim();
                 if (!/^[a-zA-Z\s]+$/.test(state)) {
                     $('#stateError').text('Provide true state .');
                     isValid = false;
                 }
-    
+
                 if (isValid) {
                     var formData = $('#addAddressForm').serialize();
                     $.ajax({
@@ -836,7 +823,7 @@
             });
         });
     </script>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -867,7 +854,7 @@
                     success: function (response) {
                         if (response.success) {
                             $('#editAddressModal').modal('hide');
-                            location.reload(); 
+                            location.reload();
                         } else {
                             alert('Failed to update address. Please try again.');
                         }
@@ -880,7 +867,7 @@
         });
     </script>
 
-<!-- delete address -->
+    <!-- delete address -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -941,7 +928,7 @@
         }
     </script>
 
-<!-- Logout  js -->
+    <!-- Logout  js -->
     <script>
         document.getElementById('logoutLink').addEventListener('click', function (e) {
             e.preventDefault();
@@ -960,7 +947,6 @@
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Send a request to the server to log out
                     fetch('/logout', {
                         method: 'POST',
                         credentials: 'same-origin'
@@ -973,7 +959,6 @@
                                     icon: 'success',
                                     confirmButtonColor: '#3085d6'
                                 }).then(() => {
-                                    // Redirect to home page
                                     window.location.href = '/';
                                 });
                             } else {
@@ -994,7 +979,7 @@
         });
     </script>
     <Script>
-        
+
     </Script>
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>

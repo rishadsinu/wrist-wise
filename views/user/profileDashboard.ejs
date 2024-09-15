@@ -109,21 +109,7 @@
                                 <li>
                                     <a href="productlist" class="sf-with-ul">Product</a>
 
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div>
-
-                                                    <ul>
-                                                        <li><a href="productlist">All Products</a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-
-
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
+                                    
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
@@ -224,7 +210,7 @@
                                         <a class="nav-link active" href="userprofile" role="tab">Account Details</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="profileOrders"
+                                        <a class="nav-link" href="/profileOrders"
                                             role="tab" >Orders</a>
                                     </li>
                                    
@@ -598,7 +584,6 @@
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
-                // Remove the query parameter from the URL
                 history.replaceState(null, '', '/userprofile');
             }
         });
@@ -624,7 +609,6 @@ document.getElementById('logoutLink').addEventListener('click', function(e) {
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            // Send a request to the server to log out
             fetch('/logout', {
                 method: 'POST',
                 credentials: 'same-origin'
@@ -637,7 +621,6 @@ document.getElementById('logoutLink').addEventListener('click', function(e) {
                         icon: 'success',
                         confirmButtonColor: '#3085d6'
                     }).then(() => {
-                        // Redirect to home page
                         window.location.href = '/';
                     });
                 } else {

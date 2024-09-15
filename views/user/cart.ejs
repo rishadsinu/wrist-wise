@@ -1,22 +1,79 @@
 <%- include ('../layouts/header.ejs') %>
 
+    <style>
+        .coupon-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .coupon-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .coupon-form .input-group {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .coupon-input {
+            border: 1px solid #ced4da;
+            border-right: none;
+            padding: 10px 15px;
+            font-size: 1.4rem;
+        }
+        
+        .coupon-input::placeholder {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: #000000;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-show-coupon {
+            background-color: #b84a4a;
+            color: white;
+            border: none;
+        }
+        
+        .btn-apply-coupon {
+            background-color: #3e6747;
+            color: white;
+            border: none;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .icon-tag, .icon-check {
+            margin-right: 5px;
+        }
+        </style>
+    
     <div class="page-wrapper">
         <header class="header">
-
             <div class="header-top">
                 <div class="container">
                     <div class="header-left col-lg-7">
                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-                                   
+
                                     <!-- Current page breadcrumb without link -->
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Cart
                                     </li>
                                 </ol>
                             </div>
-                            <!-- End .container -->
+
                         </nav>
                         <!-- End .breadcrumb-nav -->
                     </div>
@@ -44,7 +101,7 @@
                                             <li>
                                                 <a href="/login"><i class="icon-user"></i>Login</a>
                                             </li>
-                                           <% } %>
+                                            <% } %>
                                 </ul>
                             </li>
                         </ul>
@@ -53,7 +110,7 @@
                     <!-- End .header-right -->
                 </div>
                 <!-- End .container -->
-              
+
             </div>
             <div class="header-bottom sticky-header">
                 <div class="container">
@@ -71,7 +128,7 @@
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="productlist" class="sf-with-ul">Home</a>
+                                    <a href="home" class="sf-with-ul">Home</a>
 
 
                                 </li>
@@ -101,23 +158,9 @@
                                         </div><!-- End .megamenu megamenu-md -->
                                 </li>
                                 <li>
-                                    <a href="productlist" class="sf-with-ul">Product</a>
-
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div>
-
-                                                    <ul>
-                                                        <li><a href="productlist">All Products</a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
+                                    <a href="productlist" class="sf-with-ul">Products</a>
 
 
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
@@ -209,9 +252,26 @@
                 <div class="cart">
                     <div class="container">
                         <div class="row">
+
+                            <div class="coupon-container">
+                                <h4 class="coupon-title">Have a Coupon</h4>
+                                <form action="#" class="coupon-form">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control coupon-input" required placeholder="COUPON CODE">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-show-coupon" type="button" id="showCouponBtn">
+                                                <i class="icon-tag"></i> Show
+                                            </button>
+                                            <button class="btn btn-apply-coupon" type="button" id="applyBtn">
+                                                <i class="icon-check"></i> Apply
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            
                             <div class="col-lg-9">
                                 <% if (cart && cart.items.length> 0) { %>
-
                                     <table class="table table-cart table-mobile">
                                         <thead>
                                             <tr>
@@ -240,33 +300,39 @@
                                                             </h3>
                                                         </div>
                                                     </td>
-                                                    <td class="price-col">₹<span class="item-price">
-                                                            <%= item.product.productDiscountedPrice.toFixed(2) %>
-                                                        </span></td>
-                                                    <!-- <td class="quantity-col">
-                                                        <div class="cart-product-quantity">
-                                                            <input type="number" class="form-control quantity-input"
-                                                                value="<%= item.quantity %>" min="1" max="10" step="1"
-                                                                data-price="<%= item.product.productDiscountedPrice %>"
-                                                                data-product-id="<%= item.product._id %>" required>
-                                                        </div>
-                                                    </td> -->
+                                                    <td class="price-col">
+                                                        <% if (item.discountedPrice && item.discountedPrice <
+                                                            item.product.productPrice) { %>
+                                                            <!-- Original price in red with strikethrough -->
+                                                            <span class="original-price"
+                                                                style="text-decoration: line-through; color: rgb(153, 32, 32);">
+                                                                ₹<%= item.product.productPrice.toFixed(2) %>
+                                                            </span><br>
+                                                            <!-- Discounted price in green -->
+                                                            <span class="discounted-price" style="color: green;">
+                                                                ₹<%= item.discountedPrice %>
+                                                            </span>
+                                                            <% } else { %>
+                                                                <!-- Regular price in black -->
+                                                                <span class="regular-price" style="color: black;">
+                                                                    ₹<%= item.product.productPrice.toFixed(2) %>
+                                                                </span>
+                                                                <% } %>
+                                                    </td>
+
                                                     <td class="quantity-col">
                                                         <div class="cart-product-quantity">
                                                             <input type="number" class="form-control quantity-input"
-                                                                value="<%= item.quantity %>" 
-                                                                min="1" 
-                                                                max="<%= Math.min(item.product.stock, 10) %>" 
-                                                                step="1"
-                                                                data-price="<%= item.product.productDiscountedPrice %>"
-                                                                data-product-id="<%= item.product._id %>" 
-                                                                data-max-stock="<%= item.product.stock %>"
-                                                                >
+                                                                value="<%= item.quantity %>" min="1"
+                                                                max="<%= Math.min(item.product.stock, 10) %>" step="1"
+                                                                data-price="<%= item.discountedPrice || item.product.productPrice %>"
+                                                                data-product-id="<%= item.product._id %>"
+                                                                data-max-stock="<%= item.product.stock %>">
                                                         </div>
                                                     </td>
                                                     <td class="total-col">₹<span class="item-total">
-                                                            <%= (item.product.productDiscountedPrice * item.quantity).toFixed(2)
-                                                                %>
+                                                            <%= ((item.discountedPrice || item.product.productPrice) *
+                                                                item.quantity).toFixed(2) %>
                                                         </span></td>
                                                     <td class="remove-col">
                                                         <button class="btn-remove remove-from-cart"
@@ -278,26 +344,14 @@
                                                 <% }); %>
                                         </tbody>
                                     </table>
-
                                     <% } else { %>
                                         <p>Your cart is empty.</p>
                                         <% } %>
 
                                             <div class="cart-bottom">
-                                                <div class="cart-discount">
-                                                    <form action="#">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" required
-                                                                placeholder="coupon code">
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-outline-primary-2"
-                                                                    type="submit"><i
-                                                                        class="icon-long-arrow-right"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-
+                            
+                                                
+                                               
                                                 <a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i
                                                         class="icon-refresh"></i></a>
                                             </div>
@@ -305,10 +359,10 @@
                             <aside class="col-lg-3">
                                 <div class="summary summary-cart">
                                     <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
-  
+
                                     <table class="table table-summary">
                                         <tbody>
-                                          
+
                                             <tr class="summary-subtotal">
                                                 <td>Sub Total:</td>
                                                 <td>₹<span id="cart-subtotal">0.00</span></td>
@@ -323,7 +377,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    
+
 
                                     <a href="checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO
                                         CHECKOUT</a>
@@ -617,10 +671,8 @@
                     data: { productId: productId },
                     success: function (response) {
                         if (response.success) {
-                            // Remove the row from the table
                             row.remove();
 
-                            // Show a simple "Removed product" message
                             Toastify({
                                 text: "Removed product",
                                 duration: 3000,
@@ -632,9 +684,9 @@
                         }
                     },
                     error: function () {
-                        // Optionally handle errors silently
                     }
                 });
+
             });
 
         });
@@ -646,29 +698,19 @@
         async function updateCartTotals() {
             let cartSubtotal = 0;
 
-            // Loop through each quantity input
             document.querySelectorAll('.quantity-input').forEach(async input => {
-                // Parse the quantity and price
                 const quantity = parseInt(input.value);
                 const price = parseFloat(input.getAttribute('data-price'));
                 const productId = input.getAttribute('data-product-id');
 
-                // If quantity or price is not a number, skip this iteration
                 if (isNaN(quantity) || isNaN(price)) {
                     console.log('Invalid quantity or price:', quantity, price);
                     return;
                 }
 
-                // Calculate the total for this item
                 const itemTotal = (price * quantity).toFixed(2);
-
-                // Update the item total in the DOM
                 input.closest('tr').querySelector('.item-total').textContent = itemTotal;
-
-                // Add to cart subtotal
                 cartSubtotal += parseFloat(itemTotal);
-
-                // Send the updated quantity to the server
                 try {
                     const response = await fetch('/update-cart', {
                         method: 'POST',
@@ -688,20 +730,12 @@
                     console.error('Error:', error);
                 }
             });
-
-            // Update the subtotal and total in the summary table
             document.getElementById('cart-subtotal').textContent = cartSubtotal.toFixed(2);
             document.getElementById('cart-total').textContent = cartSubtotal.toFixed(2);
-
-            console.log('Cart subtotal updated:', cartSubtotal.toFixed(2));
         }
-
-        // Attach event listeners to quantity inputs
         document.querySelectorAll('.quantity-input').forEach(input => {
             input.addEventListener('input', updateCartTotals);
         });
-
-        // Initial calculation on page load
         updateCartTotals();
     </script>
 

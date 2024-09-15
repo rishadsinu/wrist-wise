@@ -13,6 +13,8 @@ const adminController = require('../controllers/admin/adminController');
 const productController = require('../controllers/admin/productController');
 const categoryController = require('../controllers/admin/categoryController');
 const orderController = require('../controllers/admin/orderController');
+const offerController = require('../controllers/admin/offerController')
+const couponController = require('../controllers/admin/couponController')
 
 // model
 const Order = require('../models/orderModel');
@@ -61,7 +63,19 @@ adminRoute.get('/orderlist',orderController.loadOrdersList);
 adminRoute.get('/orderdetails/:orderId', orderController.getOrderDetails);
 adminRoute.put('/updateItemStatus/:orderId/:itemId', orderController.updateItemStatus);
 adminRoute.post('/orders/:orderId/items/:itemId/accept-cancel', orderController.acceptCancellationRequest);
-adminRoute.get('/logout', adminAuth, adminController.logout);
 
+// offer
+adminRoute.get('/offerslist', offerController.loadOffers);
+adminRoute.post('/addoffer/add', offerController.addOffer);
+adminRoute.delete('/addoffer/delete/:id',  offerController.deleteOffer);
+adminRoute.get('/addoffer/get/:id', offerController.getOffer);
+adminRoute.put('/addoffer/update', offerController.updateOffer);
+
+// coupon
+adminRoute.get('/couponlist', couponController.loadCoupon)
+adminRoute.post('/add-coupon', couponController.addCoupon);
+adminRoute.get('/get-coupon/:couponId', couponController.getCoupon);
+adminRoute.put('/update-coupon/:couponId', couponController.updateCoupon);
+adminRoute.delete('/delete-coupon/:couponId', couponController.deleteCoupon);
 
 module.exports = adminRoute;

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Category = require('../models/categoryModel')
 
 const productSchema = new mongoose.Schema({
     productTitle: String,
@@ -7,8 +8,13 @@ const productSchema = new mongoose.Schema({
     productDiscountedPrice: Number,
     productImages: [String],
     stock: Number,
-    category: String,
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+      },
     isListed: Boolean
 });
 
 module.exports = mongoose.model('Product', productSchema);
+
+// category: String,

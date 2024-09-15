@@ -11,8 +11,7 @@ const loadcategorylist = async (req, res) => {
         const categories = await Category.find();
         res.render('categoryList', { categories });
     } catch (error) {
-        console.error('Error loading category list:', error);
-        res.status(500).send('An error occurred while loading the category list');
+        console.error(error);
     }
 };
 
@@ -21,25 +20,23 @@ const addCategory = async (req, res) => {
         const { name, slug, status } = req.body;
         const existingCategory = await Category.findOne({ name: name });
         if (existingCategory) {
-            return res.status(400).send('A category with this name already exists');
+            return res.status(400).send('this name already exists');
         }
         const newCategory = new Category({ name, slug, status });
         await newCategory.save();
         res.redirect('/admin/categoryList');
     } catch (error) {
-        console.error('Error adding category:', error);
-        res.status(500).send('An error occurred while adding the category');
+        console.error(error);
     }
 };
 
 const editCategory = async (req, res) => {
     try {
         const { id, name, status, slug } = req.body;
-
         if (!name) {
             return res.status(400).json({ error: 'Category name is required.' });
         }
-
+        
         await Category.findByIdAndUpdate(id, {
             name,
             slug,
@@ -48,8 +45,7 @@ const editCategory = async (req, res) => {
 
         res.redirect('/admin/categoryList');
     } catch (error) {
-        console.error('Error editing category:', error);
-        res.status(500).json({ error: 'Server error while editing category.' });
+        console.error(error);
     }
 };
 

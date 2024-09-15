@@ -673,14 +673,12 @@
       `;
           document.getElementById('orderDetailsContent').innerHTML = orderDetailsHtml;
 
-          // Set up event listeners for status changes
           document.querySelectorAll('.status-select').forEach(select => {
             select.addEventListener('change', function () {
               updateItemStatus(orderId, this.dataset.itemId, this.value, this.dataset.currentStatus);
             });
           });
 
-          // Set up event listeners for cancel request buttons
           document.querySelectorAll('.accept-cancel-btn').forEach(button => {
             button.addEventListener('click', function () {
               acceptItemCancellation(orderId, this.dataset.itemId);

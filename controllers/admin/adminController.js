@@ -25,7 +25,7 @@ const loginAdmin = async (req, res) => {
             res.render('adminLogin', { message: 'Invalid email or password' });
         }
     } catch (error) {
-        console.log(error);
+        console.log(error); 
     }
 };
 
@@ -39,7 +39,7 @@ const loadDashboard = async (req, res) => {
 
 const loadCustomers = async (req, res) => {
     try {
-        const users = await User.find({}, 'name email phone isBlocked')
+        const users = await User.find({})
             .sort({ createdAt: -1 });
         res.render('usersList', { users: users });
     } catch (error) {
@@ -53,7 +53,7 @@ const blockUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
-        res.json({ success: true, message: 'User blocked successfully', user: user });
+        res.json({ success: true, message: 'User was blocked', user: user });
     } catch (error) {
         console.error(error);
     }
@@ -65,21 +65,11 @@ const unblockUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
-        res.json({ success: true, message: 'User unblocked successfully', user: user });
+        res.json({ success: true, message: 'User unblocked', user: user });
     } catch (error) {
         console.error(error);
     }
 };
-
-const logout = async (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            console.log(err);
-        }
-        res.redirect('/admin'); 
-    });
-};
-
 
 module.exports = {
     loadLogin,
@@ -88,5 +78,4 @@ module.exports = {
     loadCustomers,
     unblockUser,
     blockUser,
-    logout
 };

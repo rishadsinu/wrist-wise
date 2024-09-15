@@ -46,6 +46,46 @@
             color: #e44d26;
         }
     </style>
+<style>
+    .product-price {
+        font-family: Arial, sans-serif;
+        margin: 10px 0;
+    }
+
+    .price-wrapper {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        /* This adds space between price elements */
+    }
+
+    .original-price {
+        text-decoration: line-through;
+        color: #999;
+        margin-right: 5px;
+    }
+
+    .discounted-price,
+    .regular-price {
+        color: #c66d63;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+
+    .discount-percentage {
+        color: #27ae60;
+        font-size: 0.9em;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .price-wrapper {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
 
     <div class="page-wrapper">
         <header class="header">
@@ -56,7 +96,7 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-                                
+
                                     <!-- Current page breadcrumb without link -->
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Category
@@ -91,7 +131,7 @@
                                             <li>
                                                 <a href="/login"><i class="icon-user"></i>Login</a>
                                             </li>
-                                           <% } %>
+                                            <% } %>
                                 </ul>
                             </li>
                         </ul>
@@ -100,7 +140,7 @@
                     <!-- End .header-right -->
                 </div>
                 <!-- End .container -->
-              
+
             </div>
             <div class="header-bottom sticky-header">
                 <div class="container">
@@ -150,21 +190,7 @@
                                 <li>
                                     <a href="productlist" class="sf-with-ul">Product</a>
 
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div>
 
-                                                    <ul>
-                                                        <li><a href="productlist">All Products</a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-
-
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
@@ -237,16 +263,18 @@
             </div><!-- End .header-bottom -->
         </header><!-- End .header -->
 
-            <main class="main">
-                <div class="page-header text-center" style="background-color:rgb(51, 41, 41);">
-                    <div class="container">
-                        <h1 class="page-title">Shoping Space <span>Categories and Products</span></h1>
-                    </div><!-- End .container -->
-                </div>
-    
-        <style>.page-header .page-title {
-            color: white;
-        }</style>
+        <main class="main">
+            <div class="page-header text-center" style="background-color:rgb(51, 41, 41);">
+                <div class="container">
+                    <h1 class="page-title">Shoping Space <span>Categories and Products</span></h1>
+                </div><!-- End .container -->
+            </div>
+
+            <style>
+                .page-header .page-title {
+                    color: white;
+                }
+            </style>
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
                 <div class="container">
                     <ol class="breadcrumb">
@@ -277,7 +305,7 @@
                                             <div class="col-6 col-md-4 col-lg-4">
                                                 <div class="product product-7 text-center">
                                                     <figure class="product-media">
-                                                        <% if (product.productDiscountedPrice < product.productPrice) {
+                                                        <% if (product.productPrice < product.productPrice) {
                                                             %>
                                                             <span class="product-label label-sale">Sale</span>
                                                             <% } else { %>
@@ -317,24 +345,23 @@
                                                     <div class="product-body">
                                                         <div class="product-cat">
                                                             <a href="#">
-                                                                <%= product.category %>
+                                                                <%= product.category ? product.category.name : 'No Category' %>
                                                             </a>
                                                         </div>
                                                         <h3 class="product-title"><a href="product/<%= product._id %>">
                                                                 <%= product.productTitle %>
                                                             </a></h3>
-                                                        <div class="product-price">
-                                                            <% if (product.productDiscountedPrice <
-                                                                product.productPrice) { %>
-                                                                <span class="new-price">₹<%=
-                                                                        product?.productDiscountedPrice?.toFixed(2) %>
-                                                                </span>
-                                                                <span class="old-price">₹<%=
-                                                                        product.productPrice.toFixed(2) %></span>
+                                                            <div class="product-price">
+                                                                <% if (product.appliedOffer) { %>
+                                                                    <div class="price-wrapper">
+                                                                        <span class="original-price">₹<%= product.productPrice.toFixed(2) %></span>
+                                                                        <span class="discounted-price">₹<%= product.discountedPrice %></span>
+                                                                        <span class="discount-percentage"><%= product.appliedOffer.discount %>% off</span>
+                                                                    </div>
                                                                 <% } else { %>
-                                                                    ₹<%= product.productPrice.toFixed(2) %>
-                                                                        <% } %>
-                                                        </div>
+                                                                    <span class="regular-price">₹<%= product.productPrice.toFixed(2) %></span>
+                                                                <% } %>
+                                                            </div>
                                                         <div class="ratings-container">
                                                             <div class="ratings">
                                                             </div>
@@ -368,21 +395,27 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item <%= currentPage == 1 ? 'disabled' : '' %>">
-                                        <a class="page-link page-link-prev" href="?page=<%= currentPage - 1 %>" aria-label="Previous">
+                                        <a class="page-link page-link-prev" href="?page=<%= currentPage - 1 %>"
+                                            aria-label="Previous">
                                             <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
                                         </a>
                                     </li>
-                                    <% for (let i = 1; i <= totalPages; i++) { %>
+                                    <% for (let i=1; i <=totalPages; i++) { %>
                                         <li class="page-item <%= currentPage == i ? 'active' : '' %>">
-                                            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                            <a class="page-link" href="?page=<%= i %>">
+                                                <%= i %>
+                                            </a>
                                         </li>
-                                    <% } %>
-                                    <li class="page-item-total">of <%= totalPages %></li>
-                                    <li class="page-item <%= currentPage == totalPages ? 'disabled' : '' %>">
-                                        <a class="page-link page-link-next" href="?page=<%= currentPage + 1 %>" aria-label="Next">
-                                            Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
-                                        </a>
-                                    </li>
+                                        <% } %>
+                                            <li class="page-item-total">of <%= totalPages %>
+                                            </li>
+                                            <li class="page-item <%= currentPage == totalPages ? 'disabled' : '' %>">
+                                                <a class="page-link page-link-next" href="?page=<%= currentPage + 1 %>"
+                                                    aria-label="Next">
+                                                    Next <span aria-hidden="true"><i
+                                                            class="icon-long-arrow-right"></i></span>
+                                                </a>
+                                            </li>
                                 </ul>
                             </nav>
                         </div>
@@ -407,30 +440,29 @@
                                         <div class="collapse show" id="widget-1">
                                             <div class="widget-body">
                                                 <div class="filter-items filter-items-count">
-                                                    <% if (categories && categories.length> 0) { %>
-                                                        <% categories.forEach((cat, index)=> { %>
+                                                    <% if (categories && categories.length > 0) { %>
+                                                        <% categories.forEach((category, index) => { %>
                                                             <div class="filter-item">
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input type="checkbox" class="custom-control-input"
-                                                                        id="cat-<%= index + 1 %>" name="category"
-                                                                        value="<%= cat.name %>"
-                                                                        <%=currentFilters.category.includes(cat.name)
-                                                                        ? 'checked' : '' %>>
+                                                                        id="cat-<%= category._id %>" name="category"
+                                                                        value="<%= category._id %>"
+                                                                        <%= currentFilters && currentFilters.category && currentFilters.category.includes(category._id.toString()) ? 'checked' : '' %>>
                                                                     <label class="custom-control-label"
-                                                                        for="cat-<%= index + 1 %>">
-                                                                        <%= cat.name %>
+                                                                        for="cat-<%= category._id %>">
+                                                                        <%= category.name %>
                                                                     </label>
                                                                 </div>
                                                                 <span class="item-count">
-                                                                    <%= cat.productCount %>
+                                                                    <%= category.productCount %>
                                                                 </span>
                                                             </div>
-                                                            <% }); %>
-                                                                <% } else { %>
-                                                                    <div class="filter-item">
-                                                                        <p>No categories available.</p>
-                                                                    </div>
-                                                                    <% } %>
+                                                        <% }); %>
+                                                    <% } else { %>
+                                                        <div class="filter-item">
+                                                            <p>No categories available.</p>
+                                                        </div>
+                                                    <% } %>
                                                 </div>
                                             </div>
                                         </div>
@@ -796,132 +828,6 @@
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
 
-    <!-- Sign in / Register Modal -->
-    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="icon-close"></i></span>
-                    </button>
-
-                    <div class="form-box">
-                        <div class="form-tab">
-                            <ul class="nav nav-pills nav-fill" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin"
-                                        role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab"
-                                        aria-controls="register" aria-selected="false">Register</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="tab-content-5">
-                                <div class="tab-pane fade show active" id="signin" role="tabpanel"
-                                    aria-labelledby="signin-tab">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <label for="singin-email">Username or email address *</label>
-                                            <input type="text" class="form-control" id="singin-email"
-                                                name="singin-email" required>
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-group">
-                                            <label for="singin-password">Password *</label>
-                                            <input type="password" class="form-control" id="singin-password"
-                                                name="singin-password" required>
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>LOG IN</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="signin-remember">
-                                                <label class="custom-control-label" for="signin-remember">Remember
-                                                    Me</label>
-                                            </div><!-- End .custom-checkbox -->
-
-                                            <a href="#" class="forgot-link">Forgot Your Password?</a>
-                                        </div><!-- End .form-footer -->
-                                    </form>
-                                    <div class="form-choice">
-                                        <p class="text-center">or sign in with</p>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-g">
-                                                    <i class="icon-google"></i>
-                                                    Login With Google
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-f">
-                                                    <i class="icon-facebook-f"></i>
-                                                    Login With Facebook
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <label for="register-email">Your email address *</label>
-                                            <input type="email" class="form-control" id="register-email"
-                                                name="register-email" required>
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-group">
-                                            <label for="register-password">Password *</label>
-                                            <input type="password" class="form-control" id="register-password"
-                                                name="register-password" required>
-                                        </div><!-- End .form-group -->
-
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>SIGN UP</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="register-policy"
-                                                    required>
-                                                <label class="custom-control-label" for="register-policy">I agree to the
-                                                    <a href="#">privacy policy</a> *</label>
-                                            </div><!-- End .custom-checkbox -->
-                                        </div><!-- End .form-footer -->
-                                    </form>
-                                    <div class="form-choice">
-                                        <p class="text-center">or sign in with</p>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-g">
-                                                    <i class="icon-google"></i>
-                                                    Login With Google
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                            <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login  btn-f">
-                                                    <i class="icon-facebook-f"></i>
-                                                    Login With Facebook
-                                                </a>
-                                            </div><!-- End .col-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                            </div><!-- End .tab-content -->
-                        </div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
-
-
     <!-- Sort & Filter -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -930,7 +836,6 @@
 
             filterInputs.forEach(input => {
                 input.addEventListener('change', function () {
-                    // Clear other sort options when one is selected
                     if (this.name === 'sort' || this.name === 'priceSort') {
                         filterForm.querySelectorAll('input[name="sort"], input[name="priceSort"]').forEach(sortInput => {
                             if (sortInput !== this) {
@@ -942,7 +847,6 @@
                 });
             });
 
-            // Add event listener for the "Clean All" link
             const cleanAllLink = document.querySelector('.sidebar-filter-clear');
             cleanAllLink.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -954,54 +858,54 @@
         });
     </script>
 
-<!-- search js -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchForm = document.getElementById('searchForm');
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
+    <!-- search js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
 
-        let debounceTimer;
+            let debounceTimer;
 
-        searchInput.addEventListener('input', function () {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                const query = this.value.trim();
-                if (query.length > 2) {
+            searchInput.addEventListener('input', function () {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const query = this.value.trim();
+                    if (query.length > 2) {
+                        fetchSearchResults(query);
+                    } else {
+                        searchResults.innerHTML = '';
+                    }
+                }, 300);
+            });
+
+            searchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                if (query) {
                     fetchSearchResults(query);
-                } else {
-                    searchResults.innerHTML = '';
                 }
-            }, 300);
-        });
+            });
 
-        searchForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const query = searchInput.value.trim();
-            if (query) {
-                fetchSearchResults(query);
-            }
-        });
-
-        function fetchSearchResults(query) {
-            fetch(`/search?q=${encodeURIComponent(query)}`)
-                .then(response => response.json())
-                .then(data => {
-                    displaySearchResults(data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    searchResults.innerHTML = '<p>An error occurred while searching. Please try again.</p>';
-                });
-        }
-
-        function displaySearchResults(results) {
-            if (results.length === 0) {
-                searchResults.innerHTML = '<p>No results found.</p>';
-                return;
+            function fetchSearchResults(query) {
+                fetch(`/search?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        displaySearchResults(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        searchResults.innerHTML = '<p>An error occurred while searching. Please try again.</p>';
+                    });
             }
 
-            const resultsHtml = results.map(product => `
+            function displaySearchResults(results) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<p>No results found.</p>';
+                    return;
+                }
+
+                const resultsHtml = results.map(product => `
 <div class="search-result-item">
   <a class="product-gallery-item active" href="#"
      data-image="/images/${product.image}"
@@ -1016,11 +920,11 @@
 </div>
 `).join('');
 
-            searchResults.innerHTML = resultsHtml;
-        }
-    });
+                searchResults.innerHTML = resultsHtml;
+            }
+        });
 
-</script>
+    </script>
     <!-- Plugins JS File -->
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.bundle.min.js"></script>

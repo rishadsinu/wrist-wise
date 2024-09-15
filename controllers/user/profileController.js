@@ -11,7 +11,7 @@ const loadUserProfile = async (req, res) => {
         const user = req.session.user
         res.render('profileDashboard', { user });
     } catch (error) {
-        res.redirect('/login?message=' + encodeURIComponent('Please log in to view your wishlist'));
+        res.redirect('/login');
     }
 };
 
@@ -19,14 +19,12 @@ const updateUserProfile = async (req, res) => {
     try {
         const userId = req.session.user._id
         const { name, phone } = req.body
-
         await User.findByIdAndUpdate(userId, { name, phone })
         req.session.user = { ...req.session.user, name, phone }
         res.redirect('/userprofile')
 
     } catch (error) {
         console.log(error);
-
     }
 }
 
@@ -39,7 +37,6 @@ const changePassword = async (req, res) => {
         const { currentPassword, newPassword, confirmPassword } = req.body;
         const userId = req.session.user._id;
         const user = await User.findById(userId);
-
         const isMatch = await bcrypt.compare(currentPassword, user.password);
         if (!isMatch) {
             return res.render('changePassword', { message: { type: 'danger', text: 'Current password is incorrect' } });
@@ -47,14 +44,13 @@ const changePassword = async (req, res) => {
         if (newPassword !== confirmPassword) {
             return res.render('changePassword', { message: { type: 'danger', text: 'New password and confirm password do not match' } });
         }
-
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(newPassword, salt);
         await User.findByIdAndUpdate(userId, { password: hashedPassword });
         res.redirect('/userprofile?passwordChanged=true');
     } catch (error) {
         console.error('Error changing password:', error);
-        res.render('changePassword', { message: { type: 'danger', text: 'An error occurred while changing the password' } });
+        res.render('changePassword');
     }
 };
 
@@ -91,7 +87,6 @@ const addAddress = async (req, res) => {
     }
 };
 
-
 const updateAddress = async (req, res) => {
     try {
         const { id, fullName, streetAddress, apartmentNumber, city, town, pinCode, phone } = req.body;
@@ -126,7 +121,6 @@ const loadProfileOrders = async (req, res) => {
         if (!req.session.user) {
             return res.redirect('/login');
         }
-
         const userId = req.session.user._id;
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 6; 
@@ -142,14 +136,20 @@ const loadProfileOrders = async (req, res) => {
                 select: 'productImages' 
             });
 
-        const formattedOrders = orders.map(order => ({
-            _id: order._id,
-            orderId: order.orderId,
-            createdAt: order.createdAt,
-            status: order.items[0].order_status,
-            totalPrice: order.totalPrice,
-            productImages: order.items[0].product.productImages 
-        }));
+        const formattedOrders = orders.map(order => {
+            const firstItem = order.items[0];
+            const product = firstItem && firstItem.product;
+            const productImages = product && product.productImages ? product.productImages : [];
+
+            return {
+                _id: order._id,
+                orderId: order.orderId,
+                createdAt: order.createdAt,
+                status: firstItem.order_status,
+                totalPrice: order.totalPrice,
+                productImages: productImages 
+            };
+        });
 
         res.render('profileOrders', {
             orders: formattedOrders,
@@ -158,7 +158,8 @@ const loadProfileOrders = async (req, res) => {
             totalPages
         });
     } catch (error) {
-        console.error(error);
+        console.error('Error in loadProfileOrders:', error);
+        res.status(500).send('Server error: ' + error.message);
     }
 };
 
@@ -170,7 +171,6 @@ const getOrderDetails = async (req, res) => {
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
-
         res.json(order);
     } catch (error) {
         console.error(error);
@@ -186,21 +186,17 @@ const requestCancellation = async (req, res) => {
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
-
         const item = order.items.id(itemId);
         if (!item) {
             return res.status(404).json({ error: 'Item not found' });
         }
-
         if (item.order_status === 'Cancelled' || item.order_status === 'Delivered') {
             return res.status(400).json({ error: 'Cannot request cancellation for this item.' });
         }
-
         item.order_status = 'Cancellation Requested';
         item.cancelReason = cancelReason;
-
         await order.save();
-
+        
         res.status(200).json({ message: 'Cancellation request submitted successfully.' });
     } catch (error) {
         console.error(error);
