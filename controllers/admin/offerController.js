@@ -15,6 +15,7 @@ const loadOffers = async (req, res) => {
       res.status(500).send('Server error');
     }
   };
+  
   const addOffer = async (req, res) => {
     try {
       const { offerName, discount, type, startDate, endDate, products, categories, status } = req.body;
@@ -56,6 +57,7 @@ const loadOffers = async (req, res) => {
       res.status(500).json({ success: false, error: 'Failed to delete offer', details: error.message });
     }
   }
+  
   const getOffer = async (req, res) => {
     try {
       const offer = await Offer.findById(req.params.id)

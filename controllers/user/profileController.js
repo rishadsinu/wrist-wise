@@ -203,6 +203,36 @@ const requestCancellation = async (req, res) => {
     }
 };
 
+const requestReturn = async (req, res) => {
+    try {
+        const { orderId, itemId } = req.params;
+        const { returnReason } = req.body;
+        const order = await Order.findById(orderId);
+
+        if (!order) {
+            return res.status(404).json({ error: 'Order not found' });
+        }
+
+        const item = order.items.id(itemId);
+        if (!item) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+
+        if (item.order_status !== 'Delivered') {
+            return res.status(400).json({ error: 'Return can only be requested for delivered items.' });
+        }
+
+        item.order_status = 'Return Requested';
+        item.returnReason = returnReason;
+        await order.save();
+        
+        res.status(200).json({ message: 'Return request submitted successfully.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
 module.exports = {
     loadUserProfile,
     updateUserProfile,
@@ -214,5 +244,6 @@ module.exports = {
     deleteAddress,
     loadProfileOrders,
     getOrderDetails,
-    requestCancellation
+    requestCancellation,
+    requestReturn
 }

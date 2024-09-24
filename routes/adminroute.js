@@ -25,6 +25,10 @@ const Product = require('../models/productModel');
 adminRoute.get('/',adminController.loadLogin);
 adminRoute.post('/adminlogin', adminController.loginAdmin);
 adminRoute.get('/dashboard', adminAuth, adminController.loadDashboard);
+adminRoute.get('/filtered-orders', adminController.getFilteredOrders);
+adminRoute.get('/quick-filtered-orders', adminController.getQuickFilteredOrders);
+adminRoute.get('/download-report', adminController.downloadPDFReport);
+
 
 // product
 adminRoute.get('/productlist',adminAuth,productController.loadProductlist);
@@ -63,7 +67,7 @@ adminRoute.get('/orderlist',orderController.loadOrdersList);
 adminRoute.get('/orderdetails/:orderId', orderController.getOrderDetails);
 adminRoute.put('/updateItemStatus/:orderId/:itemId', orderController.updateItemStatus);
 adminRoute.post('/orders/:orderId/items/:itemId/accept-cancel', orderController.acceptCancellationRequest);
-
+adminRoute.post('/orders/:orderId/items/:itemId/accept-return', orderController.acceptReturnRequest);
 // offer
 adminRoute.get('/offerslist', offerController.loadOffers);
 adminRoute.post('/addoffer/add', offerController.addOffer);
@@ -72,7 +76,7 @@ adminRoute.get('/addoffer/get/:id', offerController.getOffer);
 adminRoute.put('/addoffer/update', offerController.updateOffer);
 
 // coupon
-adminRoute.get('/couponlist', couponController.loadCoupon)
+adminRoute.get('/couponlist', couponController.loadCoupon);
 adminRoute.post('/add-coupon', couponController.addCoupon);
 adminRoute.get('/get-coupon/:couponId', couponController.getCoupon);
 adminRoute.put('/update-coupon/:couponId', couponController.updateCoupon);

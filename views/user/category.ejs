@@ -46,46 +46,45 @@
             color: #e44d26;
         }
     </style>
-<style>
-    .product-price {
-        font-family: Arial, sans-serif;
-        margin: 10px 0;
-    }
-
-    .price-wrapper {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        /* This adds space between price elements */
-    }
-
-    .original-price {
-        text-decoration: line-through;
-        color: #999;
-        margin-right: 5px;
-    }
-
-    .discounted-price,
-    .regular-price {
-        color: #c66d63;
-        font-weight: bold;
-        font-size: 1.1em;
-    }
-
-    .discount-percentage {
-        color: #27ae60;
-        font-size: 0.9em;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .price-wrapper {
-            flex-direction: column;
-            align-items: flex-start;
+    <style>
+        .product-price {
+            font-family: Arial, sans-serif;
+            margin: 10px 0;
         }
-    }
-</style>
+
+        .price-wrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 5px;
+        }
+
+        .discounted-price,
+        .regular-price {
+            color: #c66d63;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .discount-percentage {
+            color: #27ae60;
+            font-size: 0.9em;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .price-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 
     <div class="page-wrapper">
         <header class="header">
@@ -163,7 +162,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="category" class="sf-with-ul">Category</a>
+                                    <a href="category" class="sf-with-ul">Shoping</a>
 
                                     <div class="megamenu megamenu-md">
                                         <div class="row no-gutters">
@@ -305,8 +304,7 @@
                                             <div class="col-6 col-md-4 col-lg-4">
                                                 <div class="product product-7 text-center">
                                                     <figure class="product-media">
-                                                        <% if (product.productPrice < product.productPrice) {
-                                                            %>
+                                                        <% if (product.productPrice < product.productPrice) { %>
                                                             <span class="product-label label-sale">Sale</span>
                                                             <% } else { %>
                                                                 <span class="product-label label-new">New</span>
@@ -345,23 +343,29 @@
                                                     <div class="product-body">
                                                         <div class="product-cat">
                                                             <a href="#">
-                                                                <%= product.category ? product.category.name : 'No Category' %>
+                                                                <%= product.category ? product.category.name
+                                                                    : 'No Category' %>
                                                             </a>
                                                         </div>
                                                         <h3 class="product-title"><a href="product/<%= product._id %>">
                                                                 <%= product.productTitle %>
                                                             </a></h3>
-                                                            <div class="product-price">
-                                                                <% if (product.appliedOffer) { %>
-                                                                    <div class="price-wrapper">
-                                                                        <span class="original-price">₹<%= product.productPrice.toFixed(2) %></span>
-                                                                        <span class="discounted-price">₹<%= product.discountedPrice %></span>
-                                                                        <span class="discount-percentage"><%= product.appliedOffer.discount %>% off</span>
-                                                                    </div>
+                                                        <div class="product-price">
+                                                            <% if (product.appliedOffer) { %>
+                                                                <div class="price-wrapper">
+                                                                    <span class="original-price">₹<%=
+                                                                            product.productPrice.toFixed(2) %></span>
+                                                                    <span class="discounted-price">₹<%=
+                                                                            product.discountedPrice %></span>
+                                                                    <span class="discount-percentage">
+                                                                        <%= product.appliedOffer.discount %>% off
+                                                                    </span>
+                                                                </div>
                                                                 <% } else { %>
-                                                                    <span class="regular-price">₹<%= product.productPrice.toFixed(2) %></span>
-                                                                <% } %>
-                                                            </div>
+                                                                    <span class="regular-price">₹<%=
+                                                                            product.productPrice.toFixed(2) %></span>
+                                                                    <% } %>
+                                                        </div>
                                                         <div class="ratings-container">
                                                             <div class="ratings">
                                                             </div>
@@ -440,14 +444,16 @@
                                         <div class="collapse show" id="widget-1">
                                             <div class="widget-body">
                                                 <div class="filter-items filter-items-count">
-                                                    <% if (categories && categories.length > 0) { %>
-                                                        <% categories.forEach((category, index) => { %>
+                                                    <% if (categories && categories.length> 0) { %>
+                                                        <% categories.forEach((category, index)=> { %>
                                                             <div class="filter-item">
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input type="checkbox" class="custom-control-input"
                                                                         id="cat-<%= category._id %>" name="category"
-                                                                        value="<%= category._id %>"
-                                                                        <%= currentFilters && currentFilters.category && currentFilters.category.includes(category._id.toString()) ? 'checked' : '' %>>
+                                                                        value="<%= category._id %>" <%=currentFilters &&
+                                                                        currentFilters.category &&
+                                                                        currentFilters.category.includes(category._id.toString())
+                                                                        ? 'checked' : '' %>>
                                                                     <label class="custom-control-label"
                                                                         for="cat-<%= category._id %>">
                                                                         <%= category.name %>
@@ -457,53 +463,19 @@
                                                                     <%= category.productCount %>
                                                                 </span>
                                                             </div>
-                                                        <% }); %>
-                                                    <% } else { %>
-                                                        <div class="filter-item">
-                                                            <p>No categories available.</p>
-                                                        </div>
-                                                    <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Brand Widget -->
-                                    <div class="widget widget-collapsible">
-                                        <h3 class="widget-title">
-                                            <a data-toggle="collapse" href="#widget-brand" role="button"
-                                                aria-expanded="true" aria-controls="widget-brand">
-                                                Brand
-                                            </a>
-                                        </h3>
-                                        <div class="collapse show" id="widget-brand">
-                                            <div class="widget-body">
-                                                <div class="filter-items">
-                                                    <% if (brands && brands.length> 0) { %>
-                                                        <% brands.forEach((brand, index)=> { %>
-                                                            <div class="filter-item">
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input"
-                                                                        id="brand-<%= index + 1 %>" name="brand"
-                                                                        value="<%= brand %>"
-                                                                        <%=currentFilters.brand===brand ? 'checked' : ''
-                                                                        %>>
-                                                                    <label class="custom-control-label"
-                                                                        for="brand-<%= index + 1 %>">
-                                                                        <%= brand %>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
                                                             <% }); %>
                                                                 <% } else { %>
                                                                     <div class="filter-item">
-                                                                        <p>No brands available.</p>
+                                                                        <p>No categories available.</p>
                                                                     </div>
                                                                     <% } %>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Brand Widget -->
+                                   
 
                                     <!-- Sort Widget -->
                                     <div class="widget widget-collapsible">

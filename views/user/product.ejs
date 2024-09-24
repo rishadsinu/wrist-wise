@@ -76,7 +76,7 @@
                                     <li><a href="/contact-us">Contact Us</a></li>
                                     <% if (user) { %>
                                         <li>
-                                            <a href="userprofile"><i class="icon-user"></i>
+                                            <a href="/userprofile"><i class="icon-user"></i>
                                                 <%= user.name || user.displayName %>
                                             </a>
                                         </li>
@@ -296,10 +296,7 @@
                                                 product.reviewsCount %> Reviews)</a>
                                     </div><!-- End .rating-container -->
 
-                                    <!-- <div class="product-price">
-                                        <span class="price">₹<%= product.productPrice.toFixed(2) %></span>
-                                      </div>
-                                       -->
+                                   
                                        <div class="product-price">
                                         <div class="price-wrapper">
                                             <% if (product.appliedOffer) { %>
@@ -344,17 +341,18 @@
                                             <input type="number" id="qty" class="form-control" value="1" min="1"  max="<%= Math.min(product.stock, 10) %>"  step="1" data-decimals="0" required>
                                         </div>
                                     </div>
+                                  
                                     <div class="product-details-action">
                                         <a href="#" class="btn-product btn-cart" data-product-id="<%= product._id %>">
                                             <span>add to cart</span>
                                         </a>
                                         
                                         <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
-                                                    Wishlist</span></a>
+                                            <a href="#" class="btn-product btn-wishlist" data-product-id="<%= product._id %>" title="Wishlist">
+                                                <span>Add to Wishlist</span>
+                                            </a>
                                         </div>
                                     </div>
-
                                     <div class="product-details-footer">
                                         <div class="product-cat">
                                             <span>Category:</span>
@@ -362,8 +360,6 @@
                                                 <%= product.category ? product.category.name : 'Uncategorized' %>
                                             </a>
                                         </div><!-- End .product-cat -->
-
-
                                     </div><!-- End .product-details-footer -->
                                 </div><!-- End .product-details -->
                             </div><!-- End .col-md-6 -->
@@ -923,7 +919,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
             $('.btn-cart').on('click', function (e) {
                 e.preventDefault();
                 const productId = $(this).data('product-id');
@@ -957,6 +953,38 @@
                     }
                 });
             });
+            $('.btn-wishlist').on('click', function (e) {
+            e.preventDefault();
+            const productId = $(this).data('product-id');
+
+            $.ajax({
+                url: '/add-to-wishlist',
+                method: 'POST',
+                data: { productId: productId },
+                success: function (response) {
+                    if (response.success) {
+                        Toastify({
+                            text: "Added product to wishlist",
+                            duration: 3000,
+                            close: false,
+                            gravity: "bottom",
+                            position: "center",
+                            backgroundColor: "#4CAF50",
+                        }).showToast();
+                    }
+                },
+                error: function () {
+                    Toastify({
+                        text: "Please Login To Add To Wishlist",
+                        duration: 3000,
+                        close: false,
+                        gravity: "bottom",
+                        position: "center",
+                        backgroundColor: "#F44336",
+                    }).showToast();
+                }
+            });
+        });
         });
     </script> 
 

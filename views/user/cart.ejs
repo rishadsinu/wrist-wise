@@ -1,62 +1,6 @@
 <%- include ('../layouts/header.ejs') %>
 
-    <style>
-        .coupon-container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .coupon-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .coupon-form .input-group {
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        
-        .coupon-input {
-            border: 1px solid #ced4da;
-            border-right: none;
-            padding: 10px 15px;
-            font-size: 1.4rem;
-        }
-        
-        .coupon-input::placeholder {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            color: #000000;
-        }
-        
-        .btn {
-            padding: 10px 15px;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-show-coupon {
-            background-color: #b84a4a;
-            color: white;
-            border: none;
-        }
-        
-        .btn-apply-coupon {
-            background-color: #3e6747;
-            color: white;
-            border: none;
-        }
-        
-        .btn:hover {
-            opacity: 0.9;
-        }
-        
-        .icon-tag, .icon-check {
-            margin-right: 5px;
-        }
-        </style>
+   
     
     <div class="page-wrapper">
         <header class="header">
@@ -253,22 +197,7 @@
                     <div class="container">
                         <div class="row">
 
-                            <div class="coupon-container">
-                                <h4 class="coupon-title">Have a Coupon</h4>
-                                <form action="#" class="coupon-form">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control coupon-input" required placeholder="COUPON CODE">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-show-coupon" type="button" id="showCouponBtn">
-                                                <i class="icon-tag"></i> Show
-                                            </button>
-                                            <button class="btn btn-apply-coupon" type="button" id="applyBtn">
-                                                <i class="icon-check"></i> Apply
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            
                             
                             <div class="col-lg-9">
                                 <% if (cart && cart.items.length> 0) { %>
@@ -738,7 +667,6 @@
         });
         updateCartTotals();
     </script>
-
 
     <!-- Plugins JS File -->
     <script src="assets/js/jquery.min.js"></script>

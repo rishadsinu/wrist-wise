@@ -14,7 +14,7 @@ const loadCategory = async (req, res) => {
         const activeCategoryIds = activeCategories.map(cat => cat._id);
 
         let filter = { isListed: true, category: { $in: activeCategoryIds } };
-        let sortOption = { createdAt: -1 }; // Default sort
+        let sortOption = { createdAt: -1 };
 
         if (category) {
             const categoryIds = Array.isArray(category) 

@@ -567,29 +567,28 @@
   </div>
   <!-- / Layout wrapper -->
 
-  <!-- order details model -->
-  <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div id="orderDetailsContent"></div>
-        </div>
-
+<!-- order details modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="orderDetailsContent"></div>
       </div>
     </div>
   </div>
+</div>
 
   <script>
     async function showOrderDetailsModal(orderId) {
       try {
         const response = await fetch(`/admin/orderdetails/${orderId}`);
         const data = await response.json();
-
+  
         if (data.success) {
           const order = data.order;
           const orderDetailsHtml = `
@@ -640,51 +639,50 @@
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  ${order.items.map((item) => `
-                    <tr>
-                      <td>${item.product.productTitle}</td>
-                      <td class="text-center">${item.quantity}</td>
-                      <td class="text-right">₹${item.price.toFixed(2)}</td>
-                      <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
-                      <td class="text-center">
-                        <span id="status-${item._id}">${item.order_status}</span>
-                      </td>
-                      <td class="text-center">
-                        <select class="form-select status-select" data-item-id="${item._id}" ${item.order_status === 'Cancelled' ? 'disabled' : ''}>
-                          ${getStatusOptions(item.order_status)}
-                        </select>
-                        ${item.order_status === 'Cancellation Requested' && item.order_status !== 'Cancelled' ?
-              `<button class="btn btn-sm btn-danger mt-2 accept-cancel-btn" data-item-id="${item._id}">Accept Cancel</button>` : ''}
-                      </td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="5" class="text-right"><strong>Total:</strong></td>
-                    <td class="text-right"><strong>₹${order.totalPrice.toFixed(2)}</strong></td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-      `;
+            <tbody>
+              ${order.items.map((item) => `
+                <tr>
+                  <td>${item.product.productTitle}</td>
+                  <td class="text-center">${item.quantity}</td>
+                  <td class="text-right">₹${item.price.toFixed(2)}</td>
+                  <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
+                  <td class="text-center">
+                    <span id="status-${item._id}">${item.order_status}</span>
+                  </td>
+                  <td class="text-center">
+                    <select class="form-select status-select" data-item-id="${item._id}" ${item.order_status === 'Cancelled' || item.order_status === 'Returned' ? 'disabled' : ''}>
+                      ${getStatusOptions(item.order_status)}
+                    </select>
+                    ${item.order_status === 'Cancellation Requested' && item.order_status !== 'Cancelled' ?
+                      `<button class="btn btn-sm btn-danger mt-2 accept-cancel-btn" data-item-id="${item._id}">Accept Cancel</button>` : ''}
+                    ${item.order_status === 'Return Requested' && item.order_status !== 'Returned' ?
+                      `<button class="btn btn-sm btn-warning mt-2 accept-return-btn" data-item-id="${item._id}">Accept Return</button>` : ''}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+            <!-- ... (rest of the HTML code remains the same) ... -->
+          `;
           document.getElementById('orderDetailsContent').innerHTML = orderDetailsHtml;
-
+  
           document.querySelectorAll('.status-select').forEach(select => {
             select.addEventListener('change', function () {
               updateItemStatus(orderId, this.dataset.itemId, this.value, this.dataset.currentStatus);
             });
           });
-
+  
           document.querySelectorAll('.accept-cancel-btn').forEach(button => {
             button.addEventListener('click', function () {
               acceptItemCancellation(orderId, this.dataset.itemId);
             });
           });
-
+  
+          document.querySelectorAll('.accept-return-btn').forEach(button => {
+            button.addEventListener('click', function () {
+              acceptItemReturn(orderId, this.dataset.itemId);
+            });
+          });
+  
           const orderDetailsModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
           orderDetailsModal.show();
         } else {
@@ -695,20 +693,20 @@
         alert('Failed to load order details. Please try again later.');
       }
     }
-
+  
     function getStatusOptions(currentStatus) {
       const statusOrder = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled', 'Returned', 'Return Requested'];
       let options = '';
-
+  
       statusOrder.forEach((status) => {
         if (statusOrder.indexOf(currentStatus) <= statusOrder.indexOf(status)) {
           options += `<option value="${status}" ${currentStatus === status ? 'selected' : ''}>${status}</option>`;
         }
       });
-
+  
       return options;
     }
-
+  
     async function updateItemStatus(orderId, itemId, newStatus, currentStatus) {
       try {
         if (isStatusChangeAllowed(currentStatus, newStatus)) {
@@ -719,7 +717,7 @@
             },
             body: JSON.stringify({ status: newStatus })
           });
-
+  
           const data = await response.json();
           if (data.success) {
             alert('Item status updated successfully');
@@ -728,23 +726,23 @@
             alert('Failed to update item status');
           }
         } else {
-          alert('You can only change the status from top to bottom order or the order is already cancelled.');
+          alert('You can only change the status from top to bottom order or the order is already cancelled/returned.');
         }
       } catch (error) {
         console.error('Error updating item status:', error);
         alert('Failed to update item status');
       }
     }
-
+  
     function isStatusChangeAllowed(currentStatus, newStatus) {
       const statusOrder = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled', 'Returned', 'Return Requested'];
-
+  
       const currentIndex = statusOrder.indexOf(currentStatus);
       const newIndex = statusOrder.indexOf(newStatus);
-
-      return newIndex >= currentIndex && currentStatus !== 'Cancelled';
+  
+      return newIndex >= currentIndex && currentStatus !== 'Cancelled' && currentStatus !== 'Returned';
     }
-
+  
     async function acceptItemCancellation(orderId, itemId) {
       try {
         const response = await fetch(`/admin/orders/${orderId}/items/${itemId}/accept-cancel`, {
@@ -753,19 +751,11 @@
             'Content-Type': 'application/json'
           }
         });
-
+  
         const data = await response.json();
         if (data.success) {
           alert('Item cancellation accepted successfully');
-          const statusSpan = document.getElementById(`status-${itemId}`);
-          statusSpan.textContent = 'Cancelled';
-          const selectElement = document.querySelector(`.status-select[data-item-id="${itemId}"]`);
-          selectElement.value = 'Cancelled';
-          selectElement.disabled = true;
-          const cancelButton = document.querySelector(`.accept-cancel-btn[data-item-id="${itemId}"]`);
-          if (cancelButton) {
-            cancelButton.remove();
-          }
+          updateItemUI(itemId, 'Cancelled');
         } else {
           alert(data.message || 'Failed to accept item cancellation');
         }
@@ -774,9 +764,41 @@
         alert('Failed to accept item cancellation');
       }
     }
+  
+    async function acceptItemReturn(orderId, itemId) {
+  try {
+    const response = await fetch(`/admin/orders/${orderId}/items/${itemId}/accept-return`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
+    const data = await response.json();
+    if (data.success) {
+      alert('Item return accepted successfully');
+      updateItemUI(itemId, 'Return Accepted');
+    } else {
+      alert(data.message || 'Failed to accept item return');
+    }
+  } catch (error) {
+    console.error('Error accepting item return:', error);
+    alert('Failed to accept item return');
+  }
+}
+  
+    function updateItemUI(itemId, newStatus) {
+      const statusSpan = document.getElementById(`status-${itemId}`);
+      statusSpan.textContent = newStatus;
+      const selectElement = document.querySelector(`.status-select[data-item-id="${itemId}"]`);
+      selectElement.value = newStatus;
+      selectElement.disabled = true;
+      const actionButton = document.querySelector(`.accept-cancel-btn[data-item-id="${itemId}"], .accept-return-btn[data-item-id="${itemId}"]`);
+      if (actionButton) {
+        actionButton.remove();
+      }
+    }
   </script>
-
 
   <!-- Core JS -->
   <!-- build:js vendor/js/core.js -->

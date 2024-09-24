@@ -25,6 +25,7 @@ const loadOrdersList = async (req, res) => {
       status: order.items[0].order_status,
       userName: order.userId ? order.userId.name : 'Unknown User',
       cancelRequest: order.items.some(item => item.order_status === 'Cancellation Requested'),
+      returnRequest: order.items.some(item => item.order_status === 'Return Requested'),
       items: order.items
     }));
     res.render('ordersList', {
@@ -35,6 +36,7 @@ const loadOrdersList = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
@@ -48,6 +50,7 @@ const getOrderDetails = async (req, res) => {
     res.json({ success: true, order });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 }
 
@@ -68,6 +71,7 @@ const updateItemStatus = async (req, res) => {
     res.json({ success: true, message: 'Item status updated successfully', updatedOrder: order });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
@@ -90,13 +94,36 @@ const acceptCancellationRequest = async (req, res) => {
     res.json({ success: true, message: 'Item cancellation accepted successfully' });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
+const acceptReturnRequest = async (req, res) => {
+  try {
+    const { orderId, itemId } = req.params;
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+    const item = order.items.id(itemId);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Item not found' });
+    }
+    if (item.order_status !== 'Return Requested') {
+      return res.status(400).json({ success: false, message: 'Item is not in return requested state' });
+    }
+    item.order_status = 'Return Accepted';
+    await order.save();
+    res.json({ success: true, message: 'Item return accepted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
 module.exports = {
   loadOrdersList,
   getOrderDetails,
   updateItemStatus,
   acceptCancellationRequest,
-
+  acceptReturnRequest
 }

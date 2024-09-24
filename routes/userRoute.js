@@ -13,6 +13,7 @@ const productController = require('../controllers/user/productController');
 const categoryController = require('../controllers/user/categoryController');
 const profileController = require('../controllers/user/profileController');
 const orderController = require('../controllers/user/orderController');
+const walletController = require('../controllers/user/walletController')
 
 // Model
 const Address = require('../models/addressModel');
@@ -34,7 +35,10 @@ userRoute.set('views', './views/user')
 
 userRoute.get('/', userController.loadHome);
 userRoute.get('/home', userController.loadHome);
-userRoute.get('/wishlist', isLoggedIn, userController.loadWishlist);
+userRoute.post('/add-to-wishlist', userController.addToWishlist);
+userRoute.get('/wishlist', userController.loadWishlist);
+userRoute.post('/remove-from-wishlist', userController.removeFromWishlist);
+
 userRoute.get('/category', categoryController.loadCategory);
 
 // login  registration /  OTP  
@@ -81,23 +85,29 @@ userRoute.delete('/delete-address/:id', isLoggedIn, profileController.deleteAddr
 userRoute.get('/profileOrders', isLoggedIn, profileController.loadProfileOrders)
 userRoute.get('/user/order-details/:orderId', profileController.getOrderDetails);
 userRoute.post('/user/cancel-item/:orderId/:itemId', profileController.requestCancellation);
+userRoute.post('/user/return-item/:orderId/:itemId', profileController.requestReturn);
 
 // cart // order 
 userRoute.get('/cart', isLoggedIn, productController.loadCart);
 userRoute.post('/add-to-cart', productController.addToCart);
 userRoute.post('/remove-from-cart', productController.removeFromCart);
 userRoute.post('/update-cart', productController.updateCart);
-// userRoute.get('/cart-summary', orderController.getCartSummery);
 userRoute.post('/add-address', orderController.addAddress)
-
-  
-
-
-
 userRoute.post('/placeOrder', orderController.placeOrder);
 userRoute.get('/orderPlaced', orderController.getOrderPlaced);
 userRoute.get('/checkout', isLoggedIn, orderController.loadCheckout);
 userRoute.post('/create-razorpay-order', isLoggedIn, orderController.createRazorpayOrder);
+userRoute.get('/download-invoice/:orderId', orderController.generateInvoicePDF);
+
+
+//coupon
+userRoute.get('/user/active-coupons', orderController.getActiveCoupons);
+userRoute.post('/user/apply-coupon', orderController.applyCoupon);
+
+
+//wallet
+userRoute.get('/wallet',walletController.loadWallet)
+
 
 // userRoute.use((req, res) => {
 //   res.status(404).send('404 - Page Not Found');

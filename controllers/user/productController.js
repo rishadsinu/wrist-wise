@@ -12,7 +12,7 @@ const loadProductlist = async (req, res) => {
     try {
         const user = req.session.user;
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 12;
+        const limit = parseInt(req.query.limit) || 6;
 
         const activeCategories = await Category.find({ status: 'active' });
         const activeCategoryIds = activeCategories.map(cat => cat._id);
@@ -246,9 +246,7 @@ const updateCart = async (req, res) => {
         }
         const { productId, quantity } = req.body;
         const userId = req.session.user._id;
-        if (quantity <= 0) {
-            return res.status(400).json({ success: false, message: 'Quantity must be greater than 0' });
-        }
+
         const product = await Product.findById(productId);
         if (!product) {
             return res.status(404).json({ success: false, message: 'Product not found' });

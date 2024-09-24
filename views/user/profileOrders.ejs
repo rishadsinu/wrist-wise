@@ -1,17 +1,6 @@
 <%- include ('../layouts/header.ejs') %>
 
-    <!-- <style>
-        .modal-body .card {
-            margin-bottom: 1rem;
-            margin-left: 28px;
-
-        }
-
-        .modal-body .table-invoice {
-            margin-bottom: 0;
-            width: 500px;
-        }
-    </style> -->
+  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <style>
@@ -416,48 +405,75 @@
         
 
         <!-- Order Details Modal -->
-        <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="orderModalLabel">Order Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Order details will be inserted here -->
-                    </div>
-                </div>
-            </div>
+        <!-- Order Details Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="orderModalLabel">Order Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
+        <div class="modal-body">
+            <!-- Order details will be inserted here -->
+        </div>
+    </div>
+</div>
+</div>
 
-        <!-- Cancellation Reason  Modal -->
-        <div class="modal fade" id="cancelItemModal" tabindex="-1" role="dialog" aria-labelledby="cancelItemModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger text-white">
-                        <h5 class="modal-title" id="cancelItemModalLabel"><i class="fas fa-times-circle"></i> Cancel Item</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+       <!-- Cancellation Reason Modal -->
+<div class="modal fade" id="cancelItemModal" tabindex="-1" role="dialog" aria-labelledby="cancelItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="cancelItemModalLabel"><i class="fas fa-times-circle"></i> Cancel Item</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="cancelItemForm">
+                    <div class="form-group">
+                        <label for="cancelReason" class="font-weight-bold">Reason for cancellation:</label>
+                        <textarea class="form-control border-danger" id="cancelReason" rows="4" placeholder="Please provide a reason..." required></textarea>
                     </div>
-                    <div class="modal-body">
-                        <form id="cancelItemForm">
-                            <div class="form-group">
-                                <label for="cancelReason" class="font-weight-bold">Reason for cancellation:</label>
-                                <textarea class="form-control border-danger" id="cancelReason" rows="4" placeholder="Please provide a reason..." required></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fas fa-arrow-left"></i> Close</button>
-                        <button type="button" class="btn btn-danger" id="confirmCancelItem"><i class="fas fa-paper-plane"></i> Request Cancellation</button>
-                    </div>
-                </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fas fa-arrow-left"></i> Close</button>
+                <button type="button" class="btn btn-danger" id="confirmCancelItem"><i class="fas fa-paper-plane"></i> Request Cancellation</button>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Return Reason Modal -->
+<div class="modal fade" id="returnItemModal" tabindex="-1" role="dialog" aria-labelledby="returnItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title" id="returnItemModalLabel"><i class="fas fa-undo-alt"></i> Return Item</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="returnItemForm">
+                    <div class="form-group">
+                        <label for="returnReason" class="font-weight-bold">Reason for return:</label>
+                        <textarea class="form-control border-warning" id="returnReason" rows="4" placeholder="Please provide a reason..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fas fa-arrow-left"></i> Close</button>
+                <button type="button" class="btn btn-warning" id="confirmReturnItem"><i class="fas fa-paper-plane"></i> Request Return</button>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     .form-group {
     margin-bottom: 2rem;
@@ -740,10 +756,10 @@
 
 
     <!-- order Details modal -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 
-    <script>
+    <!-- <script>
         $(document).ready(function () {
             let currentOrderId, currentItemId;
 
@@ -900,8 +916,200 @@
                 $('#cancelReason').val('');
             });
         });
+    </script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let currentOrderId, currentItemId;
+    
+            $(document).on('click', '.view-order-btn', function () {
+                const orderId = $(this).data('order-id');
+                const modalBody = $('#orderModal .modal-body');
+    
+                modalBody.empty();
+                modalBody.html('<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>');
+    
+                $.ajax({
+                    url: `/user/order-details/${orderId}`,
+                    method: 'GET',
+                    success: function (order) {
+                        const content = `
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card order-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="icon-map-marker"></i> Shipping Address</h5>
+                                            <p class="card-text">
+                                                <strong>${order.address.addressName}</strong><br>
+                                                ${order.address.addressStreet}<br>
+                                                ${order.address.addressHouse}<br>
+                                                ${order.address.addressCity}, ${order.address.addressState} ${order.address.addressPin}<br>
+                                                <strong>Phone:</strong> ${order.address.addressMobile}<br>
+                                                <strong>Email:</strong> ${order.address.addressEmail}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card order-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="icon-info-circle"></i> Order Summary</h5>
+                                            <p class="card-text">
+                                                <strong>Order ID:</strong> ${order.orderId}<br>
+                                                <strong>Order Date:</strong> ${new Date(order.createdAt).toLocaleDateString()}<br>
+                                                <strong>Payment Method:</strong> ${order.paymentMethod}<br>
+                                                <strong>Total Amount:</strong> ₹${order.totalPrice.toFixed(2)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-4 invoice-card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="icon-file-text"></i> Invoice</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-invoice">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th class="text-center">Quantity</th>
+                                                    <th class="text-right">Price</th>
+                                                    <th class="text-right">Subtotal</th>
+                                                    <th class="text-center">Status</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${order.items.map(item => `
+                                                    <tr data-item-id="${item._id}">
+                                                        <td>${item.product.productTitle}</td>
+                                                        <td class="text-center">${item.quantity}</td>
+                                                        <td class="text-right">₹${item.price.toFixed(2)}</td>
+                                                        <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
+                                                        <td class="text-center">
+                                                            <span class="badge badge-primary">${item.order_status}</span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            ${item.order_status !== 'Cancelled' && item.order_status !== 'Delivered' && item.order_status !== 'Cancellation Requested' ?
+                                                                `<button type="button" class="btn btn-danger btn-sm cancel-item-btn"
+                                                                    data-order-id="${order._id}" data-item-id="${item._id}">
+                                                                    Cancel
+                                                                </button>`
+                                                            : ''}
+                                                            ${item.order_status === 'Delivered' ?
+                                                                `<button type="button" class="btn btn-warning btn-sm return-item-btn"
+                                                                    data-order-id="${order._id}" data-item-id="${item._id}">
+                                                                    Return
+                                                                </button>`
+                                                            : ''}
+                                                        </td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                                                    <td class="text-right">₹${order.totalPrice.toFixed(2)}</td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="text-right"><strong>Shipping:</strong></td>
+                                                    <td class="text-right">Free</td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                                <tr class="total-row">
+                                                    <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                                                    <td class="text-right"><strong>₹${order.totalPrice.toFixed(2)}</strong></td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+    
+                        modalBody.html(content);
+                        $('#orderModal').modal('show');
+                    },
+                    error: function () {
+                        modalBody.html('<div class="alert alert-danger">Error loading order details.</div>');
+                    }
+                });
+            });
+    
+            $(document).on('click', '.cancel-item-btn', function () {
+                currentItemId = $(this).data('item-id');
+                currentOrderId = $(this).data('order-id');
+                $('#cancelItemModal').modal('show');
+            });
+    
+            $(document).on('click', '.return-item-btn', function () {
+                currentItemId = $(this).data('item-id');
+                currentOrderId = $(this).data('order-id');
+                $('#returnItemModal').modal('show');
+            });
+    
+            $('#confirmCancelItem').on('click', function () {
+                const reason = $('#cancelReason').val().trim();
+                if (reason === '') {
+                    alert('Please provide a reason for cancellation.');
+                    return;
+                }
+    
+                $.ajax({
+                    url: `/user/cancel-item/${currentOrderId}/${currentItemId}`,
+                    method: 'POST',
+                    data: { cancelReason: reason },
+                    success: function (response) {
+                        $('#cancelItemModal').modal('hide');
+                        updateItemStatus(currentItemId, 'Cancellation Requested');
+                        alert(response.message);
+                    },
+                    error: function () {
+                        alert('Error cancelling item. Please try again.');
+                    }
+                });
+            });
+    
+            $('#confirmReturnItem').on('click', function () {
+                const reason = $('#returnReason').val().trim();
+                if (reason === '') {
+                    alert('Please provide a reason for return.');
+                    return;
+                }
+    
+                $.ajax({
+                    url: `/user/return-item/${currentOrderId}/${currentItemId}`,
+                    method: 'POST',
+                    data: { returnReason: reason },
+                    success: function (response) {
+                        $('#returnItemModal').modal('hide');
+                        updateItemStatus(currentItemId, 'Return Requested');
+                        alert(response.message);
+                    },
+                    error: function () {
+                        alert('Error requesting return. Please try again.');
+                    }
+                });
+            });
+    
+            function updateItemStatus(itemId, newStatus) {
+                $(`#orderModal .modal-body tr[data-item-id="${itemId}"] .badge`)
+                    .text(newStatus)
+                    .removeClass('badge-primary')
+                    .addClass(newStatus === 'Cancellation Requested' ? 'badge-warning' : 'badge-info');
+    
+                $(`#orderModal .modal-body tr[data-item-id="${itemId}"] .cancel-item-btn, #orderModal .modal-body tr[data-item-id="${itemId}"] .return-item-btn`)
+                    .prop('disabled', true)
+                    .text(newStatus);
+            }
+    
+            $('#cancelItemModal, #returnItemModal').on('hidden.bs.modal', function () {
+                $(this).find('textarea').val('');
+            });
+        });
     </script>
-
 
 
     <!-- Plugins JS File -->
