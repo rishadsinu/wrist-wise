@@ -11,13 +11,28 @@ const loadOrdersList = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
-    const totalOrders = await Order.countDocuments();
+    const searchQuery = req.query.search || ''; 
+
+    let query = {};
+    if (searchQuery) {
+      query = {
+        $or: [
+          { orderId: { $regex: searchQuery, $options: 'i' } }, 
+          { 'userId.name': { $regex: searchQuery, $options: 'i' } }, 
+          { 'items.order_status': { $regex: searchQuery, $options: 'i' } } 
+        ]
+      };
+    }
+
+    const totalOrders = await Order.countDocuments(query);
     const totalPages = Math.ceil(totalOrders / limit);
-    const orders = await Order.find()
+
+    const orders = await Order.find(query)
       .populate('userId')
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
+
     const formattedOrders = orders.map(order => ({
       _id: order._id,
       orderId: order.orderId,
@@ -28,11 +43,13 @@ const loadOrdersList = async (req, res) => {
       returnRequest: order.items.some(item => item.order_status === 'Return Requested'),
       items: order.items
     }));
+
     res.render('ordersList', {
       orders: formattedOrders,
       currentPage: page,
       totalPages: totalPages,
-      totalOrders: totalOrders
+      totalOrders: totalOrders,
+      searchQuery: searchQuery 
     });
   } catch (error) {
     console.error(error);

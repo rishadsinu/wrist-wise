@@ -5,34 +5,49 @@ const Product = require('../../models/productModel');
 const Category = require('../../models/categoryModel')
 const path = require('path');
 const fs = require('fs');
-
+const multer = require('multer')
 
 const loadProductlist = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1; 
-        const limit = 10; 
-        const totalProducts = await Product.countDocuments();
-        const totalPages = Math.ceil(totalProducts / limit); 
-
-        const products = await Product.find().populate('category')
-            .sort({ createdAt: -1 })
-            .skip((page - 1) * limit)
-            .limit(limit);
-         const categories = await Category.find();
-
-        res.render('productList', {
-            products,
-             categories,
-            currentPage: page,
-            totalPages,
-            totalProducts 
-        });
+      const page = parseInt(req.query.page) || 1;
+      const limit = 10;
+      const searchQuery = req.query.search || '';
+  
+      let query = {};
+      if (searchQuery) {
+        query = {
+          $or: [
+            { productTitle: { $regex: searchQuery, $options: 'i' } },
+            { productDescription: { $regex: searchQuery, $options: 'i' } },
+            { 'category.name': { $regex: searchQuery, $options: 'i' } }
+          ]
+        };
+      }
+  
+      const totalProducts = await Product.countDocuments(query);
+      const totalPages = Math.ceil(totalProducts / limit);
+  
+      const products = await Product.find(query)
+        .populate('category')
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * limit)
+        .limit(limit);
+  
+      const categories = await Category.find();
+  
+      res.render('productList', {
+        products,
+        categories,
+        currentPage: page,
+        totalPages,
+        totalProducts,
+        searchQuery
+      });
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Server error');
+      console.log(error);
+      res.status(500).send('Server error');
     }
-};
-
+  };
 const loadAddproduct = async (req, res) => {
     try {
         const categories = await Category.find();
@@ -79,38 +94,55 @@ const getProductDetails = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
-        const productId = req.params.id;
-        const updateData = {
-            productTitle: req.body.productTitle,
-            productDescription: req.body.productDescription,
-            productPrice: req.body.productPrice,
-            productDiscountedPrice: req.body.productDiscountedPrice,
-            stock: req.body.stock,
-            category: req.body.category,
-            isListed: req.body.isListed === 'true'
-        };
-        const existingProduct = await Product.findById(productId);
-        if (!existingProduct) {
-            return res.status(404).json({ success: false, error: 'Product not found' });
+      const productId = req.params.id;
+      const updateData = {
+        productTitle: req.body.productTitle,
+        productDescription: req.body.productDescription,
+        productPrice: req.body.productPrice,
+        stock: req.body.stock,
+        category: req.body.category,
+        isListed: req.body.isListed === 'true'
+      };
+  
+      const existingProduct = await Product.findById(productId);
+      if (!existingProduct) {
+        return res.status(404).json({ success: false, error: 'Product not found' });
+      }
+  
+      let updatedImages = [...existingProduct.productImages];
+  
+      const imagePositions = req.body.imagePositions || [];
+      const newImages = req.files || [];
+      const newImagePositions = req.body.newImagePositions || [];
+  
+      newImages.forEach((file, index) => {
+        const position = parseInt(newImagePositions[index]);
+        if (!isNaN(position) && position >= 0 && position < 3) {
+          updatedImages[position] = file.filename;
         }
-        let updatedImages = existingProduct.productImages;
-
-        if (req.files && req.files.length > 0) {
-            const newImages = req.files.map(file => file.filename);
-            updatedImages = [...newImages, ...existingProduct.productImages].slice(0, 3);
+      });
+  
+      for (let i = 0; i < 3; i++) {
+        if (!updatedImages[i] && imagePositions[i]) {
+          updatedImages[i] = imagePositions[i];
         }
-        updateData.productImages = updatedImages;
-        const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
-
-        if (!updatedProduct) {
-            return res.status(404).json({ success: false, error: 'Product not found' });
-        }
-        res.json({ success: true, product: updatedProduct });
+      }
+  
+      updatedImages = updatedImages.filter(img => img != null).slice(0, 3);
+  
+      updateData.productImages = updatedImages;
+      const updatedProduct = await Product.findByIdAndUpdate(productId, updateData, { new: true });
+  
+      if (!updatedProduct) {
+        return res.status(404).json({ success: false, error: 'Product not found' });
+      }
+  
+      res.json({ success: true, product: updatedProduct });
     } catch (error) {
-        console.error( error);
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Server error' });
     }
-};
-
+  };
 module.exports = {
     loadProductlist,
     loadAddproduct,

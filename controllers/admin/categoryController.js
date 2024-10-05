@@ -5,13 +5,35 @@ const User = require("../../models/userModel");
 const path = require('path');
 const fs = require('fs');
 
-
 const loadcategorylist = async (req, res) => {
     try {
-        const categories = await Category.find();
-        res.render('categoryList', { categories });
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10; 
+        const searchQuery = req.query.search || ''; 
+
+        let query = {};
+        if (searchQuery) {
+            query = {
+                name: { $regex: searchQuery, $options: 'i' } 
+            };
+        }
+        const totalCategories = await Category.countDocuments(query);
+        const totalPages = Math.ceil(totalCategories / limit);
+
+        const categories = await Category.find(query)
+            .sort({ createdAt: -1 }) 
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        res.render('categoryList', {
+            categories: categories,
+            currentPage: page,
+            totalPages: totalPages,
+            searchQuery: searchQuery 
+        });
     } catch (error) {
         console.error(error);
+        res.status(500).send('Server Error');
     }
 };
 

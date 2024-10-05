@@ -1,4 +1,7 @@
 <%- include ('../adminLayouts/header.ejs') %>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -125,6 +128,21 @@
     tr:hover {
       background-color: #e8f4f8;
     }
+
+    .total-item {
+    margin-top: 50px; /* Adjust the value as per your preference */
+}
+
+.total-label {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.total-value {
+    font-size: 20px;
+    color: #1f6b97; /* Adjust color if needed */
+}
+
   </style>
   <!-- ?PROD Only: Google Tag Manager (noscript) (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DDHKGP" height="0" width="0"
@@ -143,8 +161,9 @@
             <span class="app-brand-logo demo me-1">
               <span style="color:var(--bs-primary);">
                 <!-- <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg"> -->
-                <img id="myImage" src="/images/logo 2.png" alt="SVG Image"
-                  style="width:30px; height:24px; cursor:pointer;">
+                  <img id="myImage" src="/images/ww_logo_black-removebg-preview admin.png" alt="SVG Image"
+                
+                  style="width:35px; height:30px; cursor:pointer;">
 
                 <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M12.3002 1.25469L56.655 28.6432C59.0349 30.1128 60.4839 32.711 60.4839 35.5089V160.63C60.4839 163.468 58.9941 166.097 56.5603 167.553L12.2055 194.107C8.3836 196.395 3.43136 195.15 1.14435 191.327C0.395485 190.075 0 188.643 0 187.184V8.12039C0 3.66447 3.61061 0.0522461 8.06452 0.0522461C9.56056 0.0522461 11.0271 0.468577 12.3002 1.25469Z"
@@ -195,7 +214,7 @@
             </a>
             <ul class="menu-sub">
               <li class="menu-item active">
-                <a href="app-ecommerce-dashboard.html" class="menu-link">
+                <a href="/admin/dashboard" class="menu-link">
                   <div data-i18n="Dashboard">Dashboard</div>
                 </a>
               </li>
@@ -210,7 +229,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="app-ecommerce-product-add.html" class="menu-link">
+                    <a href="/admin/add-product" class="menu-link">
                       <div data-i18n="Add Product">Add Product</div>
                     </a>
                   </li>
@@ -231,11 +250,7 @@
                       <div data-i18n="Order List">Order List</div>
                     </a>
                   </li>
-                  <li class="menu-item">
-                    <a href="app-ecommerce-order-details.html" class="menu-link">
-                      <div data-i18n="Order Details">Order Details</div>
-                    </a>
-                  </li>
+                  
                 </ul>
               </li>
               <li class="menu-item">
@@ -246,81 +261,6 @@
                   <li class="menu-item">
                     <a href="customers" class="menu-link">
                       <div data-i18n="All Customers">All Customers</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                      <div data-i18n="Customer Details">Customer Details</div>
-                    </a>
-                    <ul class="menu-sub">
-                      <li class="menu-item">
-                        <a href="app-ecommerce-customer-details-overview.html" class="menu-link">
-                          <div data-i18n="Overview">Overview</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="app-ecommerce-customer-details-security.html" class="menu-link">
-                          <div data-i18n="Security">Security</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="app-ecommerce-customer-details-billing.html" class="menu-link">
-                          <div data-i18n="Address & Billing">Address & Billing</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="app-ecommerce-customer-details-notifications.html" class="menu-link">
-                          <div data-i18n="Notifications">Notifications</div>
-                        </a>
-                      </li>
-
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li class="menu-item">
-                <a href="app-ecommerce-manage-reviews.html" class="menu-link">
-                  <div data-i18n="Manage Reviews">Manage Reviews</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="app-ecommerce-referral.html" class="menu-link">
-                  <div data-i18n="Referrals">Referrals</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <div data-i18n="Settings">Settings</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class="menu-item">
-                    <a href="app-ecommerce-settings-detail.html" class="menu-link">
-                      <div data-i18n="Store Details">Store Details</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-ecommerce-settings-payments.html" class="menu-link">
-                      <div data-i18n="Payments">Payments</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-ecommerce-settings-checkout.html" class="menu-link">
-                      <div data-i18n="Checkout">Checkout</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-ecommerce-settings-shipping.html" class="menu-link">
-                      <div data-i18n="Shipping & Delivery">Shipping & Delivery</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-ecommerce-settings-locations.html" class="menu-link">
-                      <div data-i18n="Locations">Locations</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-ecommerce-settings-notifications.html" class="menu-link">
-                      <div data-i18n="Notifications">Notifications</div>
                     </a>
                   </li>
                 </ul>
@@ -348,52 +288,7 @@
             </ul>
           </li>
 
-          <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons ri-user-line"></i>
-              <div data-i18n="Users">Users</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="app-userlist" class="menu-link">
-                  <div data-i18n="List">List</div>
-                </a>
-              </li>
-
-              <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <div data-i18n="View">View</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class="menu-item">
-                    <a href="app-user-view-account.html" class="menu-link">
-                      <div data-i18n="Account">Account</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-user-view-security.html" class="menu-link">
-                      <div data-i18n="Security">Security</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-user-view-billing.html" class="menu-link">
-                      <div data-i18n="Billing & Plans">Billing & Plans</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-user-view-notifications.html" class="menu-link">
-                      <div data-i18n="Notifications">Notifications</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="app-user-view-connections.html" class="menu-link">
-                      <div data-i18n="Connections">Connections</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
+          
         </ul>
 
       </aside>
@@ -426,24 +321,25 @@
 
               <!-- User -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown"
+                  aria-expanded="false">
                   <div class="avatar avatar-online">
-                    <img src="/adminAssets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
+                    <img src="/adminAssets/img/avatars/1.png" alt="Admin Avatar" class="w-px-40 h-auto rounded-circle">
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
                   <li>
-                    <a class="dropdown-item" href="pages-account-settings-account.html">
+                    <a class="dropdown-item" href="/admin/dashboard">
                       <div class="d-flex align-items-center">
                         <div class="flex-shrink-0 me-2">
                           <div class="avatar avatar-online">
-                            <img src="/adminAssets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
+                            <img src="/adminAssets/img/avatars/1.png" alt="Avatar"
+                              class="w-px-40 h-auto rounded-circle">
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <h6 class="mb-0 small">John Doe</h6>
-                          <small class="text-muted">Admin</small>
 
+                          <small class="text-muted">Admin</small>
                         </div>
                       </div>
                     </a>
@@ -452,52 +348,25 @@
                     <div class="dropdown-divider"></div>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="pages-profile-user.html">
+                    <a class="dropdown-item" href="/admin/dashboard">
                       <i class="ri-user-3-line ri-22px me-2"></i>
                       <span class="align-middle">My Profile</span>
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="pages-account-settings-account.html">
-                      <i class="ri-settings-4-line ri-22px me-2"></i>
-                      <span class="align-middle">Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="pages-account-settings-billing.html">
-                      <span class="d-flex align-items-center align-middle">
-                        <i class="flex-shrink-0 ri-file-text-line ri-22px me-2"></i>
-                        <span class="flex-grow-1 align-middle">Billing</span>
-                        <span
-                          class="flex-shrink-0 badge badge-center rounded-pill bg-danger h-px-20 d-flex align-items-center justify-content-center">4</span>
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="pages-pricing.html">
-                      <i class="ri-money-dollar-circle-line ri-22px me-2"></i>
-                      <span class="align-middle">Pricing</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="pages-faq.html">
-                      <i class="ri-question-line ri-22px me-2"></i>
-                      <span class="align-middle">FAQ</span>
-                    </a>
-                  </li>
-                  <li>
                     <div class="d-grid px-4 pt-2 pb-1">
-                      <a class="btn btn-danger d-flex" href="auth-login-cover.html" target="_blank">
-                        <small class="align-middle">Logout</small>
-                        <i class="ri-logout-box-r-line ms-2 ri-16px"></i>
-                      </a>
+                      <form action="/admin/logout" method="POST">
+                        <button type="submit" class="btn btn-danger d-flex">
+                          <small class="align-middle">Logout</small>
+                          <i class="ri-logout-box-r-line ms-2 ri-16px"></i>
+                        </button>
+                      </form>
                     </div>
+
                   </li>
                 </ul>
               </li>
+
               <!--/ User -->
 
             </ul>
@@ -515,16 +384,18 @@
           <!-- Table Card -->
           <div class="container">
 
+
+
             <div class="content">
               <div class="filters">
                 <form id="dateFilterForm">
                   <div>
                     <label for="startDate">Start Date:</label>
-                    <input type="date" id="startDate" name="startDate" >
+                    <input type="date" id="startDate" name="startDate">
                   </div>
                   <div>
                     <label for="endDate">End Date:</label>
-                    <input type="date" id="endDate" name="endDate" >
+                    <input type="date" id="endDate" name="endDate">
                   </div>
                   <button type="submit">Generate Report</button>
                   <button id="downloadReportBtn" class="btn-download">
@@ -542,25 +413,59 @@
                       <option value="thisMonth">This Month</option>
                       <option value="thisYear">This Year</option>
                     </select>
-                    
+
                   </div>
                   <button type="submit">Apply Filter</button>
                 </form>
               </div>
-             
+
 
               <div class="totals">
                 <div class="total-item">
-                  <div class="total-label">Total Sales</div>
+                  <div class="total-label">TOTAL SALES </div>
                   <div id="totalSales" class="total-value">₹<%= totalSales %>
                   </div>
                 </div>
                 <div class="total-item">
-                  <div class="total-label">Total Discounted Price</div>
+                  <div class="total-label">TOTAL DISCOUNTED</div>
                   <div id="totalDiscount" class="total-value">₹<%= totalDiscount %>
                   </div>
                 </div>
-                
+                <div class="chart-container mb-5">
+                  <canvas id="salesPieChart"></canvas>
+                </div>
+              </div>
+              
+
+              <div class="row">
+                <div class="col-md-6">
+                  <!-- <h3>Best 5 Selling Products</h3> -->
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Best 5 Selling Products</th>
+                        <th>Quantity Sold</th>
+                      </tr>
+                    </thead>
+                    <tbody id="topProductsTableBody">
+                      <!-- This will be populated by JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-6">
+                  <!-- <h3>Best 5 Selling Categories</h3> -->
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Best 5 Selling Categories</th>
+                        <th>Quantity Sold</th>
+                      </tr>
+                    </thead>
+                    <tbody id="topCategoriesTableBody">
+                      <!-- This will be populated by JavaScript -->
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               <table>
@@ -626,11 +531,12 @@
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 
-
     <!-- Drag Target Area To SlideIn Menu On Small Screens -->
     <div class="drag-target"></div>
 
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -639,25 +545,29 @@
       const tableBody = document.getElementById('orderTableBody');
       const totalSalesElement = document.getElementById('totalSales');
       const totalDiscountElement = document.getElementById('totalDiscount');
+      const chartContext = document.getElementById('salesPieChart').getContext('2d');
+      const downloadReportBtn = document.getElementById('downloadReportBtn');
+
+      let salesPieChart;
 
       function updateTable(data) {
-        const { orders, totalSales, totalDiscount } = data;
+        const { orders, totalSales, totalDiscount, topSellingProducts, topSellingCategories } = data;
         tableBody.innerHTML = '';
 
         if (Array.isArray(orders) && orders.length > 0) {
           orders.forEach(order => {
             const row = `
-                          <tr>
-                              <td>${order.orderId}</td>
-                              <td>${order.date}</td>
-                              <td>${order.username}</td>
-                              <td>${order.paymentMethod}</td>
-                              <td>${order.quantity}</td>
-                              <td>₹${order.originalTotal}</td>
-                              <td>₹${order.discountedPrice}</td>
-                              <td>₹${order.finalTotal}</td>
-                          </tr>
-                      `;
+          <tr>
+            <td>${order.orderId}</td>
+            <td>${order.date}</td>
+            <td>${order.username}</td>
+            <td>${order.paymentMethod}</td>
+            <td>${order.quantity}</td>
+            <td>₹${order.originalTotal}</td>
+            <td>₹${order.discountedPrice}</td>
+            <td>₹${order.finalTotal}</td>
+          </tr>
+        `;
             tableBody.innerHTML += row;
           });
         } else {
@@ -665,7 +575,56 @@
         }
 
         totalSalesElement.textContent = `₹${totalSales}`;
-        totalDiscountElement.textContent = ` ₹${totalDiscount}`;
+        totalDiscountElement.textContent = `₹${totalDiscount}`;
+
+        const topProductsTableBody = document.getElementById('topProductsTableBody');
+        topProductsTableBody.innerHTML = topSellingProducts.map(product => `
+      <tr>
+        <td>${product.name}</td>
+        <td>${product.quantity}</td>
+      </tr>
+    `).join('');
+
+        const topCategoriesTableBody = document.getElementById('topCategoriesTableBody');
+        topCategoriesTableBody.innerHTML = topSellingCategories.map(category => `
+      <tr>
+        <td>${category.name}</td>
+        <td>${category.quantity}</td>
+      </tr>
+    `).join('');
+
+        updatePieChart(data);
+      }
+
+      function updatePieChart(data) {
+        const totalSales = parseFloat(data.totalSales);
+        const totalReturned = parseFloat(data.totalReturned);
+        const totalCashPaid = parseFloat(data.totalCashPaid);
+        const otherSales = totalSales - totalReturned - totalCashPaid;
+
+        if (salesPieChart) {
+          salesPieChart.destroy();
+        }
+
+        salesPieChart = new Chart(chartContext, {
+          type: 'pie',
+          data: {
+            labels: ['Cash Pending', 'Cash Paid'],
+            datasets: [{
+              data: [otherSales, totalCashPaid],
+              backgroundColor: ['#36A2EB', '#FFCE56'],
+              hoverBackgroundColor: ['#36A2EB', '#FFCE56']
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: 'Sales Distribution'
+            }
+          }
+        });
       }
 
       function fetchOrders(url) {
@@ -689,25 +648,25 @@
         const quickFilter = document.getElementById('quickFilter').value;
         fetchOrders(`/admin/quick-filtered-orders?filter=${quickFilter}`);
       });
+
       downloadReportBtn.addEventListener('click', function () {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    const quickFilter = document.getElementById('quickFilter').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const quickFilter = document.getElementById('quickFilter').value;
 
-    let url = '/admin/download-report';
-    if (startDate && endDate) {
-        url += `?startDate=${startDate}&endDate=${endDate}`;
-    } else if (quickFilter) {
-        url += `?filter=${quickFilter}`;
-    }
+        let url = '/admin/download-report';
+        if (startDate && endDate) {
+          url += `?startDate=${startDate}&endDate=${endDate}`;
+        } else if (quickFilter) {
+          url += `?filter=${quickFilter}`;
+        }
 
-    window.location.href = url;
-});
-      // Initial load of orders
+        window.location.href = url;
+      });
+
       fetchOrders('/admin/filtered-orders');
     });
   </script>
-
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
   <script src="/adminAssets/vendor/libs/jquery/jquery.js"></script>

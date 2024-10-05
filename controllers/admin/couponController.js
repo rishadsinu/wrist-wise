@@ -31,6 +31,7 @@ const addCoupon = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error adding coupon: ' + error.message });
     }
 };
+
 const getCoupon = async (req, res) => {
     try {
         const { couponId } = req.params;
@@ -70,17 +71,14 @@ const updateCoupon = async (req, res) => {
 const deleteCoupon = async (req, res) => {
     try {
         const { couponId } = req.params;
-
         const deletedCoupon = await Coupon.findByIdAndDelete(couponId);
 
         if (!deletedCoupon) {
             return res.status(404).json({ success: false, message: 'Coupon not found' });
         }
-
         res.json({ success: true, message: 'Coupon deleted successfully' });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: 'Error deleting coupon: ' + error.message });
     }
 };
 

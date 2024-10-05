@@ -14,7 +14,6 @@ const loadCategory = async (req, res) => {
         const activeCategoryIds = activeCategories.map(cat => cat._id);
 
         let filter = { isListed: true, category: { $in: activeCategoryIds } };
-        let sortOption = { createdAt: -1 };
 
         if (category) {
             const categoryIds = Array.isArray(category) 
@@ -25,33 +24,7 @@ const loadCategory = async (req, res) => {
         if (brand) {
             filter.brand = Array.isArray(brand) ? { $in: brand } : brand;
         }
-        if (sort === 'asc' || sort === 'desc') {
-            sortOption = { productTitle: sort === 'asc' ? 1 : -1 };
-        } else if (priceSort === 'asc' || priceSort === 'desc') {
-            sortOption = { productDiscountedPrice: priceSort === 'asc' ? 1 : -1 };
-        }
-
-        const products = await Product.find(filter)
-            .populate('category')
-            .sort(sortOption)
-            .skip(skip)
-            .limit(limit);
-
-        const totalProducts = await Product.countDocuments(filter);
-        const totalPages = Math.ceil(totalProducts / limit);
-
-        const user = req.session.user;
-        const brands = await Product.distinct('brand', { category: { $in: activeCategoryIds } });
-
-        const categoryCounts = await Product.aggregate([
-            { $match: { isListed: true, category: { $in: activeCategoryIds } } },
-            { $group: { _id: '$category', count: { $sum: 1 } } }
-        ]);
-
-        const categoriesWithCounts = activeCategories.map(category => ({
-            ...category.toObject(),
-            productCount: categoryCounts.find(c => c._id.equals(category._id))?.count || 0
-        }));
+        const allProducts = await Product.find(filter).populate('category');
 
         const currentDate = new Date();
         const activeOffers = await Offer.find({
@@ -60,7 +33,7 @@ const loadCategory = async (req, res) => {
             endDate: { $gte: currentDate }
         });
 
-        const productsWithOffers = products.map(product => {
+        const productsWithOffers = allProducts.map(product => {
             let discountedPrice = product.productPrice;
             let appliedOffer = null;
 
@@ -84,15 +57,47 @@ const loadCategory = async (req, res) => {
 
             return {
                 ...product.toObject(),
-                discountedPrice: discountedPrice.toFixed(2),
+                discountedPrice: parseFloat(discountedPrice.toFixed(2)),
                 appliedOffer: appliedOffer
             };
         });
 
+        if (sort === 'asc' || sort === 'desc') {
+            productsWithOffers.sort((a, b) => {
+                return sort === 'asc' 
+                    ? a.productTitle.localeCompare(b.productTitle)
+                    : b.productTitle.localeCompare(a.productTitle);
+            });
+        } else if (priceSort === 'asc' || priceSort === 'desc') {
+            productsWithOffers.sort((a, b) => {
+                return priceSort === 'asc' 
+                    ? a.discountedPrice - b.discountedPrice
+                    : b.discountedPrice - a.discountedPrice;
+            });
+        } else {
+            productsWithOffers.sort((a, b) => b.createdAt - a.createdAt);
+        }
+
+        const totalProducts = productsWithOffers.length;
+        const totalPages = Math.ceil(totalProducts / limit);
+        const paginatedProducts = productsWithOffers.slice(skip, skip + limit);
+
+        const brands = await Product.distinct('brand', { category: { $in: activeCategoryIds } });
+
+        const categoryCounts = await Product.aggregate([
+            { $match: { isListed: true, category: { $in: activeCategoryIds } } },
+            { $group: { _id: '$category', count: { $sum: 1 } } }
+        ]);
+
+        const categoriesWithCounts = activeCategories.map(category => ({
+            ...category.toObject(),
+            productCount: categoryCounts.find(c => c._id.equals(category._id))?.count || 0
+        }));
+
         res.render('category', {
             categories: categoriesWithCounts,
-            user,
-            products: productsWithOffers,
+            user: req.session.user,
+            products: paginatedProducts,
             brands,
             currentFilters: {
                 category: Array.isArray(category) ? category : [category].filter(Boolean),
@@ -101,7 +106,8 @@ const loadCategory = async (req, res) => {
                 priceSort
             },
             currentPage: parseInt(page),
-            totalPages: totalPages
+            totalPages: totalPages,
+            queryParams: req.query
         });
     } catch (error) {
         console.error('Error loading user category list:', error);

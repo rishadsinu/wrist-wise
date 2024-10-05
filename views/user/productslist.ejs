@@ -146,81 +146,40 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="index.html" class="logo">
-                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
-                        </a>
+                        <img src="/images/ww logo black.jpg" alt="Molla Logo" style="width:72px; height:62px; cursor:pointer;">
+
                     </div>
                     <div class="header-center">
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
+                                <li class="megamenu-container ">
+                                    <a href="home" class="sf-with-ul">Home</a>
+
+                                </li>
                                 <li class="megamenu-container active">
-                                    <a href="productlist" class="sf-with-ul">Home</a>
-
-
+                                    <a href="category" class="sf-with-ul ">Shoping</a>
                                 </li>
-                                <li>
-                                    <a href="category" class="sf-with-ul">Category</a>
 
-                                    <div class="megamenu megamenu-md">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-8">
-                                                <div class="menu-col">
-                                                    <div class="row">
-
-
-                                                        <div class="col-md-6">
-                                                            <div class="menu-title">Product Categories</div>
-                                                            <ul>
-                                                                <li><a href="category">Product
-                                                                        Category</a></li>
-
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </li>
-                                <li>
-                                    <a href="productlist" class="sf-with-ul">Product</a>
-
-                                </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
 
                                     <ul>
                                         <li>
-                                            <a href="about.html">About</a>
+                                            <a href="/aboutus">About Us</a>
 
                                         </li>
                                         <li>
-                                            <a href="contact.html">Contact</a>
+                                            <a href="/aboutus">Contact Us</a>
 
                                         </li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="userprofile">My Account</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
-                                </li>
+                                        <li><a href="/category">Shoping</a></li>
+                                        <li><a href="/userprofile">My Account</a></li>
+                                        <li><a href="/profileOrders">My Orders</a></li>
+                                        <li><a href="/wallet">My Wallet</a></li>
 
-                                <li>
-                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                    <ul>
-                                        <li><a href="elements-products.html">Products</a></li>
-                                        <li><a href="elements-typography.html">Typography</a></li>
-                                        <li><a href="elements-titles.html">Titles</a></li>
-                                        <li><a href="elements-banners.html">Banners</a></li>
-                                        <li><a href="elements-product-category.html">Product Category</a></li>
-                                        <li><a href="elements-video-banners.html">Video Banners</a></li>
-                                        <li><a href="elements-buttons.html">Buttons</a></li>
-                                        <li><a href="elements-accordions.html">Accordions</a></li>
-                                        <li><a href="elements-tabs.html">Tabs</a></li>
-                                        <li><a href="elements-testimonials.html">Testimonials</a></li>
-                                        <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                                        <li><a href="elements-portfolio.html">Portfolio</a></li>
-                                        <li><a href="elements-cta.html">Call to Action</a></li>
-                                        <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                                        <li><a href="/cart">Cart</a></li>
+                                        <li><a href="/wishlist">Wishlist</a></li>
+                                        <li><a href="/login">Login</a></li>
                                     </ul>
                                 </li>
                             </ul><!-- End .menu -->
@@ -312,9 +271,15 @@
                                         </figure>
 
                                         <div class="product-body">
-                                            <div class="product-action">
+                                            <!-- <div class="product-action">
                                                 <a href="#" class="btn-product btn-cart"><span>Add to cart</span></a>
+                                            </div> -->
+                                            <div class="product-action">
+                                                <a href="#" id="addToCartBtn" class="btn btn-block btn-outline-primary-2 btn-cart" data-product-id="<%= product._id %>">
+                                                    <i class="icon-cart-plus"></i> Add to Cart
+                                                </a>
                                             </div>
+                                            
                                             <div class="product-cat">
                                                 <a href="#">
                                                     <%= product.category.name %>
@@ -484,7 +449,7 @@
 
             <div class="footer-bottom">
                 <div class="container">
-                    <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                    <p class="footer-copyright">Copyright © 2019 Wrist wise Store. All Rights Reserved.</p>
                     <!-- End .footer-copyright -->
                     <figure class="footer-payments">
                         <img src="/assets/images/payments.png" alt="Payment methods" width="272" height="20">

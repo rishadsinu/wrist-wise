@@ -161,47 +161,29 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                             <div class="container breadcrumbs">
                                 <ol class="breadcrumb">
-
-                                    <!-- Current page breadcrumb without link -->
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Checkout
+                                    <!-- Breadcrumbs with links -->
+                                    <li class="breadcrumb-item">
+                                        <% if (user) { %>
+                                    <li>
+                                        <a href="userprofile"><i class="icon-user"></i>
+                                            <%= user.name || user.displayName %>
+                                        </a>
                                     </li>
+                                    <% } else { %>
+                                        <li>
+                                            <a href="/login"><i class="icon-user"></i>Login</a>
+                                        </li>
+                                        <% } %>
+                                            </li>
+
+
                                 </ol>
                             </div>
                             <!-- End .container -->
                         </nav>
                         <!-- End .breadcrumb-nav -->
                     </div>
-                    <div class="header-right col-lg-5">
-                        <ul class="top-menu">
-                            <li>
-                                <a href="#">Links</a>
-                                <ul>
-                                    <li>
-                                        <a href="/wishlist"><i class="icon-heart-o"></i>Wishlist
-                                            <span>
-                                                (4)
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="/contact-us">Contact Us</a></li>
-                                    <% if (user) { %>
-                                        <li>
-                                            <a href="userprofile"><i class="icon-user"></i>
-                                                <%= user.name || user.displayName %>
-                                            </a>
-                                        </li>
-                                        <% } else { %>
-                                            <li>
-                                                <a href="/login"><i class="icon-user"></i>Login</a>
-                                            </li>
-                                            <% } %>
-                                </ul>
-                            </li>
-                        </ul>
-                        <!-- End .top-menu -->
-                    </div>
+
                     <!-- End .header-right -->
                 </div>
                 <!-- End .container -->
@@ -215,84 +197,40 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="index.html" class="logo">
-                            <img src="/images/ww logo black.jpg" alt="Molla Logo" width="82" height="20">
-                        </a>
+                        <img src="/images/ww logo black.jpg" alt="Molla Logo" style="width:72px; height:62px; cursor:pointer;">
+
                     </div>
                     <div class="header-center">
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
+                                <li class="megamenu-container ">
                                     <a href="home" class="sf-with-ul">Home</a>
 
-
                                 </li>
-                                <li>
-                                    <a href="category" class="sf-with-ul">Category</a>
-
-                                    <div class="megamenu megamenu-md">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-8">
-                                                <div class="menu-col">
-                                                    <div class="row">
-
-
-                                                        <div class="col-md-6">
-                                                            <div class="menu-title">Product Categories</div>
-                                                            <!-- End .menu-title -->
-                                                            <ul>
-                                                                <li><a href="category">Product
-                                                                        Category</a></li>
-
-                                                            </ul>
-
-                                                        </div><!-- End .row -->
-                                                    </div><!-- End .menu-col -->
-                                                </div><!-- End .col-md-8 -->
-                                            </div><!-- End .row -->
-                                        </div><!-- End .megamenu megamenu-md -->
+                                <li class="megamenu-container active">
+                                    <a href="category" class="sf-with-ul ">Shoping</a>
                                 </li>
-                                <li>
-                                    <a href="productlist" class="sf-with-ul">Product</a>
 
-
-                                </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">Pages</a>
 
                                     <ul>
                                         <li>
-                                            <a href="about.html">About</a>
+                                            <a href="/aboutus">About Us</a>
 
                                         </li>
                                         <li>
-                                            <a href="contact.html">Contact</a>
+                                            <a href="/aboutus">Contact Us</a>
 
                                         </li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="userprofile">My Account</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
-                                </li>
+                                        <li><a href="/category">Shoping</a></li>
+                                        <li><a href="/userprofile">My Account</a></li>
+                                        <li><a href="/profileOrders">My Orders</a></li>
+                                        <li><a href="/wallet">My Wallet</a></li>
 
-                                <li>
-                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                    <ul>
-                                        <li><a href="elements-products.html">Products</a></li>
-                                        <li><a href="elements-typography.html">Typography</a></li>
-                                        <li><a href="elements-titles.html">Titles</a></li>
-                                        <li><a href="elements-banners.html">Banners</a></li>
-                                        <li><a href="elements-product-category.html">Product Category</a></li>
-                                        <li><a href="elements-video-banners.html">Video Banners</a></li>
-                                        <li><a href="elements-buttons.html">Buttons</a></li>
-                                        <li><a href="elements-accordions.html">Accordions</a></li>
-                                        <li><a href="elements-tabs.html">Tabs</a></li>
-                                        <li><a href="elements-testimonials.html">Testimonials</a></li>
-                                        <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                                        <li><a href="elements-portfolio.html">Portfolio</a></li>
-                                        <li><a href="elements-cta.html">Call to Action</a></li>
-                                        <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                                        <li><a href="/cart">Cart</a></li>
+                                        <li><a href="/wishlist">Wishlist</a></li>
+                                        <li><a href="/login">Login</a></li>
                                     </ul>
                                 </li>
                             </ul><!-- End .menu -->
@@ -300,26 +238,16 @@
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
-                        <div class="header-search">
-                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper">
-                                    <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..."
-                                        required>
-                                </div><!-- End .header-search-wrapper -->
-                            </form>
-                        </div><!-- End .header-search -->
+
 
                         <a href="wishlist" class="wishlist-link">
                             <i class="icon-heart-o"></i>
-                            <span class="wishlist-count">3</span>
+
                         </a>
 
                         <div class="dropdown cart-dropdown">
                             <a href="/cart" class="dropdown-toggle" role="button">
                                 <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
                             </a>
                         </div>
                     </div><!-- End .header-right -->
@@ -421,7 +349,7 @@
                                                     <th>Total</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <!-- <tbody>
                                                 <% cartItems.forEach(item => { %>
                                                 <tr class="cart-item">
                                                     <td>Item</td>
@@ -441,9 +369,40 @@
                                                     <td>₹<%= shippingCharge %></td>
                                                 </tr>
                                                 <tr class="summary-total">
-                                                    <td>Total:</td>
+                                                    <td>Grand Total:</td>
                                                     <td>₹<%= cartTotal %></td>
                                                 </tr>
+                                            </tbody> -->
+                                            <tbody>
+                                                <% cartItems.forEach(item=> { %>
+                                                    <tr class="cart-item">
+                                                        <td>Item</td>
+                                                        <td class="cart-product-price"
+                                                            data-original-price="<%= item.itemTotal.toFixed(2) %>">₹<%=
+                                                                item.itemTotal.toFixed(2) %>
+                                                        </td>
+                                                    </tr>
+                                                    <% }); %>
+                                                        <tr class="summary-subtotal">
+                                                            <td>Subtotal:</td>
+                                                            <td>₹<%= cartSubtotal %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="summary-coupon">
+                                                            <td>Coupon Discount:</td>
+                                                            <td>₹<%= couponDiscount %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="summary-shipping">
+                                                            <td>Shipping:</td>
+                                                            <td>₹<%= shippingCharge %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="summary-total">
+                                                            <td>Grand Total:</td>
+                                                            <td>₹<%= cartTotal %>
+                                                            </td>
+                                                        </tr>
                                             </tbody>
                                         </table>
                                         <div class="accordion-summary" id="accordion-payment">
@@ -451,21 +410,26 @@
                                             <div class="card-body">
                                                 <!-- Cash on Delivery Option -->
                                                 <div class="custom-control custom-radio">
-                                                    <input type="radio" class="custom-control-input" id="cod" name="paymentMethod" value="Cash on Delivery">
-                                                    <label class="custom-control-label" for="cod">Cash on Delivery</label>
+                                                    <input type="radio" class="custom-control-input" id="cod"
+                                                        name="paymentMethod" value="Cash on Delivery">
+                                                    <label class="custom-control-label" for="cod">Cash on
+                                                        Delivery</label>
                                                 </div>
                                                 <!-- Razorpay Option -->
                                                 <div class="custom-control custom-radio mt-2">
-                                                    <input type="radio" class="custom-control-input" id="razorpay" name="paymentMethod" value="Razorpay">
+                                                    <input type="radio" class="custom-control-input" id="razorpay"
+                                                        name="paymentMethod" value="Razorpay">
                                                     <label class="custom-control-label" for="razorpay">Razorpay</label>
                                                 </div>
                                                 <!-- Wallet Payment Option -->
                                                 <div class="custom-control custom-radio mt-2">
-                                                    <input type="radio" class="custom-control-input" id="wallet" name="paymentMethod" value="Wallet">
-                                                    <label class="custom-control-label" for="wallet">Wallet Payment</label>
+                                                    <input type="radio" class="custom-control-input" id="wallet"
+                                                        name="paymentMethod" value="Wallet">
+                                                    <label class="custom-control-label" for="wallet">Wallet
+                                                        Payment</label>
                                                 </div>
                                             </div>
-                                            
+
 
                                         </div>
 
@@ -562,266 +526,100 @@
         </div>
 
 
-        <footer class="footer">
+        <footer class="footer footer-2">
             <div class="footer-middle">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-6 col-lg-3">
+                        <div class="col-sm-12 col-lg-6">
                             <div class="widget widget-about">
-                                <img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105"
-                                    height="25">
-                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
-                                    magna eros eu erat. </p>
 
-                                <div class="social-icons">
-                                    <a href="#" class="social-icon" target="_blank" title="Facebook"><i
-                                            class="icon-facebook-f"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Twitter"><i
-                                            class="icon-twitter"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Instagram"><i
-                                            class="icon-instagram"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Youtube"><i
-                                            class="icon-youtube"></i></a>
-                                    <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
-                                            class="icon-pinterest"></i></a>
-                                </div><!-- End .soial-icons -->
+                                <p>Thanks for visiting Wrist Wise, where you can find a wide range of stylish
+                                    and high-quality watches for every occasion. Whether you're looking for a sleek,
+                                    modern design or a classic timepiece, we've got something for everyone. Our watches
+                                    are priced affordably, making them accessible to all, without compromising on
+                                    quality. Browse through our
+                                    collection today and find the perfect watch to match your style!</p>
+
+                                <div class="widget-about-info">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-4">
+                                            <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                            <a href="tel:123456789">+91 8086 86 2233</a>
+                                        </div><!-- End .col-sm-6 -->
+
+                                    </div><!-- End .row -->
+                                </div><!-- End .widget-about-info -->
                             </div><!-- End .widget about-widget -->
-                        </div><!-- End .col-sm-6 col-lg-3 -->
+                        </div><!-- End .col-sm-12 col-lg-3 -->
 
-                        <div class="col-sm-6 col-lg-3">
+                        <div class="col-sm-4 col-lg-2">
                             <div class="widget">
-                                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+                                <h4 class="widget-title">Information</h4><!-- End .widget-title -->
 
                                 <ul class="widget-list">
-                                    <li><a href="about.html">About Molla</a></li>
-                                    <li><a href="#">How to shop on Molla</a></li>
-                                    <li><a href="#">FAQ</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
-                                    <li><a href="login.html">Log in</a></li>
+                                    <li><a href="/aboutus">About Us</a></li>
+                                    <li><a href="/aboutus">Who we are</a></li>
+                                    <li><a href="/aboutus">FAQ</a></li>
+                                    <li><a href="/aboutus">Contact us</a></li>
+                                    <li><a href="/login">Log in</a></li>
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->
-                        </div><!-- End .col-sm-6 col-lg-3 -->
+                        </div><!-- End .col-sm-4 col-lg-3 -->
 
-                        <div class="col-sm-6 col-lg-3">
+                        <div class="col-sm-4 col-lg-2">
                             <div class="widget">
                                 <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
 
                                 <ul class="widget-list">
-                                    <li><a href="#">Payment Methods</a></li>
-                                    <li><a href="#">Money-back guarantee!</a></li>
-                                    <li><a href="#">Returns</a></li>
-                                    <li><a href="#">Shipping</a></li>
-                                    <li><a href="#">Terms and conditions</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="/aboutus">Payment Methods</a></li>
+                                    <li><a href="/aboutus">Money-back guarantee!</a></li>
+                                    <li><a href="/aboutus">Returns</a></li>
+                                    <li><a href="/aboutus">Shipping</a></li>
+                                    <li><a href="/aboutus">Terms and conditions</a></li>
+                                    <li><a href="/aboutus">Privacy Policy</a></li>
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->
-                        </div><!-- End .col-sm-6 col-lg-3 -->
+                        </div><!-- End .col-sm-4 col-lg-3 -->
 
-                        <div class="col-sm-6 col-lg-3">
+                        <div class="col-sm-4 col-lg-2">
                             <div class="widget">
                                 <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
                                 <ul class="widget-list">
-                                    <li><a href="#">Sign In</a></li>
-                                    <li><a href="cart.html">View Cart</a></li>
-                                    <li><a href="#">My Wishlist</a></li>
-                                    <li><a href="#">Track My Order</a></li>
-                                    <li><a href="#">Help</a></li>
+                                    <li><a href="/login">Sign In</a></li>
+                                    <li><a href="/cart">View Cart</a></li>
+                                    <li><a href="/wishlist">My Wishlist</a></li>
+                                    <li><a href="/profileOrders">Track My Order</a></li>
+                                    <li><a href="/aboutus">Contact Us</a></li>
                                 </ul><!-- End .widget-list -->
                             </div><!-- End .widget -->
-                        </div><!-- End .col-sm-6 col-lg-3 -->
+                        </div><!-- End .col-sm-64 col-lg-3 -->
                     </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .footer-middle -->
 
             <div class="footer-bottom">
                 <div class="container">
-                    <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
-                    <!-- End .footer-copyright -->
-                    <figure class="footer-payments">
-                        <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
-                    </figure><!-- End .footer-payments -->
+                    <p class="footer-copyright">Copyright © 2024 Wrist Wise. All Rights Reserved.</p>
+
+
+                    <div class="social-icons social-icons-color">
+                        <span class="social-label">Social Media</span>
+
+                        <a href="http://Wa.me/+918086862233" class="social-icon social-whatsapp" title="WhatsApp"
+                            target="_blank"><i class="icon-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/rishhaadh?igsh=MTZzZjh0dnQ2Yzl4eA%3D%3D&utm_source=qr"
+                            class="social-icon social-instagram" title="Instagram" target="_blank"><i
+                                class="icon-instagram"></i></a>
+
+
+                    </div><!-- End .soial-icons -->
                 </div><!-- End .container -->
             </div><!-- End .footer-bottom -->
         </footer><!-- End .footer -->
+
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
-
-    <div class="mobile-menu-container">
-        <div class="mobile-menu-wrapper">
-            <span class="mobile-menu-close"><i class="icon-close"></i></span>
-
-            <form action="#" method="get" class="mobile-search">
-                <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
-                    placeholder="Search in..." required>
-                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-            </form>
-
-            <nav class="mobile-nav">
-                <ul class="mobile-menu">
-                    <li class="active">
-                        <a href="index.html">Home</a>
-
-                        <ul>
-                            <li><a href="index-1.html">01 - furniture store</a></li>
-                            <li><a href="index-2.html">02 - furniture store</a></li>
-                            <li><a href="index-3.html">03 - electronic store</a></li>
-                            <li><a href="index-4.html">04 - electronic store</a></li>
-                            <li><a href="index-5.html">05 - fashion store</a></li>
-                            <li><a href="index-6.html">06 - fashion store</a></li>
-                            <li><a href="index-7.html">07 - fashion store</a></li>
-                            <li><a href="index-8.html">08 - fashion store</a></li>
-                            <li><a href="index-9.html">09 - fashion store</a></li>
-                            <li><a href="index-10.html">10 - shoes store</a></li>
-                            <li><a href="index-11.html">11 - furniture simple store</a></li>
-                            <li><a href="index-12.html">12 - fashion simple store</a></li>
-                            <li><a href="index-13.html">13 - market</a></li>
-                            <li><a href="index-14.html">14 - market fullwidth</a></li>
-                            <li><a href="index-15.html">15 - lookbook 1</a></li>
-                            <li><a href="index-16.html">16 - lookbook 2</a></li>
-                            <li><a href="index-17.html">17 - fashion store</a></li>
-                            <li><a href="index-18.html">18 - fashion store (with sidebar)</a></li>
-                            <li><a href="index-19.html">19 - games store</a></li>
-                            <li><a href="index-20.html">20 - book store</a></li>
-                            <li><a href="index-21.html">21 - sport store</a></li>
-                            <li><a href="index-22.html">22 - tools store</a></li>
-                            <li><a href="index-23.html">23 - fashion left navigation store</a></li>
-                            <li><a href="index-24.html">24 - extreme sport store</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="category.html">Shop</a>
-                        <ul>
-                            <li><a href="category-list.html">Shop List</a></li>
-                            <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
-                            <li><a href="category.html">Shop Grid 3 Columns</a></li>
-                            <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
-                            <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span
-                                            class="tip tip-hot">Hot</span></span></a></li>
-                            <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
-                            <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
-                            <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span
-                                            class="tip tip-new">New</span></span></a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="#">Lookbook</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="product.html" class="sf-with-ul">Product</a>
-                        <ul>
-                            <li><a href="product.html">Default</a></li>
-                            <li><a href="product-centered.html">Centered</a></li>
-                            <li><a href="product-extended.html"><span>Extended Info<span
-                                            class="tip tip-new">New</span></span></a></li>
-                            <li><a href="product-gallery.html">Gallery</a></li>
-                            <li><a href="product-sticky.html">Sticky Info</a></li>
-                            <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
-                            <li><a href="product-fullwidth.html">Full Width</a></li>
-                            <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Pages</a>
-                        <ul>
-                            <li>
-                                <a href="about.html">About</a>
-
-                                <ul>
-                                    <li><a href="about.html">About 01</a></li>
-                                    <li><a href="about-2.html">About 02</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact</a>
-
-                                <ul>
-                                    <li><a href="contact.html">Contact 01</a></li>
-                                    <li><a href="contact-2.html">Contact 02</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="faq.html">FAQs</a></li>
-                            <li><a href="404.html">Error 404</a></li>
-                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="blog.html">Blog</a>
-
-                        <ul>
-                            <li><a href="blog.html">Classic</a></li>
-                            <li><a href="blog-listing.html">Listing</a></li>
-                            <li>
-                                <a href="#">Grid</a>
-                                <ul>
-                                    <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
-                                    <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
-                                    <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
-                                    <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Masonry</a>
-                                <ul>
-                                    <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
-                                    <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
-                                    <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
-                                    <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Mask</a>
-                                <ul>
-                                    <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
-                                    <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Single Post</a>
-                                <ul>
-                                    <li><a href="single.html">Default with sidebar</a></li>
-                                    <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
-                                    <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="elements-list.html">Elements</a>
-                        <ul>
-                            <li><a href="elements-products.html">Products</a></li>
-                            <li><a href="elements-typography.html">Typography</a></li>
-                            <li><a href="elements-titles.html">Titles</a></li>
-                            <li><a href="elements-banners.html">Banners</a></li>
-                            <li><a href="elements-product-category.html">Product Category</a></li>
-                            <li><a href="elements-video-banners.html">Video Banners</a></li>
-                            <li><a href="elements-buttons.html">Buttons</a></li>
-                            <li><a href="elements-accordions.html">Accordions</a></li>
-                            <li><a href="elements-tabs.html">Tabs</a></li>
-                            <li><a href="elements-testimonials.html">Testimonials</a></li>
-                            <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                            <li><a href="elements-portfolio.html">Portfolio</a></li>
-                            <li><a href="elements-cta.html">Call to Action</a></li>
-                            <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav><!-- End .mobile-nav -->
-
-            <div class="social-icons">
-                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-            </div><!-- End .social-icons -->
-        </div><!-- End .mobile-menu-wrapper -->
-    </div><!-- End .mobile-menu-container -->
 
 
     <!-- same time only tick on check box -->
@@ -842,7 +640,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <!-- validation of add address -->
     <script>
         document.getElementById('saveAddress').addEventListener('click', async () => {
@@ -931,20 +729,21 @@
     </script>
 
 
-    
-<script>
-  
-    document.addEventListener('DOMContentLoaded', function () {
-    const showCouponBtn = document.getElementById('showCouponBtn');
-    const applyBtn = document.getElementById('applyBtn');
-    const couponInput = document.querySelector('.coupon-input');
-    const modalOverlay = document.createElement('div');
-    modalOverlay.className = 'modal-overlay';
-    let appliedCouponCode = null;
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    const modal = document.createElement('div');
-    modal.className = 'coupon-modal';
-    modal.innerHTML = `
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const showCouponBtn = document.getElementById('showCouponBtn');
+            const applyBtn = document.getElementById('applyBtn');
+            const couponInput = document.querySelector('.coupon-input');
+            const modalOverlay = document.createElement('div');
+            modalOverlay.className = 'modal-overlay';
+            let appliedCouponCode = null;
+
+            const modal = document.createElement('div');
+            modal.className = 'coupon-modal';
+            modal.innerHTML = `
         <div class="coupon-modal-content">
             <h4>Available Coupons</h4>
             <div id="couponList"></div>
@@ -954,29 +753,29 @@
             </div>
         </div>
     `;
-    document.body.appendChild(modalOverlay);
-    document.body.appendChild(modal);
+            document.body.appendChild(modalOverlay);
+            document.body.appendChild(modal);
 
-    const couponList = document.getElementById('couponList');
-    const selectCouponBtn = document.getElementById('selectCouponBtn');
-    const closeCouponModalBtn = document.getElementById('closeCouponModalBtn');
+            const couponList = document.getElementById('couponList');
+            const selectCouponBtn = document.getElementById('selectCouponBtn');
+            const closeCouponModalBtn = document.getElementById('closeCouponModalBtn');
 
-    function showModal() {
-        modalOverlay.style.display = 'block';
-        modal.style.display = 'block';
-    }
+            function showModal() {
+                modalOverlay.style.display = 'block';
+                modal.style.display = 'block';
+            }
 
-    function hideModal() {
-        modalOverlay.style.display = 'none';
-        modal.style.display = 'none';
-    }
+            function hideModal() {
+                modalOverlay.style.display = 'none';
+                modal.style.display = 'none';
+            }
 
-    showCouponBtn.addEventListener('click', async function () {
-        try {
-            const response = await fetch('/user/active-coupons');
-            const coupons = await response.json();
+            showCouponBtn.addEventListener('click', async function () {
+                try {
+                    const response = await fetch('/user/active-coupons');
+                    const coupons = await response.json();
 
-            couponList.innerHTML = coupons.map(coupon => `
+                    couponList.innerHTML = coupons.map(coupon => `
                 <div class="coupon-item">
                     <input type="radio" name="coupon" id="${coupon.couponCode}" value="${coupon.couponCode}">
                     <label for="${coupon.couponCode}">
@@ -988,210 +787,259 @@
                 </div>
             `).join('');
 
-            showModal();
-        } catch (error) {
-            console.error('Error fetching coupons:', error);
-            alert('Error fetching coupons. Please try again.');
-        }
-    });
-
-    selectCouponBtn.addEventListener('click', function () {
-        const selectedCoupon = document.querySelector('input[name="coupon"]:checked');
-        if (selectedCoupon) {
-            couponInput.value = selectedCoupon.value;
-            hideModal();
-        } else {
-            alert('Please select a coupon');
-        }
-    });
-
-    closeCouponModalBtn.addEventListener('click', hideModal);
-    modalOverlay.addEventListener('click', hideModal);
-
-    applyBtn.addEventListener('click', async function () {
-        const couponCode = couponInput.value;
-        const cartTotal = parseFloat(document.querySelector('.summary-total td:last-child').textContent.replace('₹', ''));
-
-        if (!couponCode) {
-            alert('Please enter a coupon code');
-            return;
-        }
-
-        try {
-            const response = await fetch('/user/apply-coupon', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ couponCode, cartTotal }),
+                    showModal();
+                } catch (error) {
+                    console.error('Error fetching coupons:', error);
+                    alert('Error fetching coupons. Please try again.');
+                }
             });
 
-            const result = await response.json();
-
-            if (result.success) {
-                updateTotalTable(result.discount, result.discountedTotal);
-                alert('Coupon applied successfully!');
-                appliedCouponCode = couponCode;
-            } else {
-                alert(`Error: ${result.message}`);
-            }
-        } catch (error) {
-            console.error('Error applying coupon:', error);
-            alert('Error applying coupon. Please try again.');
-        }
-    });
-
-    function updateTotalTable(discount, discountedTotal) {
-        const couponRow = document.querySelector('.summary-coupon td:last-child');
-        const totalRow = document.querySelector('.summary-total td:last-child');
-
-        couponRow.textContent = `₹${parseFloat(discount).toFixed(2)}`;
-        totalRow.textContent = `₹${parseFloat(discountedTotal).toFixed(2)}`;
-
-        const cartItems = document.querySelectorAll('.cart-item');
-        const subtotal = parseFloat(document.querySelector('.summary-subtotal td:last-child').textContent.replace('₹', ''));
-        const discountRatio = parseFloat(discount) / subtotal;
-
-        cartItems.forEach(item => {
-            const priceElement = item.querySelector('.cart-product-price');
-            const originalPrice = parseFloat(priceElement.getAttribute('data-original-price'));
-            const discountedPrice = originalPrice * (1 - discountRatio);
-            priceElement.textContent = `₹${discountedPrice.toFixed(2)}`;
-        });
-    }
-
-    document.querySelector('.btn-order').addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
-        const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
-
-        if (!selectedAddress) {
-            Swal.fire('Error', 'Please select an address', 'error');
-            return;
-        }
-        if (!selectedPaymentMethod) {
-            Swal.fire('Error', 'Please select a payment method', 'error');
-            return;
-        }
-
-        const orderData = {
-            selectedAddress: selectedAddress.getAttribute('data-address-id'),
-            paymentMethod: selectedPaymentMethod.value,
-            appliedCouponCode: appliedCouponCode
-        };
-
-        if (orderData.paymentMethod === 'Razorpay') {
-            initiateRazorpayPayment(orderData);
-        } else if (orderData.paymentMethod === 'Wallet') {
-            confirmWalletPayment(orderData);
-        } else {
-            placeOrder(orderData);
-        }
-    });
-
-    //razorpay 
-    function initiateRazorpayPayment(orderData) {
-    fetch('/create-razorpay-order', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            ...orderData,
-            appliedCouponCode: appliedCouponCode 
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            const options = {
-                key: '<%= razorpayKeyId %>',
-                amount: data.order.amount,
-                currency: data.order.currency,
-                name: 'Your Company Name',
-                description: 'Purchase Description',
-                order_id: data.order.id,
-                handler: function (response) {
-                    orderData.razorpayOrderId = response.razorpay_order_id;
-                    orderData.razorpayPaymentId = response.razorpay_payment_id;
-                    orderData.razorpaySignature = response.razorpay_signature;
-                    placeOrder(orderData);
-                },
-                prefill: {
-                    name: '<%= user.name %>', 
-                    email: '<%= user.email %>',
-                    contact: '<%= user.phone %>'
-                },
-                theme: {
-                    color: '#3399cc'
+            selectCouponBtn.addEventListener('click', function () {
+                const selectedCoupon = document.querySelector('input[name="coupon"]:checked');
+                if (selectedCoupon) {
+                    couponInput.value = selectedCoupon.value;
+                    hideModal();
+                } else {
+                    alert('Please select a coupon');
                 }
-            };
-            const rzp = new Razorpay(options);
-            rzp.open();
-        } else {
-            Swal.fire('Error', data.message, 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error', 'An unexpected error occurred', 'error');
-    });
-}
-    // Confirm wallet payment
-    function confirmWalletPayment(orderData) {
-        const totalAmount = parseFloat(document.querySelector('.summary-total td:last-child').textContent.replace('₹', ''));
-        Swal.fire({
-            title: 'Confirm Wallet Payment',
-            text: `Are you sure you want to pay ₹${totalAmount.toFixed(2)} from your wallet?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, pay now',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                placeOrder(orderData);
-            }
-        });
-    }
+            });
 
-    // Finalize order placement
-    function placeOrder(orderData) {
-        fetch('/placeOrder', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                if (data.newWalletBalance !== undefined) {
-                    updateWalletBalance(data.newWalletBalance);
+            closeCouponModalBtn.addEventListener('click', hideModal);
+            modalOverlay.addEventListener('click', hideModal);
+
+            applyBtn.addEventListener('click', async function () {
+                const couponCode = couponInput.value;
+                const cartTotal = parseFloat(document.querySelector('.summary-total td:last-child').textContent.replace('₹', ''));
+
+                if (!couponCode) {
+                    alert('Please enter a coupon code');
+                    return;
                 }
-                Swal.fire('Success', 'Your order was placed successfully!', 'success').then(() => {
-                    window.location.href = `/orderPlaced?orderId=${data.orderId}`;
+
+                try {
+                    const response = await fetch('/user/apply-coupon', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ couponCode, cartTotal }),
+                    });
+
+                    const result = await response.json();
+
+                    // if (result.success) {
+                    //     updateTotalTable(result.discount, result.discountedTotal);
+                    //     alert('Coupon applied successfully!');
+                    //     appliedCouponCode = couponCode;
+                    // } else {
+                    //     alert(`Error: ${result.message}`);
+                    // }
+                    if (result.success) {
+                        updateTotalTable(result.discount, result.discountedTotal);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Coupon applied successfully!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        appliedCouponCode = couponCode;
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: result.message,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+
+                } catch (error) {
+                    console.error('Error applying coupon:', error);
+                    alert('Error applying coupon. Please try again.');
+                }
+            });
+
+            function updateTotalTable(discount, discountedTotal) {
+                const couponRow = document.querySelector('.summary-coupon td:last-child');
+                const totalRow = document.querySelector('.summary-total td:last-child');
+
+                couponRow.textContent = `₹${parseFloat(discount).toFixed(2)}`;
+                totalRow.textContent = `₹${parseFloat(discountedTotal).toFixed(2)}`;
+
+                const cartItems = document.querySelectorAll('.cart-item');
+                const subtotal = parseFloat(document.querySelector('.summary-subtotal td:last-child').textContent.replace('₹', ''));
+                const discountRatio = parseFloat(discount) / subtotal;
+
+                cartItems.forEach(item => {
+                    const priceElement = item.querySelector('.cart-product-price');
+                    const originalPrice = parseFloat(priceElement.getAttribute('data-original-price'));
+                    const discountedPrice = originalPrice * (1 - discountRatio);
+                    priceElement.textContent = `₹${discountedPrice.toFixed(2)}`;
                 });
-            } else {
-                Swal.fire('Error', data.message, 'error');
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire('Error', 'An unexpected error occurred', 'error');
-        });
-    }
 
-    // Update wallet balance in the UI
-    function updateWalletBalance(newBalance) {
-        const walletBalanceElement = document.querySelector('.wallet-balance');
-        if (walletBalanceElement) {
-            walletBalanceElement.textContent = `₹ ${newBalance.toFixed(2)}`;
-        }
-    }
-});
-</script>
+            document.querySelector('.btn-order').addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
+                const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+                const totalAmount = parseFloat(document.querySelector('.summary-total td:last-child').textContent.replace('₹', ''));
+
+                if (!selectedAddress) {
+                    Swal.fire('Error', 'Please select an address', 'error');
+                    return;
+                }
+                if (!selectedPaymentMethod) {
+                    Swal.fire('Error', 'Please select a payment method', 'error');
+                    return;
+                }
+
+                if (selectedPaymentMethod.value === 'Cash on Delivery' && totalAmount > 2000) {
+                    Swal.fire('Error', 'Cash on Delivery is only available for orders below ₹2000. Please choose a different payment method.', 'error');
+                    return;
+                }
+
+                const orderData = {
+                    selectedAddress: selectedAddress.getAttribute('data-address-id'),
+                    paymentMethod: selectedPaymentMethod.value,
+                    appliedCouponCode: appliedCouponCode
+                };
+
+                if (orderData.paymentMethod === 'Razorpay') {
+                    initiateRazorpayPayment(orderData);
+                } else if (orderData.paymentMethod === 'Wallet') {
+                    confirmWalletPayment(orderData);
+                } else {
+                    placeOrder(orderData);
+                }
+            });
+
+            function initiateRazorpayPayment(orderData) {
+                fetch('/create-razorpay-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...orderData,
+                        appliedCouponCode: appliedCouponCode
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const options = {
+                                key: '<%= razorpayKeyId %>',
+                                amount: data.order.amount,
+                                currency: data.order.currency,
+                                name: 'Your Company Name',
+                                description: 'Purchase Description',
+                                order_id: data.order.id,
+                                handler: function (response) {
+                                    orderData.razorpayOrderId = response.razorpay_order_id;
+                                    orderData.razorpayPaymentId = response.razorpay_payment_id;
+                                    orderData.razorpaySignature = response.razorpay_signature;
+                                    orderData.razorpayPaymentStatus = 'success';
+                                    placeOrder(orderData);
+                                },
+                                prefill: {
+                                    name: '<%= user.name %>',
+                                    email: '<%= user.email %>',
+                                    contact: '<%= user.phone %>'
+                                },
+                                theme: {
+                                    color: '#3399cc'
+                                },
+                                modal: {
+                                    ondismiss: function () {
+
+                                        orderData.razorpayPaymentStatus = 'failed';
+                                        placeOrder(orderData);
+                                    }
+                                }
+                            };
+                            const rzp = new Razorpay(options);
+                            rzp.open();
+                        } else {
+                            Swal.fire('Error', data.message, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Error', 'An unexpected error occurred', 'error');
+                    });
+
+            }
+            function confirmWalletPayment(orderData) {
+                const totalAmount = parseFloat(document.querySelector('.summary-total td:last-child').textContent.replace('₹', ''));
+                Swal.fire({
+                    title: 'Confirm Wallet Payment',
+                    text: `Are you sure you want to pay ₹${totalAmount.toFixed(2)} from your wallet?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, pay now',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        placeOrder(orderData);
+                    }
+                });
+            }
+
+            function placeOrder(orderData) {
+                fetch('/placeOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (data.newWalletBalance !== undefined) {
+                                updateWalletBalance(data.newWalletBalance);
+                            }
+                            if (data.paymentStatus === 'Completed') {
+                                Swal.fire('Success', 'Your order was placed successfully!', 'success').then(() => {
+                                    window.location.href = `/orderPlaced?orderId=${data.orderId}`;
+                                });
+                            } else if (data.paymentStatus === 'Pending') {
+                                if (orderData.paymentMethod === 'Razorpay') {
+                                    Swal.fire({
+                                        title: 'Payment Failed',
+                                        text: 'Your order has been saved, but the payment was not completed. You can retry the payment from your profile orders.',
+                                        icon: 'warning',
+                                        confirmButtonText: 'Okay, Show In Profile!'
+                                    }).then(() => {
+                                        window.location.href = '/profileOrders';
+                                    });
+                                } else if (orderData.paymentMethod === 'Cash on Delivery') {
+                                    Swal.fire('Order Placed', 'Your order has been placed.', 'success').then(() => {
+                                        window.location.href = `/orderPlaced?orderId=${data.orderId}`;
+                                    });
+                                } else {
+                                    Swal.fire('Order Placed', 'Your order has been placed but payment is pending.', 'info').then(() => {
+                                        window.location.href = `/orderPlaced?orderId=${data.orderId}`;
+                                    });
+                                }
+                            }
+                        } else {
+                            Swal.fire('Error', data.message, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Error', 'An unexpected error occurred', 'error');
+                    });
+            }
+            function updateWalletBalance(newBalance) {
+                const walletBalanceElement = document.querySelector('.wallet-balance');
+                if (walletBalanceElement) {
+                    walletBalanceElement.textContent = `₹ ${newBalance.toFixed(2)}`;
+                }
+            }
+        });
+    </script>
 
 
     <style>
@@ -1252,7 +1100,6 @@
             margin-right: 5px;
         }
 
-        /* Modal Styles */
         .modal-overlay {
             display: none;
             position: fixed;

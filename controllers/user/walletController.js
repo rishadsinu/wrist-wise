@@ -7,48 +7,55 @@ const loadWallet = async (req, res) => {
         if (!req.session.user) {
             return res.redirect('/login');
         }
+        
         const user = req.session.user;
         let wallet = await Wallet.findOne({ user: user._id });
 
         if (!wallet) {
             wallet = new Wallet({ user: user._id, balance: 0, transactions: [] });
-            await wallet.save();
         }
+
+        const page = parseInt(req.query.page) || 1;  
+        const limit = parseInt(req.query.limit) || 6;  
+        const totalTransactions = wallet.transactions.length; 
+        const totalPages = Math.ceil(totalTransactions / limit);  
+
+        const paginatedTransactions = wallet.transactions
+            .sort((a, b) => b.date - a.date) 
+            .slice((page - 1) * limit, page * limit);  
+
         const orders = await Order.find({ userId: user._id }).populate('items.product');
 
         for (let order of orders) {
             for (let item of order.items) {
-                const isAlreadyCredited = wallet.transactions.some(
-                    (transaction) => transaction.transactionId === item.product._id.toString()
+                const isAlreadyProcessed = wallet.transactions.some(
+                    (transaction) => transaction.transactionId === `${order._id}-${item.product._id}`
                 );
 
-                if (!isAlreadyCredited) {
-                    if (item.order_status === 'Returned') {
+                if (!isAlreadyProcessed) {
+                    if (item.order_status === 'Returned' || item.order_status === 'Cancelled') {
+                        const refundAmount = item.price * item.quantity; 
                         wallet.transactions.push({
-                            transactionId: item.product._id.toString(),
-                            description: 'Return Refund',
-                            amount: item.price,
+                            transactionId: `${order._id}-${item.product._id}`,
+                            description: `${item.order_status} Refund`,
+                            amount: refundAmount,
                             type: 'credit',
+                            date: new Date()
                         });
-                        wallet.balance += item.price;
-                    } else if (item.order_status === 'Cancelled') {
-                        wallet.transactions.push({
-                            transactionId: item.product._id.toString(),
-                            description: 'Cancel Refund',
-                            amount: item.price,
-                            type: 'credit',
-                        });
-                        wallet.balance += item.price;
+                        wallet.balance += refundAmount;
                     }
                 }
             }
         }
+
         await wallet.save();
 
         res.render('wallet', {
             user,
             wallet: wallet,
-            transactions: wallet.transactions,
+            transactions: paginatedTransactions,
+            currentPage: page,
+            totalPages
         });
     } catch (error) {
         console.error('Error loading wallet:', error);
@@ -56,8 +63,7 @@ const loadWallet = async (req, res) => {
     }
 };
 
+
 module.exports = {
     loadWallet,
 };
-
-

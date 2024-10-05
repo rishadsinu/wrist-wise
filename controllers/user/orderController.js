@@ -117,17 +117,14 @@ const applyCoupon = async (req, res) => {
         }
 
         if (!coupon.isListed) {
-            console.log('Coupon is not active (not listed)');
             return res.status(400).json({ success: false, message: 'Coupon is not active' });
         }
 
         if (currentDate > coupon.expiryDate) {
-            console.log('Coupon has expired. Expiry date:', coupon.expiryDate);
             return res.status(400).json({ success: false, message: 'Coupon has expired' });
         }
 
         if (cartTotal < coupon.minAmount) {
-            console.log('Cart total does not meet minimum amount. Required:', coupon.minAmount);
             return res.status(400).json({ success: false, message: `Minimum purchase amount of ₹${coupon.minAmount} required` });
         }
 
@@ -180,12 +177,12 @@ const placeOrder = async (req, res) => {
         const selectedAddressId = req.body.selectedAddress;
         const paymentMethod = req.body.paymentMethod;
         const appliedCouponCode = req.body.appliedCouponCode;
+        const razorpayPaymentStatus = req.body.razorpayPaymentStatus;
         const cart = await Cart.findOne({ user: userId }).populate('items.product');
 
         if (!cart || cart.items.length === 0) {
             return res.status(400).json({ success: false, message: 'Your cart is empty' });
         }
-
         const selectedAddress = await Address.findById(selectedAddressId);
         if (!selectedAddress) {
             return res.status(400).json({ success: false, message: 'Selected address not found' });
@@ -264,11 +261,15 @@ const placeOrder = async (req, res) => {
                 addressPin: selectedAddress.pinCode,
             },
             paymentMethod: paymentMethod,
-            items: itemsWithDiscounts,
+            items: itemsWithDiscounts.map(item => ({
+                ...item,
+                order_status: paymentMethod === 'Razorpay' && razorpayPaymentStatus === 'failed' ? 'Payment Failed' : 'Pending'
+            })),
             totalPrice: totalPrice,
             couponDiscountAmt: couponDiscount,
             couponCode: appliedCouponCode || '',
             orderId: `ORDER-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+            payment_status: paymentMethod === 'Razorpay' && razorpayPaymentStatus === 'failed' ? 'Pending' : 'Pending'
         });
 
         let wallet;
@@ -287,21 +288,35 @@ const placeOrder = async (req, res) => {
             });
             await wallet.save();
 
-            order.paymentStatus = 'Paid';
-        } else if (paymentMethod === 'Razorpay' && req.body.razorpayOrderId && req.body.razorpayPaymentId) {
-            order.razorpayOrderId = req.body.razorpayOrderId;
-            order.razorpayPaymentId = req.body.razorpayPaymentId;
-            
-            const generatedSignature = crypto
-                .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
-                .update(`${order.razorpayOrderId}|${order.razorpayPaymentId}`)
-                .digest('hex');
+            order.payment_status = 'Completed'; 
+        } else if (paymentMethod === 'Razorpay') {
+            if (razorpayPaymentStatus === 'success') {
+                
+                if (req.body.razorpayOrderId && req.body.razorpayPaymentId && req.body.razorpaySignature) {
+                    order.razorpayOrderId = req.body.razorpayOrderId;
+                    order.razorpayPaymentId = req.body.razorpayPaymentId;
+                    
+                    const generatedSignature = crypto
+                        .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+                        .update(`${order.razorpayOrderId}|${order.razorpayPaymentId}`)
+                        .digest('hex');
 
-            if (generatedSignature !== req.body.razorpaySignature) {
-                return res.status(400).json({ success: false, message: 'Invalid Razorpay signature' });
+                    if (generatedSignature === req.body.razorpaySignature) {
+                        order.payment_status = 'Completed';
+                        order.items.forEach(item => item.order_status = 'Pending');
+                    }else if (paymentMethod === 'Cash on Delivery') {
+                        order.payment_status = 'Pending';
+                    
+                    } else {
+                        order.payment_status = 'Failed';
+                        order.items.forEach(item => item.order_status = 'Payment Failed');
+                    }
+                }
+            } else {
+               
+                order.payment_status = 'Pending';
+                order.items.forEach(item => item.order_status = 'Payment Failed');
             }
-            
-            order.paymentStatus = 'Paid';
         }
 
         await order.save();
@@ -313,14 +328,14 @@ const placeOrder = async (req, res) => {
                 { new: true }
             );
         }
-
         cart.items = [];
         await cart.save();
 
         res.json({ 
             success: true, 
-            message: 'Order placed successfully', 
+            message: order.payment_status === 'Completed' ? 'Order placed successfully' : 'Order saved but payment is pending',
             orderId: order._id,
+            paymentStatus: order.payment_status,
             newWalletBalance: paymentMethod === 'Wallet' ? wallet.balance : undefined
         });
     } catch (error) {
@@ -328,7 +343,6 @@ const placeOrder = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error placing order', error: error.message });
     }
 };
-
 
 const getOrderPlaced = async (req, res) => {
     try {
@@ -433,6 +447,7 @@ const createRazorpayOrder = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error creating order', error: error.message });
     }
 };
+
 const generateInvoicePDF = async (req, res) => {
     try {
         const orderId = req.params.orderId;
@@ -450,21 +465,17 @@ const generateInvoicePDF = async (req, res) => {
 
         doc.pipe(res);
 
-        // Helper function to draw text
         const drawText = (text, x, y, options = {}) => {
             doc.text(text, x, y, { ...options, continued: false });
         };
 
-        // Add content to the PDF
         doc.fontSize(20).font('Helvetica-Bold').text('Invoice', { align: 'center' });
         doc.moveDown();
 
-        // Order ID and Date
         doc.fontSize(10).font('Helvetica');
         drawText(`Order ID: ${order.orderId}`, 50, 100);
         drawText(`Order Date: ${new Date(order.createdAt).toLocaleDateString()}`, 50, 115);
 
-        // Shipping Address
         doc.fontSize(12).font('Helvetica-Bold');
         drawText('Shipping Address', 50, 145);
         doc.fontSize(10).font('Helvetica');
@@ -475,14 +486,12 @@ const generateInvoicePDF = async (req, res) => {
         drawText(`Phone: ${order.address.addressMobile}`, 50, 220);
         drawText(`Email: ${order.address.addressEmail}`, 50, 235);
 
-        // Order Summary
         doc.fontSize(12).font('Helvetica-Bold');
         drawText('Order Summary', 300, 145);
         doc.fontSize(10).font('Helvetica');
         drawText(`Payment Method: ${order.paymentMethod}`, 300, 160);
         drawText(`Total Amount: ₹${order.totalPrice.toFixed(2)}`, 300, 175);
 
-        // Invoice Details Table
         doc.fontSize(12).font('Helvetica-Bold');
         drawText('Invoice Details', 50, 280);
 
@@ -491,10 +500,8 @@ const generateInvoicePDF = async (req, res) => {
         const tableWidth = 500;
         const tableHeight = 30 + (order.items.length * 30);
 
-        // Draw table border
         doc.rect(tableLeft, tableTop, tableWidth, tableHeight).stroke();
 
-        // Table headers
         const drawTableHeader = () => {
             doc.fontSize(10).font('Helvetica-Bold');
             drawText('Item', tableLeft + 10, tableTop + 10);
@@ -506,7 +513,6 @@ const generateInvoicePDF = async (req, res) => {
 
         drawTableHeader();
 
-        // Table content
         doc.fontSize(10).font('Helvetica');
         order.items.forEach((item, index) => {
             const y = tableTop + 30 + (index * 30);
@@ -516,11 +522,9 @@ const generateInvoicePDF = async (req, res) => {
             drawText(`₹${item.price.toFixed(2)}`, tableLeft + 370, y + 10);
             drawText(`₹${(item.price * item.quantity).toFixed(2)}`, tableLeft + 440, y + 10);
 
-            // Draw horizontal line for each row
             doc.moveTo(tableLeft, y).lineTo(tableLeft + tableWidth, y).stroke();
         });
 
-        // Total
         const totalY = tableTop + tableHeight + 10;
         doc.fontSize(12).font('Helvetica-Bold');
         drawText(`Total: ₹${order.totalPrice.toFixed(2)}`, tableLeft + 440, totalY);

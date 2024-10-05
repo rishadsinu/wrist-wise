@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const express = require("express");
 const app = express();
 require('dotenv').config();
-const port = process.env.PORT || 4000
+const port = process.env.PORT
 const nocache = require("nocache");
 const passport = require('passport');
 const session = require("express-session");
@@ -35,14 +35,11 @@ app.use("/adminAssets" ,express.static(path.join(__dirname,"public/admin/adminAs
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use("/assets", express.static(path.join(__dirname, "public/userimages")));
 
-const userRoute = require('./routes/userRoute');
-app.use('/', userRoute);
-
 const adminRoute = require('./routes/adminRoute');
-app.use('/admin', adminRoute);
+const userRoute = require('./routes/userRoute');
 
-const logoutRouter = require('./routes/userRoute');
-app.use('/', logoutRouter);
+app.use('/admin', adminRoute);
+app.use('/', userRoute);
 
 app.listen(port, () => {
     console.log(`Listening to the server on http://localhost:${port}`);

@@ -4,8 +4,83 @@ const Category = require('../../models/categoryModel');
 const Product = require('../../models/productModel');
 const Address = require('../../models/addressModel');
 const Order = require('../../models/orderModel');
+const Razorpay = require('razorpay');
+const crypto = require('crypto');
 
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
+});
+const retryRazorpayPayment = async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+        const order = await Order.findById(orderId);
 
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+
+        if (order.payment_status !== 'Pending' || order.paymentMethod !== 'Razorpay') {
+            return res.status(400).json({ success: false, message: 'Invalid order status for retry payment' });
+        }
+
+        const razorpayOrder = await razorpay.orders.create({
+            amount: Math.round(order.totalPrice * 100),
+            currency: 'INR',
+            receipt: order.orderId,
+            payment_capture: 1
+        });
+
+        res.json({
+            success: true,
+            razorpayKeyId: process.env.RAZORPAY_KEY_ID,
+            order: razorpayOrder,
+            user: {
+                name: req.session.user.name,
+                email: req.session.user.email,
+                phone: req.session.user.phone
+            }
+        });
+    } catch (error) {
+        console.error('Error in retryRazorpayPayment:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+
+const verifyRazorpayPayment = async (req, res) => {
+    try {
+        const { orderId, paymentId, razorpayOrderId, signature } = req.body;
+
+        const generatedSignature = crypto
+            .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+            .update(`${razorpayOrderId}|${paymentId}`)
+            .digest('hex');
+
+        if (generatedSignature === signature) {
+            const order = await Order.findById(orderId);
+            if (!order) {
+                return res.status(404).json({ success: false, message: 'Order not found' });
+            }
+
+            order.payment_status = 'Completed';
+            order.items.forEach(item => {
+                if (item.order_status === 'Payment Failed') {
+                    item.order_status = 'Pending';
+                }
+            });
+            order.razorpayPaymentId = paymentId;
+            order.razorpayOrderId = razorpayOrderId;
+            await order.save();
+
+            res.json({ success: true, message: 'Payment verified successfully' });
+        } else {
+            res.status(400).json({ success: false, message: 'Invalid signature' });
+        }
+    } catch (error) {
+        console.error('Error in verifyRazorpayPayment:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
 const loadUserProfile = async (req, res) => {
     try {
         const user = req.session.user
@@ -121,6 +196,7 @@ const loadProfileOrders = async (req, res) => {
         if (!req.session.user) {
             return res.redirect('/login');
         }
+
         const userId = req.session.user._id;
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 6; 
@@ -136,23 +212,31 @@ const loadProfileOrders = async (req, res) => {
                 select: 'productImages' 
             });
 
-        const formattedOrders = orders.map(order => {
-            const firstItem = order.items[0];
-            const product = firstItem && firstItem.product;
-            const productImages = product && product.productImages ? product.productImages : [];
+        const updatedOrders = await Promise.all(
+            orders.map(async (order) => {
+                const firstItem = order.items[0];
+                const product = firstItem && firstItem.product;
+                const productImages = product && product.productImages ? product.productImages : [];
 
-            return {
-                _id: order._id,
-                orderId: order.orderId,
-                createdAt: order.createdAt,
-                status: firstItem.order_status,
-                totalPrice: order.totalPrice,
-                productImages: productImages 
-            };
-        });
+                if (order.paymentMethod === 'Cash on Delivery' && firstItem.order_status === 'Delivered' && order.payment_status !== 'Completed') {
+                    order.payment_status = 'Completed';
+                    await order.save();  
+                }
+
+                return {
+                    _id: order._id,
+                    orderId: order.orderId,
+                    createdAt: order.createdAt,
+                    status: firstItem.order_status,
+                    totalPrice: order.totalPrice,
+                    productImages: productImages,
+                    payment_status: order.payment_status 
+                };
+            })
+        );
 
         res.render('profileOrders', {
-            orders: formattedOrders,
+            orders: updatedOrders,
             user: req.session.user,
             currentPage: page,
             totalPages
@@ -171,9 +255,17 @@ const getOrderDetails = async (req, res) => {
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
-        res.json(order);
+
+        const firstItem = order.items[0]; 
+        if (order.paymentMethod === 'Cash on Delivery' && firstItem.order_status === 'Delivered' && order.payment_status !== 'Completed') {
+            order.payment_status = 'Completed';
+            await order.save();  
+        }
+
+        res.json(order);  
     } catch (error) {
         console.error(error);
+        res.status(500).send('Server error: ' + error.message);
     }
 };
 
@@ -245,5 +337,7 @@ module.exports = {
     loadProfileOrders,
     getOrderDetails,
     requestCancellation,
-    requestReturn
+    requestReturn,
+    retryRazorpayPayment,
+    verifyRazorpayPayment
 }

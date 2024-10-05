@@ -9,6 +9,7 @@ const crypto = require('crypto')
 const Wishlist = require('../../models/wishlistModel')
 const Offer = require('../../models/offerModel')
 const Coupon = require('../../models/coupenModel')
+const Cart = require('../../models/cartModel');
 
 const loadHome = async (req, res) => {
     try {
@@ -116,15 +117,27 @@ const verifyOTP = async (req, res) => {
     try {
         const { otp, email } = req.body;
         const tempUser = req.session.tempUser;
+        
         if (!tempUser) {
-            return res.render('verifyOTP', { email });
+            return res.status(400).json({ success: false, message: "Session expired. Please try again." });
         }
+        
         if (tempUser.email !== email) {
-            return res.render('verifyOTP', { message: "Invalid email.", email });
+            return res.status(400).json({ success: false, message: "Invalid email." });
         } 
-        if (tempUser.otp !== otp || tempUser.otpExpiry < new Date()) {
-            return res.render('verifyOTP', { message: "Invalid or expired OTP.", email });
+        
+        const currentTime = new Date();
+        if (currentTime > tempUser.otpExpiry) {
+            return res.status(400).json({ success: false, message: "OTP has expired. Please request a new one." });
         }
+        
+        const receivedOTP = otp.toString().trim();
+        const storedOTP = tempUser.otp.toString().trim();
+                
+        if (receivedOTP !== storedOTP) {
+            return res.status(400).json({ success: false, message: "Your OTP was incorrect. Please check the OTP." });
+        }
+        
         const user = new User({
             name: tempUser.name,
             email: tempUser.email,
@@ -133,17 +146,17 @@ const verifyOTP = async (req, res) => {
             is_admin: 0,
             isVerified: true
         });
+        
         await user.save();
         req.session.tempUser = undefined;
         req.session.user = user;
 
-        res.redirect('/home');
+        return res.status(200).json({ success: true, message: "OTP verified successfully." });
     } catch (error) {
-        console.log(error.message);
-        res.render('verifyOTP', { message: "An error occurred during verification.", email: req.body.email });
+        console.error('Error in verifyOTP:', error);
+        return res.status(500).json({ success: false, message: "An error occurred during verification." });
     }
 };
-
 const loadLogin = async (req, res) => {
     try {
         const message = req.query.message;
@@ -248,38 +261,41 @@ const removeFromWishlist = async (req, res) => {
         res.status(500).json({ success: false, message: 'An error occurred while removing from wishlist' });
     }
 };
+
 const verifylogin = async (req, res) => {
     try {
         const { 'singin-email': email, 'singin-password': password } = req.body;
 
         if (!email || !password) {
-            return res.render('login', { message: 'Email and password are required' });
+            return res.json({ success: false, message: 'Email and password are required' });
         }
+
         const userData = await User.findOne({ email: email });
 
         if (userData) {
             if (userData.isBlocked) {
-                return res.render('login', { message: 'Your account has been blocked. Please contact support.' });
+                return res.json({ success: false, message: 'Your account has been blocked. Please contact support.' });
             }
+
             const passwordMatch = await bcrypt.compare(password, userData.password);
             if (passwordMatch) {
                 if (userData.isVerified) {
                     req.session.user = userData;
                     const returnTo = req.session.returnTo || '/home';
                     delete req.session.returnTo;
-                    return res.redirect(returnTo);
+                    return res.json({ success: true, redirectUrl: returnTo });
                 } else {
-                    return res.render('login', { message: 'Please verify your email!' });
+                    return res.json({ success: false, error: 'email', message: 'Please verify your email!' });
                 }
             } else {
-                return res.render('login', { message: 'Email and password are incorrect' });
+                return res.json({ success: false, error: 'password', message: 'Password is incorrect' });
             }
         } else {
-            return res.render('login', { message: 'Email and password are incorrect' });
+            return res.json({ success: false, error: 'email', message: 'Email not found, check your email' });
         }
     } catch (error) {
         console.log(error.message);
-        return res.render('login', { message: 'An error occurred during login' });
+        return res.json({ success: false, message: 'An error occurred during login' });
     }
 };
 
@@ -369,6 +385,51 @@ const resetPassword = async (req, res) => {
         console.error(error);
     }
 };
+const loadAbout = async(req,res)=>{
+    try {
+        const user = req.session.user
+        res.render('about',{user})
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+const sendContactMessage = async (req, res) => {
+    try {
+        const { cname, cemail, cphone, csubject, cmessage } = req.body;
+        
+        let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+        
+        const mailOptions = {
+            from: cemail || 'noreply@yourdomain.com',
+            to: 'rishadsinu2233@gmail.com',
+            subject: `New Contact Message from ${cname || 'Unknown'} - ${csubject || 'No Subject'}`,
+            text: `
+                Name: ${cname || 'Not provided'}
+                Email: ${cemail || 'Not provided'}
+                Phone: ${cphone || 'N/A'}
+                Subject: ${csubject || 'No subject'}
+                Message: ${cmessage || 'No message'}
+                Submitted at: ${new Date().toLocaleString()}
+            `,
+        };
+        
+        await transporter.sendMail(mailOptions);
+        res.json({ success: true });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Error sending your message. Please try again.' });
+    }
+};
 
 module.exports = {
     loadHome,
@@ -386,5 +447,7 @@ module.exports = {
     loadResetPassword,
     resetPassword,
     addToWishlist,
-    removeFromWishlist
+    removeFromWishlist,
+    loadAbout,
+    sendContactMessage
 }

@@ -17,24 +17,39 @@
             margin: 0;
         }
 
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            width: 100%;
+        }
+
         h2 {
             color: #333;
             text-align: center;
+            margin-top: 0;
         }
 
-        form {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 300px;
-            width: 100%;
+        .info-message {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
             text-align: center;
+        }
+
+        #timer {
+            font-size: 18px;
+            color: #ff0000;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -45,32 +60,22 @@
         button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
         }
 
         button:hover {
             background-color: #45a049;
         }
 
-        #timer {
-            font-size: 18px;
-            color: #ff0000;
-            /* Red color */
-            margin: 10px 0;
-        }
-
-        .info-message {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-        }
-
         .resend-link {
-            margin-top: 10px;
+            margin-top: 15px;
+            text-align: center;
         }
 
         .resend-link a {
@@ -81,80 +86,174 @@
         .resend-link a:hover {
             text-decoration: underline;
         }
+
+        #message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .error-message {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        .swal2-popup {
+            width: 300px;
+            padding: 20px;
+        }
+
+        .swal2-title {
+            font-size: 18px;
+        }
+
+        .swal2-content {
+            font-size: 14px;
+        }
+
+        /*  to prevent form shifting */
+        body.swal2-shown > :not(.swal2-container) {
+            filter: blur(22px);
+        }
     </style>
 </head>
 
-
 <body>
-    <form action="/verify-otp" method="POST">
-        <h2>Verify OTP</h2>
-        <div class="info-message">OTP has been sent to your email.</div>
-        <div id="timer">01:00</div>
-        <input type="hidden" name="email" value="<%= email %>">
-
-        <input type="text" name="otp" placeholder="Enter 4-digit OTP" required>
-        <button type="submit">Verify</button>
-        <div class="resend-link" style="display: none;">
-            <a href="#" id="resendOTP">Resend OTP</a>
-        </div>
-    </form>
-
+    <div class="container">
+        <form id="otpForm">
+            <h2>Verify OTP</h2>
+            <div class="info-message">OTP has been sent to your email.</div>
+            <div id="timer">01:00</div>
+            <input type="hidden" name="email" value="<%= email %>">
+            <input type="text" name="otp" placeholder="Enter 4-digit OTP" required>
+            <button type="submit">Verify</button>
+            <div class="resend-link" style="display: none;">
+                <a href="#" id="resendOTP">Resend OTP</a>
+            </div>
+        </form>
+        <div id="message"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         let countdownInterval;
-
+        let isOTPExpired = false;
+    
         function startCountdown(duration, display) {
-            clearInterval(countdownInterval); 
-
+            clearInterval(countdownInterval);
+            isOTPExpired = false;
+    
             let timer = duration, minutes, seconds;
             const resendLink = document.querySelector('.resend-link');
-
+    
             countdownInterval = setInterval(function () {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
-
+    
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-
+    
                 display.textContent = minutes + ":" + seconds;
-
+    
                 if (--timer < 0) {
                     timer = 0;
                     display.textContent = "00:00";
                     resendLink.style.display = 'block';
-                    clearInterval(countdownInterval);  
+                    isOTPExpired = true;
+                    clearInterval(countdownInterval);
+                    showMessage("OTP has expired. Please request a new one.", true);
                 }
             }, 1000);
         }
-
+    
+        function showMessage(text, isError = false) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = text;
+            messageElement.className = isError ? 'error-message' : '';
+        }
+    
         window.onload = function () {
             const oneMinute = 60;
             const display = document.querySelector('#timer');
             startCountdown(oneMinute, display);
         };
-
+    
+        document.getElementById('otpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (isOTPExpired) {
+                showMessage("OTP has expired. Please request a new one.", true);
+                return;
+            }
+            
+            const formData = new FormData(this);
+            const otp = formData.get('otp').trim();
+            formData.set('otp', otp);
+            
+            fetch('/verify-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(Object.fromEntries(formData))
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'OTP Verified!',
+                        text: data.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.href = '/home';
+                    });
+                } else {
+                    showMessage(data.message, true);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('An error occurred. Please try again.', true);
+            });
+        });
+    
         document.getElementById('resendOTP').addEventListener('click', function (e) {
             e.preventDefault();
             fetch('/resend-otp', { method: 'POST' })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('New OTP sent successfully');
-                      
-                        const oneMinute = 60;
-                        startCountdown(oneMinute, document.querySelector('#timer'));
-                        document.querySelector('.resend-link').style.display = 'none'; 
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'New OTP sent successfully!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            const oneMinute = 60;
+                            startCountdown(oneMinute, document.querySelector('#timer'));
+                            document.querySelector('.resend-link').style.display = 'none';
+                            showMessage('');
+                        });
                     } else {
-                        alert('Failed to resend OTP. Please try again.');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed',
+                            text: 'Failed to resend OTP. Please try again.',
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'Retry'
+                        });
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
+                    showMessage('An error occurred. Please try again.', true);
                 });
         });
-
     </script>
 </body>
-
 
 </html>

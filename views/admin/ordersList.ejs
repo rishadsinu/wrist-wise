@@ -26,7 +26,12 @@
           <a href="index.html" class="app-brand-link">
             <span class="app-brand-logo demo me-1">
               <span style="color:var(--bs-primary);">
-                <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <!-- <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg"> -->
+                  <img id="myImage" src="/images/ww_logo_black-removebg-preview admin.png" alt="SVG Image"
+                
+                  style="width:35px; height:30px; cursor:pointer;">
+
                   <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M12.3002 1.25469L56.655 28.6432C59.0349 30.1128 60.4839 32.711 60.4839 35.5089V160.63C60.4839 163.468 58.9941 166.097 56.5603 167.553L12.2055 194.107C8.3836 196.395 3.43136 195.15 1.14435 191.327C0.395485 190.075 0 188.643 0 187.184V8.12039C0 3.66447 3.61061 0.0522461 8.06452 0.0522461C9.56056 0.0522461 11.0271 0.468577 12.3002 1.25469Z"
                     fill="currentColor" />
@@ -94,7 +99,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="app-ecommerce-product-add.html" class="menu-link">
+                    <a href="/admin/add-product" class="menu-link">
                       <div data-i18n="Add Product">Add Product</div>
                     </a>
                   </li>
@@ -115,11 +120,7 @@
                       <div data-i18n="Order List">Order List</div>
                     </a>
                   </li>
-                  <li class="menu-item">
-                    <a href="app-ecommerce-order-details.html" class="menu-link">
-                      <div data-i18n="Order Details">Order Details</div>
-                    </a>
-                  </li>
+                  
                 </ul>
               </li>
               <li class="menu-item">
@@ -128,75 +129,35 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item">
-                    <a href="app-ecommerce-customer-all.html" class="menu-link">
+                    <a href="customers" class="menu-link">
                       <div data-i18n="All Customers">All Customers</div>
                     </a>
                   </li>
-                  <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                      <div data-i18n="Customer Details">Customer Details</div>
-                    </a>
-                    <ul class="menu-sub">
-                      <li class="menu-item">
-                        <a href="app-ecommerce-customer-details-overview.html" class="menu-link">
-                          <div data-i18n="Overview">Overview</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="app-ecommerce-customer-details-security.html" class="menu-link">
-                          <div data-i18n="Security">Security</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="app-ecommerce-customer-details-billing.html" class="menu-link">
-                          <div data-i18n="Address & Billing">Address & Billing</div>
-                        </a>
-                      </li>
-                      <li class="menu-item">
-                        <a href="app-ecommerce-customer-details-notifications.html" class="menu-link">
-                          <div data-i18n="Notifications">Notifications</div>
-                        </a>
-                      </li>
-
-                    </ul>
-                  </li>
+                  
                 </ul>
               </li>
             </ul>
           </li>
-          <!-- e-commerce-app menu end -->
-          <!-- Academy menu start -->
-
           <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class='menu-icon tf-icons ri-bill-line'></i>
-              <div data-i18n="Invoice">Invoice</div>
-              <div class="badge bg-danger rounded-pill ms-auto"></div>
+              <i class="menu-icon tf-icons ri-bill-line"></i>
+              <div data-i18n="Offers & Coupons">Offers & Coupons</div>
             </a>
             <ul class="menu-sub">
               <li class="menu-item">
-                <a href="app-invoice-list.html" class="menu-link">
-                  <div data-i18n="List">List</div>
+                <a href="offerslist" class="menu-link" id="add-offer">
+                  <div data-i18n="Offer List">Offer List</div>
                 </a>
               </li>
+
               <li class="menu-item">
-                <a href="app-invoice-preview.html" class="menu-link">
-                  <div data-i18n="Preview">Preview</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="app-invoice-edit.html" class="menu-link">
-                  <div data-i18n="Edit">Edit</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="app-invoice-add.html" class="menu-link">
-                  <div data-i18n="Add">Add</div>
+                <a href="couponlist" class="menu-link" id="coupon-list">
+                  <div data-i18n="Coupon List">Coupon List</div>
                 </a>
               </li>
             </ul>
           </li>
-        </ul>
+                </ul>
       </aside>
       <!-- / Menu -->
 
@@ -322,9 +283,19 @@
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                   <div class="card-header d-flex rounded-0 flex-wrap pb-md-0 pt-0">
                     <div class="me-5 pe-5">
-                      <div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search"
+                      <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                        <!-- <label><input type="search"
                             class="form-control form-control-sm ms-0" placeholder="Search Order"
-                            aria-controls="DataTables_Table_0"></label></div>
+                            aria-controls="DataTables_Table_0"></label> -->
+
+                            <form action="/admin/orderlist" method="GET" class="mb-3">
+                              <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search products..." value="<%= searchQuery %>">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                              </div>
+                            </form>
+
+                          </div>
                     </div>
                   </div>
 
@@ -364,57 +335,29 @@
                     </tbody>
                   </table>
 
-                  <div class="row mx-1">
-                    <div class="col-sm-12 col-md-6">
-                      <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                        Showing <%= (currentPage - 1) * 10 + 1 %> to <%= Math.min(currentPage * 10, totalOrders) %> of
-                            <%= totalOrders %> entries
-                      </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                      <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                        <ul class="pagination">
-                          <% if (currentPage> 1) { %>
-                            <li class="paginate_button page-item previous" id="DataTables_Table_0_previous">
-                              <a href="?page=<%= currentPage - 1 %>" aria-controls="DataTables_Table_0" role="link"
-                                data-dt-idx="previous" tabindex="0" class="page-link"><i
-                                  class="ri-arrow-left-s-line"></i></a>
-                            </li>
-                            <% } else { %>
-                              <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
-                                <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
-                                  data-dt-idx="previous" tabindex="-1" class="page-link"><i
-                                    class="ri-arrow-left-s-line"></i></a>
-                              </li>
-                              <% } %>
+                  <!-- Updated pagination code -->
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <% if (currentPage > 1) { %>
+      <li class="page-item">
+        <a class="page-link" href="?page=<%= currentPage - 1 %>&search=<%= searchQuery %>">Previous</a>
+      </li>
+    <% } %>
+    
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+        <a class="page-link" href="?page=<%= i %>&search=<%= searchQuery %>"><%= i %></a>
+      </li>
+    <% } %>
+    
+    <% if (currentPage < totalPages) { %>
+      <li class="page-item">
+        <a class="page-link" href="?page=<%= currentPage + 1 %>&search=<%= searchQuery %>">Next</a>
+      </li>
+    <% } %>
+  </ul>
+</nav>      
 
-                                <% for (let i=1; i <=totalPages; i++) { %>
-                                  <li class="paginate_button page-item <%= i === currentPage ? 'active' : '' %>">
-                                    <a href="?page=<%= i %>" aria-controls="DataTables_Table_0" role="link"
-                                      data-dt-idx="<%= i - 1 %>" tabindex="0" class="page-link">
-                                      <%= i %>
-                                    </a>
-                                  </li>
-                                  <% } %>
-
-                                    <% if (currentPage < totalPages) { %>
-                                      <li class="paginate_button page-item next" id="DataTables_Table_0_next">
-                                        <a href="?page=<%= currentPage + 1 %>" aria-controls="DataTables_Table_0"
-                                          role="link" data-dt-idx="next" tabindex="0" class="page-link"><i
-                                            class="ri-arrow-right-s-line"></i></a>
-                                      </li>
-                                      <% } else { %>
-                                        <li class="paginate_button page-item next disabled"
-                                          id="DataTables_Table_0_next">
-                                          <a aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
-                                            data-dt-idx="next" tabindex="-1" class="page-link"><i
-                                              class="ri-arrow-right-s-line"></i></a>
-                                        </li>
-                                        <% } %>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
                   <div style="width: 1%;"></div>
                 </div>
               </div>
@@ -555,8 +498,6 @@
       <!-- / Layout page -->
     </div>
 
-
-
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 
@@ -568,6 +509,20 @@
   <!-- / Layout wrapper -->
 
 <!-- order details modal -->
+<!-- <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="orderDetailsContent"></div>
+      </div>
+    </div>
+  </div>
+</div> -->
 <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -583,7 +538,7 @@
   </div>
 </div>
 
-  <script>
+    <script>
     async function showOrderDetailsModal(orderId) {
       try {
         const response = await fetch(`/admin/orderdetails/${orderId}`);
@@ -640,27 +595,29 @@
                   </tr>
                 </thead>
             <tbody>
-              ${order.items.map((item) => `
-                <tr>
-                  <td>${item.product.productTitle}</td>
-                  <td class="text-center">${item.quantity}</td>
-                  <td class="text-right">₹${item.price.toFixed(2)}</td>
-                  <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
-                  <td class="text-center">
-                    <span id="status-${item._id}">${item.order_status}</span>
-                  </td>
-                  <td class="text-center">
-                    <select class="form-select status-select" data-item-id="${item._id}" ${item.order_status === 'Cancelled' || item.order_status === 'Returned' ? 'disabled' : ''}>
-                      ${getStatusOptions(item.order_status)}
-                    </select>
-                    ${item.order_status === 'Cancellation Requested' && item.order_status !== 'Cancelled' ?
-                      `<button class="btn btn-sm btn-danger mt-2 accept-cancel-btn" data-item-id="${item._id}">Accept Cancel</button>` : ''}
-                    ${item.order_status === 'Return Requested' && item.order_status !== 'Returned' ?
-                      `<button class="btn btn-sm btn-warning mt-2 accept-return-btn" data-item-id="${item._id}">Accept Return</button>` : ''}
-                  </td>
-                </tr>
-              `).join('')}
-            </tbody>
+          ${order.items.map((item) => `
+            <tr>
+              <td>${item.product.productTitle}</td>
+              <td class="text-center">${item.quantity}</td>
+              <td class="text-right">₹${item.price.toFixed(2)}</td>
+              <td class="text-right">₹${(item.price * item.quantity).toFixed(2)}</td>
+              <td class="text-center">
+                <span id="status-${item._id}">${item.order_status}</span>
+              </td>
+              ${item.order_status !== 'Payment Failed' ? `
+              <td class="text-center">
+                <select class="form-select status-select" data-item-id="${item._id}" ${item.order_status === 'Cancelled' || item.order_status === 'Returned' ? 'disabled' : ''}>
+                  ${getStatusOptions(item.order_status)}
+                </select>
+                ${item.order_status === 'Cancellation Requested' && item.order_status !== 'Cancelled' ?
+                  `<button class="btn btn-sm btn-danger mt-2 accept-cancel-btn" data-item-id="${item._id}">Accept Cancel</button>` : ''}
+                ${item.order_status === 'Return Requested' && item.order_status !== 'Returned' ?
+                  `<button class="btn btn-sm btn-warning mt-2 accept-return-btn" data-item-id="${item._id}">Accept Return</button>` : ''}
+              </td>
+              ` : '<td class="text-center">N/A</td>'}
+            </tr>
+          `).join('')}
+        </tbody>
             <!-- ... (rest of the HTML code remains the same) ... -->
           `;
           document.getElementById('orderDetailsContent').innerHTML = orderDetailsHtml;
@@ -720,7 +677,7 @@
   
           const data = await response.json();
           if (data.success) {
-            alert('Item status updated successfully');
+            // alert('Item status updated successfully');
             document.getElementById(`status-${itemId}`).textContent = newStatus;
           } else {
             alert('Failed to update item status');
@@ -754,7 +711,6 @@
   
         const data = await response.json();
         if (data.success) {
-          alert('Item cancellation accepted successfully');
           updateItemUI(itemId, 'Cancelled');
         } else {
           alert(data.message || 'Failed to accept item cancellation');
@@ -776,7 +732,6 @@
 
     const data = await response.json();
     if (data.success) {
-      alert('Item return accepted successfully');
       updateItemUI(itemId, 'Return Accepted');
     } else {
       alert(data.message || 'Failed to accept item return');

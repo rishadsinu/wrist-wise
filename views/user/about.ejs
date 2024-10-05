@@ -1,0 +1,551 @@
+<%- include ('../layouts/header.ejs') %>
+
+    <div class="page-wrapper">
+        <header class="header">
+
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-left col-lg-7">
+                        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                            <div class="container breadcrumbs">
+                                <ol class="breadcrumb">
+                                    <!-- Breadcrumbs with links -->
+                                    <li class="breadcrumb-item">
+                                        <% if (user) { %>
+                                    <li>
+                                        <a href="userprofile"><i class="icon-user"></i>
+                                            <%= user.name || user.displayName %>
+                                        </a>
+                                    </li>
+                                    <% } else { %>
+                                        <li>
+                                            <a href="/login"><i class="icon-user"></i>Login</a>
+                                        </li>
+                                        <% } %>
+                                            </li>
+
+                                </ol>
+                            </div>
+                            <!-- End .container -->
+                        </nav>
+                        <!-- End .breadcrumb-nav -->
+                    </div>
+
+                    <!-- End .header-right -->
+                </div>
+                <!-- End .container -->
+
+            </div>
+
+            <div class="header-bottom sticky-header">
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+
+
+                        <img src="/images/ww logo black.jpg" alt="Molla Logo"
+                            style="width:72px; height:62px; cursor:pointer;">
+
+                    </div>
+                    <div class="header-center">
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li>
+                                    <a href="/home" class="sf-with-ul">Home</a>
+
+
+                                </li>
+                                <li>
+                                    <a href="category" class="sf-with-ul">Shoping</a>
+
+
+                                </li>
+
+                                <li>
+                                    <a href="#" class="sf-with-ul">Pages</a>
+
+                                    <ul>
+                                        <li>
+                                            <a href="/aboutus">About Us</a>
+
+                                        </li>
+                                        <li>
+                                            <a href="/aboutus">Contact Us</a>
+
+                                        </li>
+                                        <li><a href="/category">Shoping</a></li>
+                                        <li><a href="/userprofile">My Account</a></li>
+                                        <li><a href="/profileOrders">My Orders</a></li>
+                                        <li><a href="/wallet">My Wallet</a></li>
+                                        <li><a href="/cart">Cart</a></li>
+                                        <li><a href="/wishlist">Wishlist</a></li>
+                                        <li><a href="/login">Login</a></li>
+                                    </ul>
+                                </li>
+
+
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+
+
+                        <a href="wishlist" class="wishlist-link">
+                            <i class="icon-heart-o"></i>
+
+                        </a>
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="/cart" class="dropdown-toggle" role="button">
+                                <i class="icon-shopping-cart"></i>
+                            </a>
+                        </div>
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-bottom -->
+        </header><!-- End .header -->
+
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">About us</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+            <div class="container">
+                <div class="page-header page-header-big text-center"
+                    style="background-image: url('/images/aboutusnew.jpg')">
+                    <h1 class="page-title text-white">About us<span class="text-white">Who we are</span></h1>
+                </div><!-- End .page-header -->
+            </div><!-- End .container -->
+
+            <div class="page-content pb-0">
+
+
+                <div class="bg-light-2 pt-6 pb-5 mb-6 mb-lg-8">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-5 mb-3 mb-lg-0">
+                                <h2 class="title">Who We Are</h2><!-- End .title -->
+                                <p class="lead text-primary mb-3">Thanks for choosing Wrist Wise
+                                    <br>Best product makes best connection
+                                </p><!-- End .lead text-primary -->
+                                <p class="mb-2">Founded in 2019, Wrist Wise has quickly established itself as a trusted
+                                    brand in the watch industry. With a growing base of loyal and satisfied clients, we
+                                    pride ourselves on delivering high-quality products at genuine, fair prices. Our
+                                    extensive collection includes watches of all types, catering to diverse styles and
+                                    preferences. At Wrist Wise, we are committed to offering both reliability and
+                                    excellence to our customers, ensuring that every watch purchase is a timeless
+                                    investment.
+
+                                </p>
+
+                                <a href="blog.html" class="btn btn-sm btn-minwidth btn-outline-primary-2">
+                                    <span>VIEW OUR NEWS</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div><!-- End .col-lg-5 -->
+
+                            <div class="col-lg-6 offset-lg-1">
+                                <div class="about-images">
+                                    <img src="assets/images/about/img-1.jpg" alt="" class="about-img-front">
+                                    <img src="assets/images/about/img-2.jpg" alt="" class="about-img-back">
+                                </div><!-- End .about-images -->
+                            </div><!-- End .col-lg-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .bg-light-2 pt-6 pb-6 -->
+
+                <div class="page-content pb-0">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 mb-2 mb-lg-0">
+                                <h2 class="title mb-1">Contact Information</h2><!-- End .title mb-2 -->
+                                <p class="mb-3">We value your feedback and inquiries at Wrist Wise. If you have any
+                                    questions, comments, or concerns, please don't hesitate to reach out to us. Our
+                                    dedicated team is here to assist you and ensure a seamless experience. You can
+                                    contact us through our website, email, or phone. We look forward to hearing from
+                                    you!
+
+                                    .</p>
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <div class="contact-info">
+                                            <h3>The Office</h3>
+
+                                            <ul class="contact-list">
+                                                <li>
+                                                    <i class="icon-map-marker"></i>
+                                                    India, Kerela, Malappuram
+                                                </li>
+                                                <li>
+                                                    <i class="icon-phone"></i>
+                                                    <a href="tel:#">+91 8086862233</a>
+                                                </li>
+                                                <li>
+                                                    <i class="icon-envelope"></i>
+                                                    <a href="mailto:#">rishadsunu2233@gmail.com</a>
+                                                </li>
+                                            </ul><!-- End .contact-list -->
+                                        </div><!-- End .contact-info -->
+                                    </div><!-- End .col-sm-7 -->
+
+                                    <div class="col-sm-5">
+                                        <div class="contact-info">
+                                            <h3>The Office</h3>
+
+                                            <ul class="contact-list">
+                                                <li>
+                                                    <i class="icon-clock-o"></i>
+                                                    <span class="text-dark">Monday-Saturday</span> <br>11am-7pm ET
+                                                </li>
+                                                <li>
+                                                    <i class="icon-calendar"></i>
+                                                    <span class="text-dark">Sunday</span> <br>11am-6pm ET
+                                                </li>
+                                            </ul><!-- End .contact-list -->
+                                        </div><!-- End .contact-info -->
+                                    </div><!-- End .col-sm-5 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .col-lg-6 -->
+                            <div class="col-lg-6">
+                                <h2 class="title mb-1">Have any feed back or question?</h2><!-- End .title mb-2 -->
+                                <p class="mb-2">Use the form below to get in touch with the sales team</p>
+                                
+
+                                <form id="contactForm" class="contact-form mb-3">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="cname" class="sr-only">Name</label>
+                                            <input type="text" class="form-control" id="cname" name="cname"
+                                                placeholder="Name *" required>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="cemail" class="sr-only">Email</label>
+                                            <input type="email" class="form-control" id="cemail" name="cemail"
+                                                placeholder="Email *" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="cphone" class="sr-only">Phone</label>
+                                            <input type="tel" class="form-control" id="cphone" name="cphone"
+                                                placeholder="Phone">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="csubject" class="sr-only">Subject</label>
+                                            <input type="text" class="form-control" id="csubject" name="csubject"
+                                                placeholder="Subject">
+                                        </div>
+                                    </div>
+                                    <label for="cmessage" class="sr-only">Message</label>
+                                    <textarea class="form-control" cols="30" rows="4" id="cmessage" name="cmessage"
+                                        required placeholder="Message *"></textarea>
+                                    <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
+                                        <span>SUBMIT</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                </form>
+                                <!-- End .contact-form -->
+                            </div><!-- End .col-lg-6 -->
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="brands-text">
+                                <h2 class="title">The world's premium design brands in one destination.</h2>
+                                <!-- End .title -->
+                                <p>Founded in 2019, Wrist Wise has quickly established itself as a trusted brand in the
+                                    watch industry. With a growing base of loyal and satisfied clients, we pride
+                                    ourselves on delivering high-quality products at genuine, fair prices. Our extensive
+                                    collection includes watches of all types, catering to diverse styles and
+                                    preferences. At Wrist Wise, we are committed to offering both reliability and
+                                    excellence to our customers, ensuring that every watch purchase is a timeless
+                                    investment.
+
+                                </p>
+                            </div><!-- End .brands-text -->
+                        </div><!-- End .col-lg-5 -->
+                        <div class="col-lg-7">
+                            <div class="brands-display">
+                                <div class="row justify-content-center">
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/1.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/2.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/3.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/4.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/5.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/6.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/7.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/8.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+
+                                    <div class="col-6 col-sm-4">
+                                        <a href="#" class="brand">
+                                            <img src="assets/images/brands/9.png" alt="Brand Name">
+                                        </a>
+                                    </div><!-- End .col-sm-4 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .brands-display -->
+                        </div><!-- End .col-lg-7 -->
+                    </div><!-- End .row -->
+
+                    <hr class="mt-4 mb-6">
+
+
+
+                </div><!-- End .container -->
+
+                <div class="mb-2"></div><!-- End .mb-2 -->
+
+                <div class="about-testimonials bg-light-2 pt-6 pb-6">
+                    <div class="container">
+                        <h2 class="title text-center mb-3">What Customer Say About Us</h2>
+                        <!-- End .title text-center -->
+
+                        <div class="owl-carousel owl-simple owl-testimonials-photo" data-toggle="owl" data-owl-options='{
+                                "nav": false, 
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "1200": {
+                                        "nav": true
+                                    }
+                                }
+                            }'>
+                            <blockquote class="testimonial text-center">
+                                <img src="assets/images/testimonials/user-1.jpg" alt="user">
+                                <p>"I purchased a watch from Wrist Wise last year, and I couldn’t be happier with my
+                                    experience! The quality of the watch is outstanding, and the customer service was
+                                    top-notch. They were very responsive to my inquiries and ensured I got exactly what
+                                    I wanted. I’ve already recommended them to my friends!"
+
+                                </p>
+                                <cite>
+                                    Jenson Gregory
+                                    <span>Customer</span>
+                                </cite>
+                            </blockquote><!-- End .testimonial -->
+
+                            <blockquote class="testimonial text-center">
+                                <img src="assets/images/testimonials/user-2.jpg" alt="user">
+                                <p>"Wrist Wise exceeded my expectations! I recently had a minor issue with my watch, and
+                                    their service team handled it swiftly and professionally. They took care of the
+                                    repair under warranty, and I received my watch back in no time. I appreciate their
+                                    commitment to customer satisfaction and will definitely be a repeat customer!"</p>
+
+                                <cite>
+                                    Victoria Ventura
+                                    <span>Customer</span>
+                                </cite>
+                            </blockquote><!-- End .testimonial -->
+                        </div><!-- End .testimonials-slider owl-carousel -->
+                    </div><!-- End .container -->
+                </div><!-- End .bg-light-2 pt-5 pb-6 -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        <footer class="footer footer-2">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="widget widget-about">
+
+                                <p>Thanks for visiting Wrist Wise, where you can find a wide range of stylish
+                                    and high-quality watches for every occasion. Whether you're looking for a sleek,
+                                    modern design or a classic timepiece, we've got something for everyone. Our watches
+                                    are priced affordably, making them accessible to all, without compromising on
+                                    quality. Browse through our
+                                    collection today and find the perfect watch to match your style!</p>
+
+                                <div class="widget-about-info">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-4">
+                                            <span class="widget-about-title">Got Question? Call us 24/7</span>
+                                            <a href="tel:123456789">+91 8086 86 2233</a>
+                                        </div><!-- End .col-sm-6 -->
+
+                                    </div><!-- End .row -->
+                                </div><!-- End .widget-about-info -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-12 col-lg-3 -->
+
+                        <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="/aboutus">About Us</a></li>
+                                    <li><a href="/aboutus">Who we are</a></li>
+                                    <li><a href="/aboutus">FAQ</a></li>
+                                    <li><a href="/aboutus">Contact us</a></li>
+                                    <li><a href="/login">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-4 col-lg-3 -->
+
+                        <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="/aboutus">Payment Methods</a></li>
+                                    <li><a href="/aboutus">Money-back guarantee!</a></li>
+                                    <li><a href="/aboutus">Returns</a></li>
+                                    <li><a href="/aboutus">Shipping</a></li>
+                                    <li><a href="/aboutus">Terms and conditions</a></li>
+                                    <li><a href="/aboutus">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-4 col-lg-3 -->
+
+                        <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="/login">Sign In</a></li>
+                                    <li><a href="/cart">View Cart</a></li>
+                                    <li><a href="/wishlist">My Wishlist</a></li>
+                                    <li><a href="/profileOrders">Track My Order</a></li>
+                                    <li><a href="/aboutus">Contact Us</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-64 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2024 Wrist Wise. All Rights Reserved.</p>
+
+
+                    <div class="social-icons social-icons-color">
+                        <span class="social-label">Social Media</span>
+
+                        <a href="http://Wa.me/+918086862233" class="social-icon social-whatsapp" title="WhatsApp"
+                            target="_blank"><i class="icon-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/rishhaadh?igsh=MTZzZjh0dnQ2Yzl4eA%3D%3D&utm_source=qr"
+                            class="social-icon social-instagram" title="Instagram" target="_blank"><i
+                                class="icon-instagram"></i></a>
+
+
+                    </div><!-- End .soial-icons -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault(); // Prevent form from submitting the default way
+
+            // Collect form data
+            const formData = new FormData(this);
+
+            // Convert FormData to JSON
+            const jsonData = {};
+            formData.forEach((value, key) => { jsonData[key] = value });
+
+            try {
+                const response = await fetch('/send-contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(jsonData),
+                });
+                const result = await response.json(); // Parse the response
+                if (result.success) {
+                    // Show success SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Your message was sent successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    // Optionally clear the form after successful submission
+                    document.getElementById('contactForm').reset();
+                } else {
+                    // Show error SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.message || 'There was an issue sending your message. Please try again.',
+                    });
+                }
+            } catch (error) {
+                // Show SweetAlert for a network error or unexpected issues
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'There was an error sending your message. Please try again later.',
+                });
+            }
+        });
+    </script>
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+    <%- include ('../layouts/footer.ejs') %>

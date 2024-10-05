@@ -19,8 +19,14 @@
                     <a href="index.html" class="app-brand-link">
                         <span class="app-brand-logo demo me-1">
                             <span style="color:var(--bs-primary);">
-                                <svg width="30" height="24" viewBox="0 0 250 196" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+
+                                <!-- <svg width="30" height="24" viewBox="0 0 250 196" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"> -->
+                                    
+                                    <img id="myImage" src="/images/ww_logo_black-removebg-preview admin.png" alt="SVG Image"
+                
+                                    style="width:35px; height:30px; cursor:pointer;">
+
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M12.3002 1.25469L56.655 28.6432C59.0349 30.1128 60.4839 32.711 60.4839 35.5089V160.63C60.4839 163.468 58.9941 166.097 56.5603 167.553L12.2055 194.107C8.3836 196.395 3.43136 195.15 1.14435 191.327C0.395485 190.075 0 188.643 0 187.184V8.12039C0 3.66447 3.61061 0.0522461 8.06452 0.0522461C9.56056 0.0522461 11.0271 0.468577 12.3002 1.25469Z"
                                         fill="currentColor" />
@@ -82,17 +88,17 @@
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-product-list.html" class="menu-link">
+                                        <a href="productlist" class="menu-link">
                                             <div data-i18n="Product List">Product List</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-product-add.html" class="menu-link">
+                                        <a href="/admin/add-product" class="menu-link">
                                             <div data-i18n="Add Product">Add Product</div>
                                         </a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-category-list.html" class="menu-link">
+                                        <a href="categorylist" class="menu-link">
                                             <div data-i18n="Category List">Category List</div>
                                         </a>
                                     </li>
@@ -104,15 +110,11 @@
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-order-list.html" class="menu-link">
+                                        <a href="orderlist" class="menu-link">
                                             <div data-i18n="Order List">Order List</div>
                                         </a>
                                     </li>
-                                    <li class="menu-item">
-                                        <a href="app-ecommerce-order-details.html" class="menu-link">
-                                            <div data-i18n="Order Details">Order Details</div>
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </li>
                             <li class="menu-item">
@@ -121,41 +123,11 @@
                                 </a>
                                 <ul class="menu-sub">
                                     <li class="menu-item">
-                                        <a href="app-ecommerce-customer-all.html" class="menu-link">
+                                        <a href="customers" class="menu-link">
                                             <div data-i18n="All Customers">All Customers</div>
                                         </a>
                                     </li>
-                                    <li class="menu-item">
-                                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                            <div data-i18n="Customer Details">Customer Details</div>
-                                        </a>
-                                        <ul class="menu-sub">
-                                            <li class="menu-item">
-                                                <a href="app-ecommerce-customer-details-overview.html"
-                                                    class="menu-link">
-                                                    <div data-i18n="Overview">Overview</div>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="app-ecommerce-customer-details-security.html"
-                                                    class="menu-link">
-                                                    <div data-i18n="Security">Security</div>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="app-ecommerce-customer-details-billing.html" class="menu-link">
-                                                    <div data-i18n="Address & Billing">Address & Billing</div>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="app-ecommerce-customer-details-notifications.html"
-                                                    class="menu-link">
-                                                    <div data-i18n="Notifications">Notifications</div>
-                                                </a>
-                                            </li>
-
-                                        </ul>
-                                    </li>
+                                    
                                 </ul>
                             </li>
 
@@ -187,52 +159,7 @@
 
                         </ul>
                     </li>
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons ri-user-line"></i>
-                            <div data-i18n="Users">Users</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="app-user-list.html" class="menu-link">
-                                    <div data-i18n="List">List</div>
-                                </a>
-                            </li>
-
-                            <li class="menu-item">
-                                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div data-i18n="View">View</div>
-                                </a>
-                                <ul class="menu-sub">
-                                    <li class="menu-item">
-                                        <a href="app-user-view-account.html" class="menu-link">
-                                            <div data-i18n="Account">Account</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-user-view-security.html" class="menu-link">
-                                            <div data-i18n="Security">Security</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-user-view-billing.html" class="menu-link">
-                                            <div data-i18n="Billing & Plans">Billing & Plans</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-user-view-notifications.html" class="menu-link">
-                                            <div data-i18n="Notifications">Notifications</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-user-view-connections.html" class="menu-link">
-                                            <div data-i18n="Connections">Connections</div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                    
 
                 </ul>
 
@@ -524,32 +451,26 @@
         const couponList = document.getElementById('couponList');
         const editCouponModal = new bootstrap.Modal(document.getElementById('editCouponModal'));
 
-        // When clicking the "Edit Coupon" button
         couponList.addEventListener('click', function (e) {
             if (e.target.classList.contains('edit-coupon')) {
                 const couponId = e.target.getAttribute('data-coupon-id');
 
-                // Fetch the coupon data using its ID
                 fetch(`/admin/get-coupon/${couponId}`)
                     .then(response => response.json())
                     .then(coupon => {
-                        // Populate the form fields with the current coupon data
                         document.getElementById('editCouponId').value = coupon._id;
                         document.getElementById('editCouponCode').value = coupon.couponCode;
                         document.getElementById('editCouponName').value = coupon.couponName;
                         document.getElementById('editDiscount').value = coupon.discount;
                         document.getElementById('editMinAmount').value = coupon.minAmount;
-                        document.getElementById('editExpiryDate').value = coupon.expiryDate.split('T')[0]; // Format date
+                        document.getElementById('editExpiryDate').value = coupon.expiryDate.split('T')[0];
                         document.getElementById('editStatus').value = coupon.isListed;
 
-                        // Show the modal
                         editCouponModal.show();
                     })
                     .catch(error => console.error('Error fetching coupon:', error));
             }
         });
-
-        // Update the coupon when clicking the "Update Coupon" button
         document.getElementById('updateCouponBtn').addEventListener('click', function () {
             const couponId = document.getElementById('editCouponId').value;
             const couponData = {
@@ -571,7 +492,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload(); // Reload the page to show the updated coupon
+                    location.reload(); 
                 } else {
                     console.error('Error updating coupon: ' + data.message);
                 }
@@ -586,16 +507,14 @@
 <!-- delete -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const couponList = document.getElementById('couponList'); // Container for coupons
+        const couponList = document.getElementById('couponList');
 
-        // When clicking the "Remove" button
         couponList.addEventListener('click', function (e) {
             if (e.target.classList.contains('delete-coupon')) {
                 const couponId = e.target.getAttribute('data-coupon-id');
-
-                // Confirm before deletion
+                
                 if (confirm('Are you sure you want to remove this coupon?')) {
-                    // Send delete request
+                   
                     fetch(`/admin/delete-coupon/${couponId}`, {
                         method: 'DELETE',
                         headers: {
@@ -606,7 +525,7 @@
                     .then(data => {
                         if (data.success) {
                             alert('Coupon deleted successfully!');
-                            location.reload(); // Reload the page to reflect the deletion
+                            location.reload(); 
                         } else {
                             alert('Error deleting coupon: ' + data.message);
                         }

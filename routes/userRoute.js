@@ -5,7 +5,7 @@ const session = require("express-session");
 const passport = require('passport');
 require('../config/passportConfig');
 const path = require('path');
-const { isLoggedIn, preventLoginPageAccess } = require('../middleware/userAuth');
+const { isLoggedIn, preventLoginPageAccess, checkUserBlocked } = require('../middleware/userAuth');
 
 // controllers
 const userController = require('../controllers/user/userController');
@@ -21,6 +21,7 @@ const Product = require('../models/productModel');
 const Cart = require('../models/cartModel');
 const Order = require('../models/orderModel');
 const Category = require('../models/categoryModel');
+const User = require("../models/userModel");
 
 
 userRoute.use(session({
@@ -31,26 +32,36 @@ userRoute.use(session({
 }));
 
 userRoute.set("view engine", "ejs");
-userRoute.set('views', './views/user')
+userRoute.set('views', './views/user');
 
-userRoute.get('/', userController.loadHome);
-userRoute.get('/home', userController.loadHome);
-userRoute.post('/add-to-wishlist', userController.addToWishlist);
-userRoute.get('/wishlist', userController.loadWishlist);
+userRoute.get('/',  userController.loadHome);
+userRoute.get('/home', checkUserBlocked, userController.loadHome);
+userRoute.post('/add-to-wishlist',userController.addToWishlist);
+userRoute.get('/wishlist', checkUserBlocked, userController.loadWishlist);
 userRoute.post('/remove-from-wishlist', userController.removeFromWishlist);
 
-userRoute.get('/category', categoryController.loadCategory);
+userRoute.get('/category', checkUserBlocked,categoryController.loadCategory);
 
 // login  registration /  OTP  
-userRoute.get('/registration', userController.loadRegister);
-userRoute.post('/registration', userController.insertUser)
+userRoute.get('/registration', preventLoginPageAccess, userController.loadRegister);
+userRoute.post('/registration', preventLoginPageAccess, userController.insertUser)
 userRoute.get('/login', preventLoginPageAccess, userController.loadLogin);
 userRoute.post('/login', preventLoginPageAccess, userController.verifylogin);
 userRoute.post('/resend-otp', userController.resendOTP);
 userRoute.post('/verify-otp', userController.verifyOTP);
 userRoute.post('/logout', userController.userLogout)
 
-userRoute.get('/forgotpassword', userController.loadForgotPassword);
+userRoute.post('/check-email', async (req, res) => {
+  try {
+      const existingUser = await User.findOne({ email: req.body.email });
+      res.json({ exists: !!existingUser });
+  } catch (error) {
+      console.error('Error checking email:', error);
+      res.status(500).json({ error: 'Server error' });
+  }
+});
+
+userRoute.get('/forgotpassword', checkUserBlocked,userController.loadForgotPassword);
 userRoute.post('/forgot-password', userController.forgotPassword);
 userRoute.get('/reset-password/:token', userController.loadResetPassword);
 userRoute.post('/reset-password/:token', userController.resetPassword);
@@ -67,50 +78,53 @@ userRoute.get('/auth/google/callback',
 //product
 userRoute.get('/productlist', productController.loadProductlist);
 userRoute.get('/productlist', productController.getProducts);
-userRoute.get('/product/:id', productController.getProductDetails);
+userRoute.get('/product/:id', checkUserBlocked, productController.getProductDetails);
 userRoute.get('/search',  productController.loadSearch);
 
 // User Profile
-userRoute.get('/userprofile', isLoggedIn, profileController.loadUserProfile);
+userRoute.get('/userprofile', isLoggedIn,checkUserBlocked, profileController.loadUserProfile);
 userRoute.post('/update-profile', isLoggedIn, profileController.updateUserProfile);
 
 userRoute.get('/change-password', isLoggedIn, profileController.loadChangePasswordPage);
 userRoute.post('/change-password', isLoggedIn, profileController.changePassword);
-userRoute.get('/profileAddress', isLoggedIn, profileController.loadProfileAddress)
 
+userRoute.get('/profileAddress', isLoggedIn,checkUserBlocked, profileController.loadProfileAddress)
 userRoute.post('/add-address', isLoggedIn, profileController.addAddress);
 userRoute.post('/update-address', isLoggedIn, profileController.updateAddress);
 userRoute.delete('/delete-address/:id', isLoggedIn, profileController.deleteAddress);
 
-userRoute.get('/profileOrders', isLoggedIn, profileController.loadProfileOrders)
-userRoute.get('/user/order-details/:orderId', profileController.getOrderDetails);
-userRoute.post('/user/cancel-item/:orderId/:itemId', profileController.requestCancellation);
-userRoute.post('/user/return-item/:orderId/:itemId', profileController.requestReturn);
+userRoute.get('/profileOrders', isLoggedIn,checkUserBlocked, profileController.loadProfileOrders)
+userRoute.get('/user/order-details/:orderId', isLoggedIn, profileController.getOrderDetails);
+userRoute.post('/user/cancel-item/:orderId/:itemId', isLoggedIn, profileController.requestCancellation);
+userRoute.post('/user/return-item/:orderId/:itemId', isLoggedIn, profileController.requestReturn);
+userRoute.post('/user/retry-razorpay-payment/:orderId', isLoggedIn, profileController.retryRazorpayPayment);
+userRoute.post('/user/verify-razorpay-payment', isLoggedIn, profileController.verifyRazorpayPayment);
 
 // cart // order 
-userRoute.get('/cart', isLoggedIn, productController.loadCart);
-userRoute.post('/add-to-cart', productController.addToCart);
-userRoute.post('/remove-from-cart', productController.removeFromCart);
-userRoute.post('/update-cart', productController.updateCart);
-userRoute.post('/add-address', orderController.addAddress)
-userRoute.post('/placeOrder', orderController.placeOrder);
-userRoute.get('/orderPlaced', orderController.getOrderPlaced);
-userRoute.get('/checkout', isLoggedIn, orderController.loadCheckout);
+userRoute.get('/cart', isLoggedIn,checkUserBlocked, productController.loadCart);
+userRoute.post('/add-to-cart',  productController.addToCart);
+userRoute.post('/remove-from-cart', isLoggedIn, productController.removeFromCart);
+userRoute.post('/update-cart', isLoggedIn, productController.updateCart);
+userRoute.post('/add-address', isLoggedIn, orderController.addAddress)
+userRoute.post('/placeOrder', isLoggedIn, orderController.placeOrder);
+userRoute.get('/orderPlaced', isLoggedIn, orderController.getOrderPlaced);
+userRoute.get('/checkout', isLoggedIn,checkUserBlocked, orderController.loadCheckout);
 userRoute.post('/create-razorpay-order', isLoggedIn, orderController.createRazorpayOrder);
-userRoute.get('/download-invoice/:orderId', orderController.generateInvoicePDF);
-
+userRoute.get('/download-invoice/:orderId',isLoggedIn, orderController.generateInvoicePDF);
 
 //coupon
-userRoute.get('/user/active-coupons', orderController.getActiveCoupons);
-userRoute.post('/user/apply-coupon', orderController.applyCoupon);
-
+userRoute.get('/user/active-coupons', isLoggedIn, orderController.getActiveCoupons);
+userRoute.post('/user/apply-coupon', isLoggedIn, orderController.applyCoupon);
 
 //wallet
-userRoute.get('/wallet',walletController.loadWallet)
+userRoute.get('/wallet', isLoggedIn,checkUserBlocked, walletController.loadWallet)
 
+// about
+userRoute.get('/aboutus', checkUserBlocked,userController.loadAbout)
+userRoute.post('/send-contact', userController.sendContactMessage);
 
-// userRoute.use((req, res) => {
-//   res.status(404).send('404 - Page Not Found');
-// });
-
+// 404
+userRoute.use((req, res) => {
+  res.status(404).render('user404');
+});
 module.exports = userRoute
