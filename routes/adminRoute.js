@@ -55,8 +55,6 @@ const storage = multer.diskStorage({
     }
   });
 adminRoute.post('/submit-product', adminAuth, upload.array('productImages', 3), productController.addProduct);
-// adminRoute.post('/update-product/:id', adminAuth, upload.array('productImages', 3), productController.updateProduct);
-
 adminRoute.post('/update-product/:id', upload.array('productImages', 3), productController.updateProduct);
 
 // user
