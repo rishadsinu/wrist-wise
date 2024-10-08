@@ -127,7 +127,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="login" role="tabpanel"
                                     aria-labelledby="login">
-                                    
+
                                     <form action="/registration" method="post" id="registrationForm">
                                         <div class="form-group">
                                             <label for="fullname">Full Name *</label>
@@ -156,20 +156,20 @@
                                             <div class="password-input-wrapper" style="position: relative;">
                                                 <input type="password" class="form-control" id="signup-password"
                                                     name="password" required>
-                                                <i class="fa fa-eye-slash toggle-password" aria-hidden="true" 
-                                                   style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+                                                <i class="fa fa-eye-slash toggle-password" aria-hidden="true"
+                                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
                                             </div>
                                             <div id="password-error" class="error-message"
                                                 style="color: red; display: none;">Password must be at least 6
-                                                characters long and contain letters or numbers.</div>
+                                                characters long and must include both letters and numbers..</div>
                                         </div>
                                         <div class="form-group">
                                             <label for="repeat-password">Repeat Password *</label>
                                             <div class="password-input-wrapper" style="position: relative;">
                                                 <input type="password" class="form-control" id="repeat-password"
                                                     name="repeat-password" required>
-                                                <i class="fa fa-eye-slash toggle-password" aria-hidden="true" 
-                                                   style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+                                                <i class="fa fa-eye-slash toggle-password" aria-hidden="true"
+                                                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
                                             </div>
                                             <div id="repeat-password-error" class="error-message"
                                                 style="color: red; display: none;">Passwords do not match!</div>
@@ -297,13 +297,13 @@
     <!-- Main JS File -->
     <script src="/assets/js/main.js"></script>
 
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.toggle-password').forEach(icon => {
-                icon.addEventListener('click', function() {
+                icon.addEventListener('click', function () {
                     const input = this.previousElementSibling;
                     if (input.type === 'password') {
                         input.type = 'text';
@@ -314,11 +314,11 @@
                     }
                 });
             });
-    
+
             document.getElementById('registrationForm').addEventListener('submit', async function (event) {
                 event.preventDefault();
                 let isValid = true;
-       
+
                 const fullname = document.getElementById('fullname');
                 const fullnameError = document.getElementById('fullname-error');
                 if (fullname.value.length < 3) {
@@ -327,7 +327,7 @@
                 } else {
                     fullnameError.style.display = 'none';
                 }
-       
+
                 const email = document.getElementById('email');
                 const emailError = document.getElementById('email-error');
                 const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov|mil)$/;
@@ -337,7 +337,7 @@
                     isValid = false;
                 } else {
                     emailError.style.display = 'none';
-                   
+
                     try {
                         const response = await fetch('/check-email', {
                             method: 'POST',
@@ -356,7 +356,7 @@
                         console.error('Error checking email:', error);
                     }
                 }
-       
+
                 const phone = document.getElementById('phone');
                 const phoneError = document.getElementById('phone-error');
                 const phoneRegex = /^\d{10}$/;
@@ -366,17 +366,19 @@
                 } else {
                     phoneError.style.display = 'none';
                 }
-       
+
                 const password = document.getElementById('signup-password');
                 const passwordError = document.getElementById('password-error');
-                const passwordRegex = /^[a-zA-Z0-9]{6,}$/;
+
+                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+
                 if (!passwordRegex.test(password.value)) {
-                    passwordError.style.display = 'block';
+                    passwordError.style.display = 'block'; 
                     isValid = false;
                 } else {
-                    passwordError.style.display = 'none';
+                    passwordError.style.display = 'none'; 
                 }
-       
+
                 const repeatPassword = document.getElementById('repeat-password');
                 const repeatPasswordError = document.getElementById('repeat-password-error');
                 if (password.value !== repeatPassword.value) {
@@ -385,7 +387,7 @@
                 } else {
                     repeatPasswordError.style.display = 'none';
                 }
-       
+
                 if (isValid) {
                     this.submit();
                 }

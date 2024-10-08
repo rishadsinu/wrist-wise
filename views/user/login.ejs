@@ -130,33 +130,6 @@
                                 <div class="tab-pane fade show active" id="login" role="tabpanel"
                                     aria-labelledby="login">
 
-
-                                    <!-- <form id="login-form" action="/login" method="post">
-                                        <div class="form-group">
-                                            <label for="signin-email-2">Username or email address *</label>
-                                            <input type="text" class="form-control" id="signin-email-2"
-                                                name="signin-email" required>
-                                            <span class="error-message" id="email-error"
-                                                style="color: red; display: none;"></span>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="signin-password-2">Password *</label>
-                                            <input type="password" class="form-control" id="signin-password-2"
-                                                name="signin-password" required>
-                                            <span class="error-message" id="password-error"
-                                                style="color: red; display: none;"></span>
-                                        </div>
-
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>LOG IN</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
-                                            <a href="/forgotpassword" class="forgot-link">Forgot Your Password?</a>
-                                        </div>
-                                        <a href="registration" class="register-link">Create New account ?</a>
-                                    </form> -->
                                     <form id="login-form" action="/login" method="post">
                                         <div class="form-group">
                                             <label for="signin-email-2">Username or email address *</label>
@@ -302,52 +275,6 @@
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
-    
-    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#login-form').on('submit', function (event) {
-                event.preventDefault();
-
-                const email = $('#signin-email-2').val();
-                const password = $('#signin-password-2').val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/login',
-                    data: {
-                        'singin-email': email,
-                        'singin-password': password
-                    },
-                    success: function (response) {
-                        $('#email-error').hide();
-                        $('#password-error').hide();
-
-                        if (response.success) {
-                            window.location.href = response.redirectUrl;
-                        } else {
-                            if (response.error === 'email') {
-                                $('#email-error').text('Email not found, check your email.').show();
-                            } else if (response.error === 'password') {
-                                $('#password-error').text('Password is incorrect.').show();
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Access Denied',
-                                    text: 'You are blocked. Please contact Wrist Wise Admins for assistance.',
-                                    confirmButtonText: 'OK'
-                                });
-                            }
-                        }
-                    },
-                    error: function () {
-                        alert('An error occurred. Please try again.');
-                    }
-                });
-            });
-        });
-    </script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
