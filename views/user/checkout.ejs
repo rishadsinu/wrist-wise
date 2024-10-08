@@ -812,7 +812,11 @@
                 const cartTotal = parseFloat(document.querySelector('.summary-total td:last-child').textContent.replace('₹', ''));
 
                 if (!couponCode) {
-                    alert('Please enter a coupon code');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'please select the coupon code!',
+                        confirmButtonText:'ok'
+                    })
                     return;
                 }
 
