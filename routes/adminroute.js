@@ -28,9 +28,7 @@ adminRoute.get('/dashboard', adminAuth, adminController.loadDashboard);
 adminRoute.get('/filtered-orders', adminAuth, adminController.getFilteredOrders);
 adminRoute.get('/quick-filtered-orders', adminAuth, adminController.getQuickFilteredOrders);
 adminRoute.get('/download-report', adminAuth, adminController.downloadPDFReport);
-// adminRoute.get('/chart-data', adminController.getChartData);
 adminRoute.post('/logout', adminController.adminLogout)
-
 
 // product
 adminRoute.get('/productlist',adminAuth,productController.loadProductlist);
