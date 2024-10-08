@@ -197,7 +197,8 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <img src="/images/ww logo black.jpg" alt="Molla Logo" style="width:72px; height:62px; cursor:pointer;">
+                        <img src="/images/ww logo black.jpg" alt="Molla Logo"
+                            style="width:72px; height:62px; cursor:pointer;">
 
                     </div>
                     <div class="header-center">
@@ -814,9 +815,9 @@
                 if (!couponCode) {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'please select the coupon code!',
-                        confirmButtonText:'ok'
-                    })
+                        title: 'Please enter a coupon code',
+                        confirmButtonText: 'OK'
+                    });
                     return;
                 }
 
